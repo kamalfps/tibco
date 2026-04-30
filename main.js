@@ -1,115 +1,100 @@
-document.addEventListener("DOMContentLoaded", () => {
-  // 1. Initialize Lenis Smooth Scroll (The "Pixila" feel)
-  const lenis = new Lenis({
-    duration: 1.2,
-    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    direction: 'vertical',
-    gestureDirection: 'vertical',
-    smooth: true,
-  });
-
-  function raf(time) {
-    lenis.raf(time);
-    requestAnimationFrame(raf);
-  }
-  requestAnimationFrame(raf);
-
-  // Sync GSAP ScrollTrigger with Lenis
+document.addEventListener('DOMContentLoaded', () => {
   gsap.registerPlugin(ScrollTrigger);
-  lenis.on('scroll', ScrollTrigger.update);
-  gsap.ticker.add((time)=>{ lenis.raf(time * 1000) });
-  gsap.ticker.lagSmoothing(0, 0);
 
-  // 2. Custom Cursor Logic
-  const cursor = document.querySelector('.cursor');
-  const follower = document.querySelector('.cursor-follower');
+  const canvas = document.getElementById('webgl-canvas');
+  const scene = new THREE.Scene();
   
-  let mouseX = 0, mouseY = 0, posX = 0, posY = 0;
+  // Cream background
+  scene.background = new THREE.Color(0xEAE6DF);
 
-  document.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-    
-    // Direct link for small dot
-    gsap.to(cursor, { x: mouseX, y: mouseY, duration: 0 });
-  });
+  const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+  const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-  // Smooth follow for the outer ring
-  gsap.ticker.add(() => {
-    posX += (mouseX - posX) / 9;
-    posY += (mouseY - posY) / 9;
-    gsap.set(follower, { x: posX, y: posY });
-  });
+  // High-End Lighting
+  const ambientLight = new THREE.AmbientLight(0xffffff, 1.0); 
+  scene.add(ambientLight);
+  const mainLight = new THREE.DirectionalLight(0xffeedd, 3.0);
+  mainLight.position.set(5, 8, 5);
+  scene.add(mainLight);
 
-  // Expand cursor on hoverable elements
-  const hoverables = document.querySelectorAll('a, .btn');
-  hoverables.forEach(el => {
-    el.addEventListener('mouseenter', () => follower.classList.add('active'));
-    el.addEventListener('mouseleave', () => follower.classList.remove('active'));
-  });
+  // Materials
+  const ceramicMat = new THREE.MeshPhysicalMaterial({ color: 0xFDFBF7, roughness: 0.2, clearcoat: 0.6 });
+  const coffeeMat = new THREE.MeshPhysicalMaterial({ color: 0x1a0a00, roughness: 0.0 });
 
-  // 3. Magnetic Buttons (Snaps to cursor)
-  const magnetics = document.querySelectorAll('.magnetic');
-  magnetics.forEach(btn => {
-    btn.addEventListener('mousemove', (e) => {
-      const position = btn.getBoundingClientRect();
-      const x = e.clientX - position.left - position.width / 2;
-      const y = e.clientY - position.top - position.height / 2;
-      const strength = btn.dataset.strength || 20;
+  // Build the Cup
+  const coffeeGroup = new THREE.Group();
+  
+  const cup = new THREE.Mesh(new THREE.CylinderGeometry(1.6, 1.1, 2.8, 64), ceramicMat);
+  const liquid = new THREE.Mesh(new THREE.CylinderGeometry(1.5, 1.5, 2.6, 64), coffeeMat);
+  liquid.position.y = 0.1;
+  const handle = new THREE.Mesh(new THREE.TorusGeometry(0.8, 0.2, 16, 64), ceramicMat);
+  handle.position.set(1.3, 0, 0);
+  handle.rotation.z = -Math.PI / 16;
+  const saucer = new THREE.Mesh(new THREE.CylinderGeometry(2.6, 1.8, 0.2, 64), ceramicMat);
+  saucer.position.y = -1.5;
 
-      gsap.to(btn, { x: x / strength * 2, y: y / strength * 2, duration: 1, ease: "power3.out" });
-      if(btn.querySelector('.btn-text')) {
-        gsap.to(btn.querySelector('.btn-text'), { x: x / strength, y: y / strength, duration: 1, ease: "power3.out" });
-      }
-    });
+  coffeeGroup.add(cup, liquid, handle, saucer);
+  scene.add(coffeeGroup);
 
-    btn.addEventListener('mouseleave', () => {
-      gsap.to(btn, { x: 0, y: 0, duration: 1, ease: "elastic.out(1, 0.3)" });
-      if(btn.querySelector('.btn-text')) {
-        gsap.to(btn.querySelector('.btn-text'), { x: 0, y: 0, duration: 1, ease: "elastic.out(1, 0.3)" });
-      }
-    });
-  });
+  // Base Camera Position
+  camera.position.set(0, 2, 12);
+  camera.lookAt(0, 0, 0);
 
-  // 4. Page Load Animations (Text slide up)
-  const tl = gsap.timeline();
-  tl.to('.line', {
-    y: 0,
-    duration: 1.2,
-    stagger: 0.15,
-    ease: "power4.out",
-    delay: 0.2
-  })
-  .fromTo('.fade-up', 
-    { opacity: 0, y: 20 }, 
-    { opacity: 1, y: 0, duration: 1, stagger: 0.2, ease: "power3.out" }, 
-    "-=0.8"
-  );
+  // --- THE PIXILA SCROLL MAGIC ---
+  // This ties the 3D rotation directly to the user's scroll bar
+  
+  // 1. Initial State (Hero Section)
+  // Cup is on the right, tilted slightly
+  coffeeGroup.position.x = 2.5;
+  coffeeGroup.rotation.x = 0.2;
+  coffeeGroup.rotation.y = -0.5;
 
-  // 5. Scroll Animations
-  // Reveal text as it enters viewport
-  const scrollLines = document.querySelectorAll('.text-section .line');
-  scrollLines.forEach(line => {
-    gsap.to(line, {
-      y: 0,
-      duration: 1.2,
-      ease: "power4.out",
-      scrollTrigger: {
-        trigger: line.parentElement,
-        start: "top 85%", // Trigger when 85% down the screen
-      }
-    });
-  });
-
-  // Image Parallax Effect
-  gsap.to('.parallax-img', {
-    y: "15%", // Moves image down slightly as user scrolls past
-    ease: "none",
+  // 2. Animate as you scroll down the page
+  const tl = gsap.timeline({
     scrollTrigger: {
-      trigger: ".parallax-section",
-      start: "top bottom",
-      end: "bottom top",
-      scrub: true
+      trigger: ".scroll-container",
+      start: "top top",
+      end: "bottom bottom",
+      scrub: 1, // 'Scrub' makes the animation perfectly follow the scrollbar
+    }
+  });
+
+  // Scroll to Philosophy Section: Move cup to the left, rotate it around
+  tl.to(coffeeGroup.position, { x: -2.5, ease: "power1.inOut" }, 0);
+  tl.to(coffeeGroup.rotation, { y: Math.PI, ease: "power1.inOut" }, 0);
+
+  // Scroll to Menu Section: Move cup to the right, look down at it
+  tl.to(coffeeGroup.position, { x: 2.5, ease: "power1.inOut" }, 1);
+  tl.to(coffeeGroup.rotation, { x: 0.8, y: Math.PI * 2, ease: "power1.inOut" }, 1);
+  tl.to(camera.position, { z: 8, ease: "power1.inOut" }, 1); // Zoom in slightly
+
+  // Scroll to Footer: Move to center, zoom way out
+  tl.to(coffeeGroup.position, { x: 0, ease: "power1.inOut" }, 2);
+  tl.to(camera.position, { z: 15, ease: "power1.inOut" }, 2);
+
+
+  // Render Loop
+  function animate() {
+    requestAnimationFrame(animate);
+    
+    // Add a tiny constant float so it looks alive even when not scrolling
+    coffeeGroup.position.y = Math.sin(Date.now() * 0.002) * 0.1;
+    
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  // Handle Resize
+  window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    
+    // Adjust layout for mobile
+    if(window.innerWidth <= 768) {
+      coffeeGroup.position.x = 0; // Keep centered on mobile
     }
   });
 });
