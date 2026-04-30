@@ -53,26 +53,51 @@
       border-bottom: 1px solid var(--glass-border);
     }
 
-    .logo-container {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
+    /* --- New Self-Made Text Logo Styles (Navbar) --- */
+    .logo-text-block {
       text-decoration: none;
+      color: var(--light);
+      font-family: "Manrope", sans-serif;
+      line-height: 1.1;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.1rem;
+      width: fit-content;
+      margin-left: -0.2rem; /* micro adjustment for alignment */
     }
 
-    .logo-img {
-      height: 35px;
-      width: auto;
-      mix-blend-mode: screen; 
-      filter: invert(1); 
+    .logo-text-block span {
+      display: inline-block;
     }
 
-    .logo-text {
-      font-family: "Prompt", sans-serif;
-      font-size: 1.6rem;
-      font-weight: 800;
+    /* Styles for T, I, B, C acronym letters (Accent from sign image) */
+    .acronym-char {
       color: var(--accent);
-      letter-spacing: 1.5px;
+      font-weight: 700;
+      font-size: 1.1em; /* Make TIBCO letters slightly larger */
+      text-transform: capitalize; /* ensure first char capitalized */
+      vertical-align: text-top;
+    }
+
+    /* Styles for rest of the brand name words */
+    .logo-word-rest {
+      color: rgba(248, 246, 241, 0.7); /* Slightly muted color */
+      text-transform: uppercase; /* All caps for rest of words from sticker/sign */
+      letter-spacing: 1px;
+      font-size: 0.85em; /* Make rest of words cleaner/smaller */
+      vertical-align: text-top;
+    }
+
+    /* Specific adjust for Navbar and mobile scale */
+    .navbar .logo-text-block {
+      font-size: 1rem;
+    }
+    .navbar .acronym-char {
+      font-size: 1rem;
+    }
+    .navbar .logo-word-rest {
+      font-size: 0.8rem;
     }
 
     .nav-links {
@@ -94,7 +119,7 @@
       color: var(--accent);
     }
 
-    /* --- NEW UNIQUE HERO SECTION --- */
+    /* --- Hero Section & Large Logo integration --- */
     .hero {
       min-height: 100vh;
       padding: 8rem 4% 4rem;
@@ -104,6 +129,34 @@
       gap: 4rem;
       max-width: 1600px;
       margin: 0 auto;
+    }
+
+    /* --- New Hero Main Logo (Bigger & Integrated) --- */
+    .hero-logo-container {
+      grid-column: 1 / -1; /* spans full width above content */
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      width: 100%;
+    }
+
+    .hero-main-logo.logo-text-block {
+      font-size: 2rem;
+      gap: 0.2rem;
+      margin-left: 0; /* Reset micro alignment from nav logo */
+    }
+
+    .hero-main-logo.logo-text-block .acronym-char {
+      font-size: 2rem;
+      vertical-align: baseline;
+    }
+    .hero-main-logo.logo-text-block .logo-word-rest {
+      font-size: 1.5rem;
+      text-transform: none; /* Hero name feels less aggressive in natural case */
+      letter-spacing: 1px;
+      vertical-align: baseline;
     }
 
     .hero-content {
@@ -272,7 +325,7 @@
       margin-top: 1rem;
     }
 
-    /* Keep rest of styles */
+    /* Rest of styles maintained */
     section { padding: 6rem 4%; }
     
     .section-title {
@@ -310,6 +363,15 @@
       margin-bottom: 1rem;
       font-size: 1.6rem;
       font-family: "Prompt", sans-serif;
+    }
+
+    /* Updated Text Style for brand name mentions in text */
+    .brand-full-name-mention {
+      font-family: "Prompt", sans-serif; /* prompt kept for character */
+      color: var(--accent);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
 
     .branches {
@@ -432,11 +494,28 @@
       border-radius: 15px;
     }
 
+    /* Footer adjustments to replace text mention with stylized full name logo */
     .footer {
       background: #0a0604;
       padding: 3rem 2rem;
       text-align: center;
       border-top: 1px solid var(--glass-border);
+    }
+
+    .footer .logo-text-block {
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+      margin-inline: auto; /* center horizontally in footer */
+      gap: 0.1rem;
+    }
+
+    .footer .acronym-char {
+      font-size: 1.2rem;
+    }
+
+    .footer .logo-word-rest {
+      font-size: 1rem;
+      text-transform: none; /* Hero name feels less aggressive in natural case */
     }
 
     .footer p { margin: 0.8rem 0; color: rgba(255,255,255,0.7); }
@@ -456,12 +535,21 @@
       to { opacity: 1; transform: translateX(0); }
     }
 
-    /* Responsive Design */
+    /* Responsive Design Adjustments for Text Logo Scale */
     @media (max-width: 968px) {
       .hero {
         grid-template-columns: 1fr;
         text-align: center;
         padding-top: 7rem;
+      }
+      .hero-main-logo.logo-text-block {
+        font-size: 1.6rem;
+      }
+      .hero-main-logo.logo-text-block .acronym-char {
+        font-size: 1.6rem;
+      }
+      .hero-main-logo.logo-text-block .logo-word-rest {
+        font-size: 1.3rem;
       }
       .hero-content { display: flex; flex-direction: column; align-items: center; }
       .hero p { max-width: 100%; }
@@ -470,14 +558,30 @@
       .floating-card { left: -5%; bottom: -10%; padding: 1rem 1.5rem; }
       .nav-links { display: none; /* Add a hamburger menu for mobile in production */ }
     }
+
+    @media (max-width: 768px) {
+      /* Scales logo in Navbar for mobile scale */
+      .navbar .logo-text-block {
+        font-size: 0.9rem;
+        gap: 0.05rem;
+      }
+      .navbar .acronym-char {
+        font-size: 0.9rem;
+      }
+      .navbar .logo-word-rest {
+        font-size: 0.7rem;
+      }
+    }
   </style>
 </head>
 <body>
   <nav class="navbar">
-    <a href="#" class="logo-container">
-      <!-- REPLACE 'your-logo.png' with your actual logo file name -->
-      <img src="your-logo.png" alt="TIBCO Logo" class="logo-img" />
-      <span class="logo-text">TIBCO</span>
+    <!-- --- REDESIGNED BRAND LOGO (Text Form with Full Name and Acronym Highlight) --- -->
+    <a href="#" class="logo-text-block">
+      <!-- First Line of full brand name with highlighted acronym char from sign image -->
+      <span class="logo-line-1"><span class="acronym-char">T</span>HE <span class="logo-word-rest">INDEPENDENT</span></span>
+      <!-- Second Line with highlighted char from sign image -->
+      <span class="logo-line-2"><span class="acronym-char">B</span>REWER'S <span class="logo-word-rest">COFFEE</span></span>
     </a>
     <div class="nav-links">
       <a href="#story">Story</a>
@@ -489,6 +593,14 @@
 
   <!-- REDESIGNED HERO SECTION -->
   <section class="hero">
+    <!-- --- New Hero Main Logo (Bigger Version of new text branding) --- -->
+    <div class="hero-logo-container">
+      <div class="hero-main-logo logo-text-block">
+        <span class="logo-line-1"><span class="acronym-char">T</span>he <span class="logo-word-rest">Independent</span></span>
+        <span class="logo-line-2"><span class="acronym-char">B</span>rewer's <span class="logo-word-rest">Coffee</span></span>
+      </div>
+    </div>
+
     <div class="hero-content">
       <span class="hero-tagline">Est. in Surat</span>
       <h1>
@@ -523,7 +635,8 @@
     <div class="story">
       <div class="story-card">
         <h3>Surat Roots</h3>
-        <p>Born in Surat, <span style="font-family: 'Prompt', sans-serif;">TIBCO</span> celebrates the city's creative energy with coffee that tells a story of quality, community, and innovation.</p>
+        <!-- Update mention text with new branded style -->
+        <p>Born in Surat, <span class="brand-full-name-mention">The Independent Brewer's Coffee</span> celebrates the city's creative energy with coffee that tells a story of quality, community, and innovation.</p>
       </div>
       <div class="story-card">
         <h3>Specialty Focus</h3>
@@ -629,7 +742,12 @@
   </section>
 
   <footer class="footer">
-    <p><strong style="font-family: 'Prompt', sans-serif; letter-spacing: 1px; color: var(--accent);">TIBCO Café</strong> • Bringing specialty coffee to Surat</p>
+    <!-- --- Integrated New Text Branding in Footer --- -->
+    <div class="logo-text-block">
+      <span class="logo-line-1"><span class="acronym-char">T</span>he <span class="logo-word-rest">Independent</span></span>
+      <span class="logo-line-2"><span class="acronym-char">B</span>rewer's <span class="logo-word-rest">Coffee</span></span>
+    </div>
+    <p style="color: rgba(255,255,255,0.7); margin-top: 1rem;">Bringing specialty coffee to Surat</p>
     <p>Email: <a href="mailto:hello@tibco.cafe">hello@tibco.cafe</a></p>
     <p>Instagram: <a href="https://www.instagram.com/tibco.home">@tibco.home</a></p>
   </footer>
