@@ -3,14 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TIBCO Café • Surat</title>
+  <title>TIBCO • The Independent Brewer's Coffee</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <!-- 'Outfit' for everything to keep it modern, soft, and legible -->
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet" />
   
+  <!-- Advanced Three.js Library -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <!-- Vanilla Tilt for UI interactions -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
 
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -22,116 +24,131 @@
   <!-- UI Overlay -->
   <main class="ui-layer">
     
-    <nav class="navbar clay-panel">
-      <a href="#" class="logo-container">
-        <!-- Make sure logo.png is in your folder -->
-        <img src="logo.png" alt="TIBCO Logo" class="logo-img" />
+    <nav class="navbar">
+      <div class="logo-container">
+        <!-- Ensure logo.png is in your repo -->
+        <img src="logo.png" alt="TIBCO" class="logo-img" />
         <span class="logo-text">TIBCO</span>
-      </a>
+      </div>
       <div class="nav-links">
-        <a href="#philosophy">Manifesto</a>
-        <a href="#menu">Menu</a>
+        <a href="#philosophy">Philosophy</a>
         <a href="#locations">Locations</a>
+        <a href="#menu">The Menu</a>
       </div>
     </nav>
 
     <div class="hero-section">
-      <div class="hero-text clay-panel">
-        <span class="badge">Surat, Gujarat</span>
-        <h1>The Independent<br>Brewer's Coffee</h1>
-        <p>Ethically sourced. Meticulously roasted. Uncompromisingly brewed. Experience coffee that pops.</p>
-        <a href="#menu" class="btn clay-btn">Explore The Menu</a>
+      <div class="hero-content">
+        <span class="tagline">Surat, Gujarat</span>
+        <h1>The Art of<br>Independence</h1>
+        <p>Ethically sourced. Meticulously roasted. Uncompromisingly brewed. Experience the pinnacle of specialty coffee.</p>
+        <a href="#menu" class="btn">Explore the Craft</a>
       </div>
     </div>
 
     <!-- Philosophy -->
     <section id="philosophy" class="container">
-      <h2 class="section-title">Our Philosophy</h2>
-      <div class="grid-3">
-        <div class="clay-card">
-          <div class="icon-bubble">🌱</div>
-          <h3>Sourced</h3>
-          <p>We skip the commercial trends. We source unique, vibrant beans directly from independent estates.</p>
-        </div>
-        <div class="clay-card">
-          <div class="icon-bubble">☕</div>
-          <h3>Crafted</h3>
-          <p>Whether it's a precision pour-over or a bold espresso, our baristas treat every cup like art.</p>
-        </div>
-        <div class="clay-card">
-          <div class="icon-bubble">🤝</div>
-          <h3>Shared</h3>
-          <p>Our spaces are colorful, welcoming sanctuaries designed for creators, thinkers, and friends.</p>
-        </div>
+      <div class="section-header">
+        <h2 class="section-title">Our Philosophy</h2>
       </div>
-    </section>
-
-    <!-- Menu -->
-    <section id="menu" class="container">
-      <h2 class="section-title">The Menu</h2>
-      <div class="grid-2">
-        <div class="clay-card">
-          <h3>Signature Drinks</h3>
-          <ul class="menu-list">
-            <li><span>Signature Espresso Blend</span></li>
-            <li><span>Cinnamon Caramel Latte</span></li>
-            <li><span>Cardamom Cold Brew</span></li>
-            <li><span>Butterfly Pea Matcha</span></li>
-          </ul>
+      <div class="grid-3">
+        <div class="glass-card" data-tilt data-tilt-max="5" data-tilt-glare data-tilt-max-glare="0.2">
+          <h3>Sourced</h3>
+          <p>We bypass commercial trends to source unique beans directly from independent estates, ensuring transparency and unmatched flavor.</p>
         </div>
-        <div class="clay-card">
-          <h3>Bites & Sweets</h3>
-          <ul class="menu-list">
-            <li><span>Charred Avocado Toast</span></li>
-            <li><span>Buttermilk Pancake Stack</span></li>
-            <li><span>Roasted Fig Cheesecake</span></li>
-            <li><span>Dark Chocolate Churros</span></li>
-          </ul>
+        <div class="glass-card" data-tilt data-tilt-max="5" data-tilt-glare data-tilt-max-glare="0.2">
+          <h3>Crafted</h3>
+          <p>Our baristas are artisans. Whether it is a precision pour-over or dialing in the perfect espresso shot, technique is everything.</p>
+        </div>
+        <div class="glass-card" data-tilt data-tilt-max="5" data-tilt-glare data-tilt-max-glare="0.2">
+          <h3>Shared</h3>
+          <p>Coffee is meant to be shared. We’ve designed our spaces to be elegant sanctuaries for creators, thinkers, and deep conversations.</p>
         </div>
       </div>
     </section>
 
     <!-- Locations -->
     <section id="locations" class="container">
-      <h2 class="section-title">Find Us in Surat</h2>
+      <div class="section-header">
+        <h2 class="section-title">Our Sanctuaries</h2>
+      </div>
       <div class="grid-2">
-        <div class="clay-card location-card">
+        <div class="glass-card flex-row" data-tilt data-tilt-max="3">
           <div>
             <h3>TIBCO</h3>
             <p>Estella, Anuvrat dwar</p>
           </div>
-          <a href="https://share.google/bThMk6EBAXvFgWRoN" target="_blank" class="btn clay-btn small">Map</a>
+          <a href="https://share.google/bThMk6EBAXvFgWRoN" target="_blank" class="btn small">Maps →</a>
         </div>
-        <div class="clay-card location-card">
+        <div class="glass-card flex-row" data-tilt data-tilt-max="3">
           <div>
             <h3>TIBCO Daily</h3>
             <p>Commerce, Canal road</p>
           </div>
-          <a href="https://share.google/o7w4qiCW4EDLQf7FR" target="_blank" class="btn clay-btn small">Map</a>
+          <a href="https://share.google/o7w4qiCW4EDLQf7FR" target="_blank" class="btn small">Maps →</a>
         </div>
-        <div class="clay-card location-card">
+        <div class="glass-card flex-row" data-tilt data-tilt-max="3">
           <div>
             <h3>TIBCO Plus</h3>
             <p>ARISTA, Vesu</p>
           </div>
-          <a href="https://share.google/jxQe0uJIqqpl2MgBa" target="_blank" class="btn clay-btn small">Map</a>
+          <a href="https://share.google/jxQe0uJIqqpl2MgBa" target="_blank" class="btn small">Maps →</a>
         </div>
-        <div class="clay-card location-card">
+        <div class="glass-card flex-row" data-tilt data-tilt-max="3">
           <div>
             <h3>TIBCO Plus</h3>
             <p>Aspire, PAL</p>
           </div>
-          <a href="https://share.google/GPFw0HAFZWcbHphoC" target="_blank" class="btn clay-btn small">Map</a>
+          <a href="https://share.google/GPFw0HAFZWcbHphoC" target="_blank" class="btn small">Maps →</a>
+        </div>
+      </div>
+      <div class="map-wrapper glass-card mt-2">
+        <iframe src="https://www.google.com/maps/d/u/0/embed?mid=1eeFgkSjhPLLLuODSRykbnnO8tVRB1VE&ehbc=2E312F&noprof=1"></iframe>
+      </div>
+    </section>
+
+    <!-- Menu -->
+    <section id="menu" class="container">
+      <div class="section-header">
+        <h2 class="section-title">The Offerings</h2>
+      </div>
+      <div class="grid-3">
+        <div class="glass-card" data-tilt data-tilt-max="3">
+          <h3 class="menu-heading">Coffee</h3>
+          <ul class="menu-list">
+            <li>Signature Espresso</li>
+            <li>Cinnamon Caramel Latte</li>
+            <li>Cardamom Cold Brew</li>
+            <li>Butterfly Pea Matcha</li>
+          </ul>
+        </div>
+        <div class="glass-card" data-tilt data-tilt-max="3">
+          <h3 class="menu-heading">Brunch</h3>
+          <ul class="menu-list">
+            <li>Charred Avocado Toast</li>
+            <li>Buttermilk Pancake Stack</li>
+            <li>Smoked Mushroom Bowl</li>
+            <li>Citrus Grain Salad</li>
+          </ul>
+        </div>
+        <div class="glass-card" data-tilt data-tilt-max="3">
+          <h3 class="menu-heading">Sweets</h3>
+          <ul class="menu-list">
+            <li>Hazelnut Praline Tartlet</li>
+            <li>Roasted Fig Cheesecake</li>
+            <li>Dark Chocolate Churros</li>
+            <li>Cold Brew Cheesecake</li>
+          </ul>
         </div>
       </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="footer clay-panel">
+    <footer class="footer glass-card">
+      <img src="logo.png" alt="TIBCO Logo" class="footer-logo" />
       <h2>TIBCO</h2>
       <p>The Independent Brewer's Coffee • Surat, Gujarat</p>
       <div class="socials">
-        <a href="https://www.instagram.com/tibco.home" target="_blank" class="btn clay-btn small">Follow @tibco.home</a>
+        <a href="https://www.instagram.com/tibco.home" target="_blank">Instagram @tibco.home</a>
       </div>
     </footer>
 
