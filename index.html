@@ -31,7 +31,6 @@
       color: var(--text-main);
       line-height: 1.6;
       overflow-x: hidden;
-      /* Subtle radiant glow at the top of the page */
       background-image: radial-gradient(circle at 50% 0%, #FFFFFF 0%, var(--bg-base) 60%);
     }
 
@@ -68,7 +67,7 @@
     .logo-img { 
       height: 35px; 
       width: auto; 
-      mix-blend-mode: multiply; /* Seamlessly blends white logo backgrounds */
+      mix-blend-mode: multiply; 
     }
 
     .logo-text {
@@ -126,6 +125,30 @@
       text-align: center;
       padding: 8rem 5% 4rem;
       position: relative;
+      z-index: 1;
+    }
+
+    /* WATERMARK LOGO BEHIND HERO TEXT */
+    .hero-watermark {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      max-width: 750px;
+      height: 100%;
+      background-image: url('logo.png');
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+      
+      /* --- CHANGE OPACITY HERE --- */
+      /* Currently 12%. If you want it darker, change to 0.4 */
+      opacity: 0.12; 
+      
+      mix-blend-mode: multiply; /* Blends nicely with the cream background */
+      z-index: -1;
+      pointer-events: none; /* Stops it from blocking text selection */
     }
 
     .hero-label {
@@ -322,7 +345,6 @@
       height: 500px;
       border-radius: 12px;
       border: none;
-      /* Slight contrast boost to make the map look crisp in light mode */
       filter: contrast(1.05);
     }
 
@@ -338,7 +360,6 @@
     .footer-logo { 
       height: 60px; 
       margin-bottom: 2rem; 
-      /* Turns a dark logo white/cream for the dark footer background */
       filter: brightness(0) invert(1) opacity(0.9);
     }
 
@@ -397,6 +418,9 @@
 
   <!-- Hero Section -->
   <section class="hero">
+    <!-- NEW BACKGROUND WATERMARK LOGO -->
+    <div class="hero-watermark"></div>
+    
     <span class="hero-label">Surat, Gujarat</span>
     <h1 class="luxury-font">The Independent<br>Brewer's Coffee</h1>
     <p>We champion the independence of the craft—sourcing ethically, roasting meticulously, and brewing without compromise.</p>
