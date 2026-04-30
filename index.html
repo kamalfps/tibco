@@ -11,14 +11,14 @@
   
   <style>
     :root {
-      --bg-dark: #0A0A0A;
-      --bg-card: #141414;
-      --bg-card-hover: #1C1C1C;
-      --text-main: #F3F4F6;
-      --text-muted: #9CA3AF;
-      --accent: #D4AF37; /* Metallic Gold */
-      --border: rgba(255, 255, 255, 0.08);
-      --glow: 0 0 20px rgba(212, 175, 55, 0.15);
+      --bg-base: #F8F5F0; /* Warm cream */
+      --bg-card: #FFFFFF; /* Pure white for popping cards */
+      --bg-card-hover: #FCFAF8;
+      --text-main: #2C1E16; /* Deep Espresso Brown */
+      --text-muted: #795C4B; /* Muted Mocha */
+      --accent: #A66D4F; /* Rich Caramel/Clay */
+      --border: rgba(44, 30, 22, 0.12); /* Subtle brown lines */
+      --glow: 0 15px 40px rgba(44, 30, 22, 0.06); /* Soft luxurious shadow */
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -27,11 +27,12 @@
 
     body {
       font-family: "Outfit", sans-serif;
-      background-color: var(--bg-dark);
+      background-color: var(--bg-base);
       color: var(--text-main);
       line-height: 1.6;
       overflow-x: hidden;
-      background-image: radial-gradient(circle at 50% 0%, #1a1a1a 0%, var(--bg-dark) 50%);
+      /* Subtle radiant glow at the top of the page */
+      background-image: radial-gradient(circle at 50% 0%, #FFFFFF 0%, var(--bg-base) 60%);
     }
 
     h1, h2, h3, .luxury-font { font-family: "Cinzel", serif; font-weight: 600; }
@@ -44,7 +45,7 @@
       transform: translateX(-50%);
       width: 95%;
       max-width: 1200px;
-      background: rgba(15, 15, 15, 0.7);
+      background: rgba(255, 255, 255, 0.85);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border: 1px solid var(--border);
@@ -54,7 +55,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      box-shadow: 0 10px 30px rgba(44, 30, 22, 0.08);
     }
 
     .logo-container {
@@ -64,11 +65,15 @@
       text-decoration: none;
     }
 
-    .logo-img { height: 35px; width: auto; }
+    .logo-img { 
+      height: 35px; 
+      width: auto; 
+      mix-blend-mode: multiply; /* Seamlessly blends white logo backgrounds */
+    }
 
     .logo-text {
       font-size: 1.2rem;
-      font-weight: 600;
+      font-weight: 700;
       color: var(--text-main);
       letter-spacing: 2px;
     }
@@ -82,6 +87,7 @@
       text-transform: uppercase;
       letter-spacing: 1.5px;
       transition: color 0.3s;
+      font-weight: 500;
     }
 
     .nav-links a:hover { color: var(--accent); }
@@ -90,8 +96,8 @@
     .btn {
       display: inline-block;
       padding: 1rem 2.5rem;
-      background: var(--accent);
-      color: #000;
+      background: var(--text-main);
+      color: #FFFFFF;
       text-decoration: none;
       font-size: 0.85rem;
       text-transform: uppercase;
@@ -99,12 +105,14 @@
       font-weight: 600;
       border-radius: 30px;
       transition: all 0.3s ease;
-      border: 1px solid var(--accent);
+      border: 1px solid var(--text-main);
     }
 
     .btn:hover {
-      background: transparent;
-      color: var(--accent);
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #FFFFFF;
+      transform: translateY(-2px);
       box-shadow: var(--glow);
     }
 
@@ -120,31 +128,21 @@
       position: relative;
     }
 
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: 30%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 60vw;
-      height: 60vw;
-      background: radial-gradient(circle, rgba(212,175,55,0.05) 0%, rgba(0,0,0,0) 70%);
-      z-index: -1;
-    }
-
     .hero-label {
       font-size: 0.85rem;
       text-transform: uppercase;
       letter-spacing: 4px;
       color: var(--accent);
       margin-bottom: 2rem;
+      font-weight: 500;
     }
 
     .hero h1 {
       font-size: clamp(3rem, 8vw, 6rem);
       line-height: 1.1;
       margin-bottom: 1.5rem;
-      letter-spacing: 2px;
+      letter-spacing: 1px;
+      color: var(--text-main);
     }
 
     .hero p {
@@ -152,7 +150,7 @@
       color: var(--text-muted);
       max-width: 600px;
       margin-bottom: 3rem;
-      font-weight: 300;
+      font-weight: 400;
     }
 
     /* --- Universal Layout --- */
@@ -169,7 +167,7 @@
 
     .section-title {
       font-size: 2.5rem;
-      color: var(--accent);
+      color: var(--text-main);
       letter-spacing: 1px;
     }
 
@@ -194,7 +192,7 @@
     .bento-card::after {
       content: '';
       position: absolute;
-      top: 0; left: 0; width: 100%; height: 2px;
+      top: 0; left: 0; width: 100%; height: 3px;
       background: linear-gradient(90deg, transparent, var(--accent), transparent);
       opacity: 0;
       transition: opacity 0.4s;
@@ -203,7 +201,7 @@
     .bento-card:hover {
       background: var(--bg-card-hover);
       transform: translateY(-5px);
-      box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+      box-shadow: var(--glow);
     }
 
     .bento-card:hover::after { opacity: 1; }
@@ -235,13 +233,17 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      transition: border-color 0.3s;
+      transition: all 0.3s ease;
     }
 
-    .branch-item:hover { border-color: var(--accent); }
+    .branch-item:hover { 
+      border-color: var(--accent); 
+      box-shadow: var(--glow);
+      transform: translateY(-3px);
+    }
 
-    .branch-info h4 { font-size: 1.4rem; margin-bottom: 0.3rem; }
-    .branch-info p { color: var(--text-muted); font-size: 0.9rem; }
+    .branch-info h4 { font-size: 1.4rem; margin-bottom: 0.3rem; color: var(--text-main); }
+    .branch-info p { color: var(--text-muted); font-size: 0.95rem; }
 
     .branch-link {
       width: 50px;
@@ -251,12 +253,17 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      color: var(--accent);
+      color: var(--text-main);
       text-decoration: none;
       transition: all 0.3s;
+      font-size: 1.2rem;
     }
 
-    .branch-item:hover .branch-link { background: var(--accent); color: #000; }
+    .branch-item:hover .branch-link { 
+      background: var(--accent); 
+      color: #FFFFFF; 
+      border-color: var(--accent);
+    }
 
     /* --- Menu --- */
     .menu-panel {
@@ -264,6 +271,12 @@
       border: 1px solid var(--border);
       border-radius: 20px;
       padding: 3rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .menu-panel:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--glow);
     }
 
     .menu-panel h3 {
@@ -280,6 +293,7 @@
       color: var(--text-main);
       display: flex;
       align-items: center;
+      font-weight: 500;
     }
 
     .menu-list li::before {
@@ -287,6 +301,7 @@
       color: var(--accent);
       font-size: 0.6rem;
       margin-right: 1rem;
+      opacity: 0.7;
     }
 
     .menu-list li:last-child { border-bottom: none; }
@@ -299,6 +314,7 @@
       border: 1px solid var(--border);
       background: var(--bg-card);
       padding: 10px;
+      box-shadow: var(--glow);
     }
 
     .map-container iframe {
@@ -306,8 +322,8 @@
       height: 500px;
       border-radius: 12px;
       border: none;
-      /* Dark mode filter for the map to match the site */
-      filter: invert(90%) hue-rotate(180deg) contrast(1.1);
+      /* Slight contrast boost to make the map look crisp in light mode */
+      filter: contrast(1.05);
     }
 
     /* --- Footer --- */
@@ -315,12 +331,24 @@
       border-top: 1px solid var(--border);
       padding: 6rem 5% 3rem;
       text-align: center;
-      background: #050505;
+      background: var(--text-main);
+      color: var(--bg-base);
     }
 
-    .footer-logo { height: 60px; margin-bottom: 2rem; }
+    .footer-logo { 
+      height: 60px; 
+      margin-bottom: 2rem; 
+      /* Turns a dark logo white/cream for the dark footer background */
+      filter: brightness(0) invert(1) opacity(0.9);
+    }
 
-    .footer p { color: var(--text-muted); margin-bottom: 0.5rem; }
+    .footer h2 {
+      color: var(--bg-base);
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .footer p { color: rgba(248, 245, 240, 0.7); margin-bottom: 0.5rem; }
 
     .social-links {
       margin-top: 2rem;
@@ -335,6 +363,12 @@
       text-transform: uppercase;
       letter-spacing: 2px;
       font-size: 0.85rem;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+    
+    .social-links a:hover {
+      color: #FFFFFF;
     }
 
     /* Responsive */
@@ -359,7 +393,6 @@
       <a href="#branches">Locations</a>
       <a href="#menu">Menu</a>
     </div>
-    <!-- Cleaned up nav for a sleeker look, hid links on mobile automatically -->
   </nav>
 
   <!-- Hero Section -->
@@ -373,7 +406,7 @@
   <!-- Manifesto / Bento Box Section -->
   <section id="story" class="container">
     <div class="section-header">
-      <h2 class="section-title">Our Philosophy</h2>
+      <h2 class="section-title luxury-font">Our Philosophy</h2>
     </div>
     
     <div class="bento-grid">
@@ -399,7 +432,7 @@
   <!-- Locations Section -->
   <section id="branches" class="container">
     <div class="section-header">
-      <h2 class="section-title">Our Locations</h2>
+      <h2 class="section-title luxury-font">Our Locations</h2>
     </div>
     
     <div class="card-grid" style="margin-bottom: 3rem;">
@@ -435,14 +468,14 @@
 
     <!-- Embedded Google My Map -->
     <div class="map-container">
-      <iframe src="https://www.google.com/maps/d/embed?mid=1eeFgkSjhPLLLuODSRykbnnO8tVRB1VE&hl=en&ehbc=2E312F"></iframe>
+      <iframe src="https://www.google.com/maps/d/u/0/embed?mid=1eeFgkSjhPLLLuODSRykbnnO8tVRB1VE&ehbc=2E312F&noprof=1" title="TIBCO Locations Map"></iframe>
     </div>
   </section>
 
   <!-- Menu Section -->
   <section id="menu" class="container">
     <div class="section-header">
-      <h2 class="section-title">The Menu</h2>
+      <h2 class="section-title luxury-font">The Menu</h2>
     </div>
     
     <div class="card-grid">
