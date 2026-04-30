@@ -6,8 +6,9 @@
   <title>TIBCO Café • Surat</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- Added "Prompt" for the Pro-type font look -->
   <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Manrope:wght@300;400;500;600&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Manrope:wght@300;400;500;600&family=Prompt:wght@600;700;800&display=swap"
     rel="stylesheet"
   />
   <style>
@@ -49,11 +50,29 @@
       border-bottom: 1px solid var(--glass-border);
     }
 
-    .logo {
-      font-family: "Playfair Display", serif;
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+    }
+
+    /* CSS Trick to remove white background from a logo on a dark website */
+    .logo-img {
+      height: 35px;
+      width: auto;
+      /* If your logo is black text on a white background, this will make the BG transparent and the text white: */
+      mix-blend-mode: screen; 
+      filter: invert(1); 
+      /* If your logo is already colored and just needs the white gone, try removing the filter and using mix-blend-mode: multiply (though that works best on light backgrounds) */
+    }
+
+    .logo-text {
+      font-family: "Prompt", sans-serif; /* Pro-type font applied here */
       font-size: 1.5rem;
       font-weight: 700;
       color: var(--accent);
+      letter-spacing: 1px;
     }
 
     .nav-links {
@@ -100,11 +119,12 @@
     }
 
     .hero h1 {
-      font-family: "Playfair Display", serif;
+      font-family: "Prompt", sans-serif; /* Pro-type font applied here */
       font-size: clamp(3rem, 8vw, 5rem);
       margin-bottom: 1rem;
       color: var(--light);
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      letter-spacing: 2px;
     }
 
     .hero p {
@@ -128,6 +148,13 @@
     .btn:hover {
       transform: translateY(-3px);
       box-shadow: 0 10px 20px rgba(242, 179, 74, 0.3);
+    }
+
+    .btn-small {
+      padding: 0.6rem 1.2rem;
+      font-size: 0.9rem;
+      margin: 0;
+      margin-top: 1rem;
     }
 
     section {
@@ -188,7 +215,8 @@
       border-radius: 20px;
       padding: 2rem;
       transition: all 0.3s;
-      height: 250px;
+      height: auto;
+      min-height: 220px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -200,8 +228,19 @@
     }
 
     .branch-card h4 {
+      font-family: "Prompt", sans-serif;
+      font-size: 1.3rem;
       color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .branch-card p {
+      color: var(--light);
       margin-bottom: 1rem;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
     }
 
     .menu {
@@ -298,6 +337,10 @@
       text-decoration: none;
     }
 
+    .pro-font {
+      font-family: "Prompt", sans-serif;
+    }
+
     @keyframes fadeInUp {
       from {
         opacity: 0;
@@ -332,7 +375,12 @@
 </head>
 <body>
   <nav class="navbar">
-    <div class="logo">TIBCO</div>
+    <!-- Updated Logo Section -->
+    <a href="#" class="logo-container">
+      <!-- REPLACE 'your-logo.png' with your actual logo file name -->
+      <img src="your-logo.png" alt="TIBCO Logo" class="logo-img" />
+      <span class="logo-text">TIBCO</span>
+    </a>
     <div class="nav-links">
       <a href="#story">Story</a>
       <a href="#branches">Branches</a>
@@ -355,7 +403,7 @@
     <div class="story">
       <div class="story-card">
         <h3>Surat Roots</h3>
-        <p>Born in Surat, TIBCO celebrates the city's creative energy with coffee that tells a story of quality, community, and innovation.</p>
+        <p>Born in Surat, <span class="pro-font">TIBCO</span> celebrates the city's creative energy with coffee that tells a story of quality, community, and innovation.</p>
       </div>
       <div class="story-card">
         <h3>Specialty Focus</h3>
@@ -370,37 +418,45 @@
 
   <section class="branches" id="branches">
     <h2 class="section-title">Our Branches</h2>
+    <!-- Replaced 6 branches with the exact 4 provided -->
     <div class="branch-grid">
+      
+      <!-- Branch 1 -->
       <div class="branch-card">
-        <h4>TIBCO • Estella</h4>
-        <p>Quick, quality coffee for your busy days in Estella. Signature pours and fresh pastries on the go.</p>
-        <small>Specialty Coffee QSR</small>
+        <div>
+          <h4>TIBCO</h4>
+          <p>📍 Estella, Anuvrat dwar</p>
+        </div>
+        <a href="https://share.google/bThMk6EBAXvFgWRoN" target="_blank" class="btn btn-small">Open in Maps</a>
       </div>
+
+      <!-- Branch 2 -->
       <div class="branch-card">
-        <h4>TIBCO • Anuvrat Dwar</h4>
-        <p>Neighborhood gem with barista-crafted drinks and a cozy atmosphere perfect for lingering.</p>
-        <small>Specialty Coffee QSR</small>
+        <div>
+          <h4>TIBCO Daily</h4>
+          <p>📍 Commerce, Canal road</p>
+        </div>
+        <a href="https://share.google/o7w4qiCW4EDLQf7FR" target="_blank" class="btn btn-small">Open in Maps</a>
       </div>
+
+      <!-- Branch 3 -->
       <div class="branch-card">
-        <h4>TIBCO Daily • Commerce</h4>
-        <p>Late-night vibes with full coffee service, snacks, and a rooftop for unwinding.</p>
-        <small>Daily Spot</small>
+        <div>
+          <h4>TIBCO Plus</h4>
+          <p>📍 ARISTA, Vesu</p>
+        </div>
+        <a href="https://share.google/jxQe0uJIqqpl2MgBa" target="_blank" class="btn btn-small">Open in Maps</a>
       </div>
+
+      <!-- Branch 4 -->
       <div class="branch-card">
-        <h4>TIBCO Daily • Canal Road</h4>
-        <p>Serene canal-side location offering slow brews, mocktails, and peaceful escapes.</p>
-        <small>Daily Spot</small>
+        <div>
+          <h4>TIBCO Plus</h4>
+          <p>📍 Aspire, PAL</p>
+        </div>
+        <a href="https://share.google/GPFw0HAFZWcbHphoC" target="_blank" class="btn btn-small">Open in Maps</a>
       </div>
-      <div class="branch-card">
-        <h4>TIBCO Plus • ARISTA, Vesu</h4>
-        <p>Elevated dining with brunch menus, cocktails, and handcrafted desserts in Vesu.</p>
-        <small>Premium Experience</small>
-      </div>
-      <div class="branch-card">
-        <h4>TIBCO Plus • Aspire, PAL</h4>
-        <p>Late-night haven for collaborators, with plush seating and innovative coffee creations.</p>
-        <small>Premium Experience</small>
-      </div>
+
     </div>
   </section>
 
@@ -450,7 +506,7 @@
 
   <section>
     <div class="map-section">
-      <h2 class="section-title">Find Us in Surat</h2>
+      <h2 class="section-title">Central Hub</h2>
       <div class="map">
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3770.5502467683313!2d72.82912372494456!3d21.170240685744236!2m3!1f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be04f5caa9d7c11%3A0x5b5e3cfc2469e3d9!2sSurat%2C%20Gujarat!5e0!3m2!1sen!2sin!4v1718200000000!5m2!1sen!2sin"
@@ -463,7 +519,7 @@
   </section>
 
   <footer class="footer">
-    <p><strong>TIBCO Café</strong> • Bringing specialty coffee to Surat</p>
+    <p><strong class="pro-font">TIBCO Café</strong> • Bringing specialty coffee to Surat</p>
     <p><strong>Email:</strong> <a href="mailto:hello@tibco.cafe">hello@tibco.cafe</a></p>
     <p><strong>Instagram:</strong> <a href="https://www.instagram.com/tibco.home">@tibco.home</a></p>
   </footer>
