@@ -3,168 +3,50 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TIBCO Café • Surat</title>
+  <title>TIBCO • The Independent Brewer's Coffee</title>
   
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Outfit:wght@200;300;400&display=swap" rel="stylesheet" />
   
-  <!-- 3D Physics & Rendering Libraries -->
+  <!-- Advanced Three.js Library -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
 
-  <!-- Link to External CSS -->
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-  <!-- Floating Navigation -->
-  <nav class="navbar">
-    <a href="#" class="logo-container">
-      <img src="logo.png" alt="TIBCO Logo" class="logo-img" />
-      <span class="logo-text luxury-font">TIBCO</span>
-    </a>
-    <div class="nav-links">
-      <a href="#story">Manifesto</a>
-      <a href="#branches">Locations</a>
-      <a href="#menu">Menu</a>
-    </div>
-  </nav>
+  <!-- 3D Canvas Container -->
+  <div id="canvas-container"></div>
 
-  <!-- 3D Hero Section -->
-  <section class="hero">
+  <!-- UI Overlay -->
+  <main class="ui-layer">
+    <nav class="navbar">
+      <div class="logo-container">
+        <!-- Make sure logo.png is still in your repo! -->
+        <img src="logo.png" alt="TIBCO" class="logo-img" />
+        <span class="logo-text">TIBCO</span>
+      </div>
+      <div class="nav-links">
+        <a href="#philosophy">Philosophy</a>
+        <a href="#menu">The Menu</a>
+        <a href="#locations">Sanctuaries</a>
+      </div>
+    </nav>
+
     <div class="hero-content">
-      <span class="hero-label">Surat, Gujarat</span>
-      <h1 class="luxury-font">The Independent<br>Brewer's Coffee</h1>
-      <p>We champion the independence of the craft—sourcing ethically, roasting meticulously, and brewing without compromise.</p>
-      <a href="#menu" class="btn">Explore Menu</a>
-    </div>
-    
-    <!-- Real 3D Coffee Cup Renders Here -->
-    <div id="cup-container"></div>
-  </section>
-
-  <!-- Manifesto Section -->
-  <section id="story" class="container">
-    <div class="section-header">
-      <h2 class="section-title luxury-font">Our Philosophy</h2>
-    </div>
-    
-    <div class="bento-grid">
-      <div class="bento-card bento-large" data-tilt data-tilt-glare data-tilt-max-glare="0.1" data-tilt-max="5">
-        <h3 class="luxury-font">The TIBCO Standard</h3>
-        <p>From our very first plunge of the AeroPress to the vibrant community we serve today in Surat, we exist to honor the artisanal journey from bean to cup. We refuse to compromise on quality.</p>
-      </div>
-      <div class="bento-card" data-tilt data-tilt-glare data-tilt-max-glare="0.1" data-tilt-max="8">
-        <h3 class="luxury-font">Sourced</h3>
-        <p>We do not follow commercial trends. We source unique beans, focusing on direct, transparent relationships with estates.</p>
-      </div>
-      <div class="bento-card" data-tilt data-tilt-glare data-tilt-max-glare="0.1" data-tilt-max="8">
-        <h3 class="luxury-font">Crafted</h3>
-        <p>Whether it is a precision pour-over or a dialed-in espresso, technique is the heart of our baristas' workflow.</p>
-      </div>
-      <div class="bento-card" data-tilt data-tilt-glare data-tilt-max-glare="0.1" data-tilt-max="8">
-        <h3 class="luxury-font">Shared</h3>
-        <p>Designed to be sanctuaries for creators, thinkers, and anyone seeking a moment of absolute peace in the city.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Locations Section -->
-  <section id="branches" class="container">
-    <div class="section-header">
-      <h2 class="section-title luxury-font">Our Locations</h2>
-    </div>
-    
-    <div class="card-grid" style="margin-bottom: 3rem;">
-      <div class="branch-item" data-tilt data-tilt-glare data-tilt-max-glare="0.1" data-tilt-max="10">
-        <div class="branch-info">
-          <h4 class="luxury-font">TIBCO</h4>
-          <p>Estella, Anuvrat dwar</p>
-        </div>
-        <a href="https://share.google/bThMk6EBAXvFgWRoN" target="_blank" class="branch-link">→</a>
-      </div>
-      <div class="branch-item" data-tilt data-tilt-glare data-tilt-max-glare="0.1" data-tilt-max="10">
-        <div class="branch-info">
-          <h4 class="luxury-font">TIBCO Daily</h4>
-          <p>Commerce, Canal road</p>
-        </div>
-        <a href="https://share.google/o7w4qiCW4EDLQf7FR" target="_blank" class="branch-link">→</a>
-      </div>
-      <div class="branch-item" data-tilt data-tilt-glare data-tilt-max-glare="0.1" data-tilt-max="10">
-        <div class="branch-info">
-          <h4 class="luxury-font">TIBCO Plus</h4>
-          <p>ARISTA, Vesu</p>
-        </div>
-        <a href="https://share.google/jxQe0uJIqqpl2MgBa" target="_blank" class="branch-link">→</a>
-      </div>
-      <div class="branch-item" data-tilt data-tilt-glare data-tilt-max-glare="0.1" data-tilt-max="10">
-        <div class="branch-info">
-          <h4 class="luxury-font">TIBCO Plus</h4>
-          <p>Aspire, PAL</p>
-        </div>
-        <a href="https://share.google/GPFw0HAFZWcbHphoC" target="_blank" class="branch-link">→</a>
-      </div>
+      <span class="tagline">Surat, Gujarat</span>
+      <h1>The Art of<br>Independence.</h1>
+      <p>Ethically sourced. Meticulously roasted. Uncompromisingly brewed. Experience the pinnacle of specialty coffee.</p>
+      <a href="#menu" class="btn">Explore the Craft</a>
     </div>
 
-    <!-- Embedded Google My Map -->
-    <div class="map-container">
-      <iframe src="https://www.google.com/maps/d/u/0/embed?mid=1eeFgkSjhPLLLuODSRykbnnO8tVRB1VE&ehbc=2E312F&noprof=1" title="TIBCO Locations Map"></iframe>
+    <div class="scroll-indicator">
+      <span>Discover</span>
+      <div class="line"></div>
     </div>
-  </section>
+  </main>
 
-  <!-- Menu Section -->
-  <section id="menu" class="container">
-    <div class="section-header">
-      <h2 class="section-title luxury-font">The Menu</h2>
-    </div>
-    
-    <div class="card-grid">
-      <div class="menu-panel" data-tilt data-tilt-glare data-tilt-max-glare="0.05" data-tilt-max="5">
-        <h3 class="luxury-font">Coffee</h3>
-        <ul class="menu-list">
-          <li>Signature Espresso Blend</li>
-          <li>Cinnamon Caramel Latte</li>
-          <li>Cardamom Cold Brew</li>
-          <li>Butterfly Pea Matcha</li>
-        </ul>
-      </div>
-      <div class="menu-panel" data-tilt data-tilt-glare data-tilt-max-glare="0.05" data-tilt-max="5">
-        <h3 class="luxury-font">Brunch</h3>
-        <ul class="menu-list">
-          <li>Charred Avocado Toast</li>
-          <li>Buttermilk Pancake Stack</li>
-          <li>Smoked Mushroom Bowl</li>
-          <li>Citrus Grain Salad</li>
-        </ul>
-      </div>
-      <div class="menu-panel" data-tilt data-tilt-glare data-tilt-max-glare="0.05" data-tilt-max="5">
-        <h3 class="luxury-font">Sweets</h3>
-        <ul class="menu-list">
-          <li>Hazelnut Praline Tartlet</li>
-          <li>Roasted Fig Cheesecake</li>
-          <li>Dark Chocolate Churros</li>
-          <li>Cold Brew Cheesecake</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <img src="logo.png" alt="TIBCO Logo" class="footer-logo" />
-    <h2 class="luxury-font">TIBCO</h2>
-    <p>The Independent Brewer's Coffee</p>
-    <p>Crafted in Surat, Gujarat</p>
-    
-    <div class="social-links">
-      <a href="mailto:hello@tibco.cafe">Email Us</a>
-      <a href="https://www.instagram.com/tibco.home" target="_blank">Instagram</a>
-    </div>
-  </footer>
-
-  <!-- Link to External JavaScript -->
   <script src="main.js"></script>
 </body>
 </html>
