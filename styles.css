@@ -1,13 +1,10 @@
 :root {
-  --bg-color: #F4F1EA; /* Soft warm background */
-  --text-main: #2D3436; /* Dark slate for high legibility */
-  --text-muted: #636E72;
-  
-  /* Vibrant Dribbble-style Colors */
-  --primary: #FF6B6B; /* Vibrant Coral/Red */
-  --secondary: #4ECDC4; /* Soft Mint */
-  --accent: #FFE66D; /* Warm Yellow */
-  --white: #FFFFFF;
+  --bg-cream: #FAF7F2;      /* Warm, rich cream */
+  --text-espresso: #2D1A11; /* Deep, dark coffee brown */
+  --text-mocha: #5D4037;    /* Lighter brown for paragraphs */
+  --accent-copper: #8B5A3C; /* Classy copper/bronze accent */
+  --glass-bg: rgba(250, 247, 242, 0.65); /* Semi-transparent cream */
+  --glass-border: rgba(45, 26, 17, 0.1);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -15,164 +12,162 @@ html { scroll-behavior: smooth; }
 
 body {
   font-family: 'Outfit', sans-serif;
-  background-color: var(--bg-color);
-  color: var(--text-main);
+  background-color: var(--bg-cream);
+  color: var(--text-espresso);
   line-height: 1.6;
 }
 
-h1, h2, h3 { font-weight: 800; letter-spacing: -0.5px; }
+h1, h2, h3, .logo-text { font-family: 'Cinzel', serif; font-weight: 600; }
 
-/* --- 3D Background --- */
+/* --- 3D Background Container --- */
 #canvas-container {
-  position: fixed; /* Keeps 3D scene locked in background */
+  position: fixed;
   top: 0; left: 0;
   width: 100vw; height: 100vh;
-  z-index: 0;
-  cursor: grab;
+  z-index: -1;
+  pointer-events: none; /* Lets you scroll without catching the canvas */
 }
-#canvas-container:active { cursor: grabbing; }
 
 /* --- UI Overlay --- */
 .ui-layer {
   position: relative;
   z-index: 10;
-  pointer-events: none; /* Let mouse hit the 3D canvas */
 }
 
-/* Make elements clickable again */
-.clay-panel, .clay-card, .btn, a { pointer-events: auto; }
-
-/* --- Claymorphism Styles --- */
-/* This creates that soft, chunky, 3D UI look */
-.clay-panel, .clay-card {
-  background: var(--white);
-  border-radius: 32px;
-  box-shadow: 
-    12px 12px 30px rgba(0, 0, 0, 0.05),
-    -12px -12px 30px rgba(255, 255, 255, 0.8);
-  border: 2px solid rgba(255,255,255,0.5);
-}
-
-.clay-btn {
-  background: var(--primary);
-  color: var(--white);
-  text-decoration: none;
-  padding: 1rem 2rem;
-  border-radius: 24px;
-  font-weight: 800;
-  display: inline-block;
-  box-shadow: 
-    6px 6px 15px rgba(255, 107, 107, 0.3),
-    inset 2px 2px 5px rgba(255, 255, 255, 0.4),
-    inset -2px -2px 5px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.clay-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 
-    8px 8px 20px rgba(255, 107, 107, 0.4),
-    inset 2px 2px 5px rgba(255, 255, 255, 0.5),
-    inset -2px -2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.clay-btn.small { padding: 0.6rem 1.2rem; font-size: 0.9rem; }
-
-/* --- Navbar --- */
+/* --- Glassmorphism Elements --- */
 .navbar {
-  margin: 1.5rem 5%;
-  padding: 1rem 2.5rem;
+  position: sticky;
+  top: 0;
+  padding: 1.5rem 5%;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background: rgba(250, 247, 242, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--glass-border);
+  z-index: 100;
 }
 
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 3rem;
+  box-shadow: 0 10px 30px rgba(45, 26, 17, 0.05);
+}
+
+/* --- Navbar --- */
 .logo-container { display: flex; align-items: center; gap: 1rem; text-decoration: none; }
 .logo-img { height: 35px; mix-blend-mode: multiply; }
-.logo-text { font-size: 1.5rem; font-weight: 800; color: var(--text-main); }
+.logo-text { font-size: 1.4rem; letter-spacing: 2px; color: var(--text-espresso); }
 
-.nav-links { display: flex; gap: 2rem; }
+.nav-links { display: flex; gap: 3rem; }
 .nav-links a {
-  color: var(--text-muted);
+  color: var(--text-mocha);
   text-decoration: none;
-  font-weight: 600;
-  transition: color 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 0.85rem;
+  transition: color 0.3s;
+  font-weight: 500;
 }
-.nav-links a:hover { color: var(--primary); }
+.nav-links a:hover { color: var(--accent-copper); }
 
-/* --- Hero Section --- */
+/* --- Buttons --- */
+.btn {
+  display: inline-block;
+  padding: 1rem 2.5rem;
+  background: transparent;
+  color: var(--text-espresso);
+  border: 1px solid var(--text-espresso);
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 0.85rem;
+  transition: all 0.4s ease;
+  font-family: 'Outfit', sans-serif;
+}
+
+.btn:hover {
+  background: var(--text-espresso);
+  color: var(--bg-cream);
+  box-shadow: 0 10px 20px rgba(45, 26, 17, 0.15);
+  transform: translateY(-2px);
+}
+
+.btn.small { padding: 0.6rem 1.5rem; font-size: 0.75rem; }
+
+/* --- Hero Content --- */
 .hero-section {
-  min-height: 85vh;
+  min-height: 90vh;
   display: flex;
   align-items: center;
   padding: 0 5%;
 }
 
-.hero-text {
-  padding: 3rem;
-  max-width: 550px;
-  background: rgba(255, 255, 255, 0.7); /* Slightly see-through */
-  backdrop-filter: blur(10px);
-}
+.hero-content { max-width: 600px; }
 
-.badge {
-  background: var(--accent);
-  color: var(--text-main);
-  padding: 0.4rem 1rem;
-  border-radius: 20px;
-  font-weight: 800;
-  font-size: 0.8rem;
-  display: inline-block;
+.tagline {
+  color: var(--accent-copper);
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  font-size: 0.85rem;
+  display: block;
   margin-bottom: 1.5rem;
+  font-weight: 500;
 }
 
-.hero-text h1 { font-size: clamp(3rem, 5vw, 4.5rem); line-height: 1.1; margin-bottom: 1rem; }
-.hero-text p { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 2rem; }
-
-/* --- Content Layout --- */
-.container { max-width: 1200px; margin: 0 auto; padding: 6rem 5%; }
-.section-title { font-size: 2.5rem; margin-bottom: 3rem; text-align: center; }
-
-.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
-.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; }
-
-.clay-card { padding: 2.5rem; }
-
-/* Custom icons for philosophy */
-.icon-bubble {
-  width: 60px; height: 60px;
-  background: var(--secondary);
-  border-radius: 20px;
-  display: flex; justify-content: center; align-items: center;
-  font-size: 1.5rem; margin-bottom: 1.5rem;
+.hero-content h1 {
+  font-size: clamp(3.5rem, 6vw, 5.5rem);
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+  color: var(--text-espresso);
 }
 
-.clay-card h3 { font-size: 1.5rem; margin-bottom: 1rem; }
-.clay-card p { color: var(--text-muted); }
+.hero-content p {
+  font-size: 1.2rem;
+  color: var(--text-mocha);
+  font-weight: 300;
+  margin-bottom: 3rem;
+  line-height: 1.8;
+}
 
-/* Menu List */
+/* --- Layout --- */
+.container { max-width: 1300px; margin: 0 auto; padding: 6rem 5%; }
+.section-header { margin-bottom: 3rem; text-align: center; }
+.section-title { font-size: 2.5rem; color: var(--text-espresso); }
+
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 2rem; }
+.mt-2 { margin-top: 2rem; }
+.flex-row { display: flex; justify-content: space-between; align-items: center; padding: 2rem; }
+
+/* --- Typography in Cards --- */
+.glass-card h3 { font-size: 1.5rem; margin-bottom: 1rem; color: var(--text-espresso); }
+.glass-card p { color: var(--text-mocha); font-size: 1rem; }
+
+.menu-heading { border-bottom: 1px solid var(--glass-border); padding-bottom: 1rem; margin-bottom: 1.5rem !important; }
 .menu-list { list-style: none; }
-.menu-list li {
-  padding: 1rem 0;
-  border-bottom: 2px dashed rgba(0,0,0,0.05);
-  font-weight: 600;
-  display: flex; align-items: center;
-}
-.menu-list li::before { content: '☕'; margin-right: 10px; font-size: 1.2rem; }
+.menu-list li { padding: 0.8rem 0; border-bottom: 1px dashed var(--glass-border); font-weight: 400; }
 .menu-list li:last-child { border-bottom: none; }
 
-/* Location Card */
-.location-card { display: flex; justify-content: space-between; align-items: center; }
+/* --- Map --- */
+.map-wrapper { padding: 1rem; }
+.map-wrapper iframe { width: 100%; height: 450px; border: none; border-radius: 8px; filter: grayscale(80%) sepia(20%) hue-rotate(350deg); }
 
-/* Footer */
+/* --- Footer --- */
 .footer {
-  margin: 2rem 5% 2rem;
-  padding: 3rem;
+  margin: 2rem 5% 4rem;
   text-align: center;
 }
-.footer p { margin: 1rem 0 2rem; color: var(--text-muted); font-weight: 600; }
+.footer-logo { height: 50px; margin-bottom: 1.5rem; mix-blend-mode: multiply; }
+.socials { margin-top: 2rem; }
+.socials a { color: var(--accent-copper); text-decoration: none; text-transform: uppercase; letter-spacing: 2px; font-size: 0.85rem; font-weight: 500; }
 
 @media (max-width: 768px) {
   .nav-links { display: none; }
-  .hero-section { justify-content: center; text-align: center; margin-top: 5rem; }
+  .hero-content { margin-top: 4rem; text-align: center; margin-left: auto; margin-right: auto; }
 }
