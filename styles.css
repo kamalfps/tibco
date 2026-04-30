@@ -1,174 +1,178 @@
 :root {
-  --text-main: #F3F4F6;
-  --text-muted: #9CA3AF;
-  --accent: #D4AF37; /* Luxury Gold */
+  --bg-color: #F4F1EA; /* Soft warm background */
+  --text-main: #2D3436; /* Dark slate for high legibility */
+  --text-muted: #636E72;
+  
+  /* Vibrant Dribbble-style Colors */
+  --primary: #FF6B6B; /* Vibrant Coral/Red */
+  --secondary: #4ECDC4; /* Soft Mint */
+  --accent: #FFE66D; /* Warm Yellow */
+  --white: #FFFFFF;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 
 body {
   font-family: 'Outfit', sans-serif;
-  background-color: #050505;
+  background-color: var(--bg-color);
   color: var(--text-main);
-  overflow: hidden; /* Locks scrolling to keep it as a cinematic landing page */
+  line-height: 1.6;
 }
 
-h1, .logo-text {
-  font-family: 'Cinzel', serif;
-}
+h1, h2, h3 { font-weight: 800; letter-spacing: -0.5px; }
 
 /* --- 3D Background --- */
 #canvas-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
+  position: fixed; /* Keeps 3D scene locked in background */
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
   z-index: 0;
   cursor: grab;
 }
-
 #canvas-container:active { cursor: grabbing; }
 
 /* --- UI Overlay --- */
 .ui-layer {
   position: relative;
   z-index: 10;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  pointer-events: none; /* Lets you click 'through' the empty space to drag the cup */
+  pointer-events: none; /* Let mouse hit the 3D canvas */
 }
 
-/* Re-enable clicking on actual UI elements */
-.navbar, .hero-content, .btn {
-  pointer-events: auto; 
+/* Make elements clickable again */
+.clay-panel, .clay-card, .btn, a { pointer-events: auto; }
+
+/* --- Claymorphism Styles --- */
+/* This creates that soft, chunky, 3D UI look */
+.clay-panel, .clay-card {
+  background: var(--white);
+  border-radius: 32px;
+  box-shadow: 
+    12px 12px 30px rgba(0, 0, 0, 0.05),
+    -12px -12px 30px rgba(255, 255, 255, 0.8);
+  border: 2px solid rgba(255,255,255,0.5);
 }
+
+.clay-btn {
+  background: var(--primary);
+  color: var(--white);
+  text-decoration: none;
+  padding: 1rem 2rem;
+  border-radius: 24px;
+  font-weight: 800;
+  display: inline-block;
+  box-shadow: 
+    6px 6px 15px rgba(255, 107, 107, 0.3),
+    inset 2px 2px 5px rgba(255, 255, 255, 0.4),
+    inset -2px -2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.clay-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 
+    8px 8px 20px rgba(255, 107, 107, 0.4),
+    inset 2px 2px 5px rgba(255, 255, 255, 0.5),
+    inset -2px -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.clay-btn.small { padding: 0.6rem 1.2rem; font-size: 0.9rem; }
 
 /* --- Navbar --- */
 .navbar {
-  padding: 2rem 5%;
+  margin: 1.5rem 5%;
+  padding: 1rem 2.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
 }
 
-.logo-container {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
+.logo-container { display: flex; align-items: center; gap: 1rem; text-decoration: none; }
+.logo-img { height: 35px; mix-blend-mode: multiply; }
+.logo-text { font-size: 1.5rem; font-weight: 800; color: var(--text-main); }
 
-.logo-img { height: 40px; filter: brightness(0) invert(1); }
-.logo-text { font-size: 1.5rem; letter-spacing: 3px; font-weight: 600; }
-
-.nav-links { display: flex; gap: 3rem; }
+.nav-links { display: flex; gap: 2rem; }
 .nav-links a {
   color: var(--text-muted);
   text-decoration: none;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  font-size: 0.8rem;
-  transition: color 0.3s;
+  font-weight: 600;
+  transition: color 0.2s;
 }
-.nav-links a:hover { color: var(--accent); }
+.nav-links a:hover { color: var(--primary); }
 
-/* --- Hero Content --- */
-.hero-content {
-  margin: auto 5%;
-  max-width: 600px;
-}
-
-.tagline {
-  color: var(--accent);
-  text-transform: uppercase;
-  letter-spacing: 4px;
-  font-size: 0.85rem;
-  display: block;
-  margin-bottom: 1.5rem;
-}
-
-.hero-content h1 {
-  font-size: clamp(3.5rem, 6vw, 6rem);
-  line-height: 1.1;
-  margin-bottom: 1.5rem;
-  text-shadow: 0 10px 30px rgba(0,0,0,0.8);
-}
-
-.hero-content p {
-  font-size: 1.2rem;
-  color: var(--text-muted);
-  font-weight: 300;
-  margin-bottom: 3rem;
-  line-height: 1.8;
-}
-
-.btn {
-  display: inline-block;
-  padding: 1rem 3rem;
-  background: transparent;
-  color: var(--accent);
-  border: 1px solid var(--accent);
-  text-decoration: none;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  font-size: 0.85rem;
-  transition: all 0.4s ease;
-  backdrop-filter: blur(5px);
-}
-
-.btn:hover {
-  background: var(--accent);
-  color: #000;
-  box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
-}
-
-/* --- Scroll Indicator --- */
-.scroll-indicator {
-  position: absolute;
-  bottom: 3rem;
-  left: 5%;
+/* --- Hero Section --- */
+.hero-section {
+  min-height: 85vh;
   display: flex;
   align-items: center;
-  gap: 1rem;
+  padding: 0 5%;
 }
 
-.scroll-indicator span {
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  font-size: 0.7rem;
-  color: var(--text-muted);
-  transform: rotate(-90deg);
-  transform-origin: left center;
-  margin-bottom: 3rem;
+.hero-text {
+  padding: 3rem;
+  max-width: 550px;
+  background: rgba(255, 255, 255, 0.7); /* Slightly see-through */
+  backdrop-filter: blur(10px);
 }
 
-.scroll-indicator .line {
-  width: 1px;
-  height: 60px;
-  background: var(--text-muted);
-  position: relative;
-  overflow: hidden;
-}
-
-.scroll-indicator .line::after {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; width: 100%; height: 50%;
+.badge {
   background: var(--accent);
-  animation: drop 2s infinite;
+  color: var(--text-main);
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  font-weight: 800;
+  font-size: 0.8rem;
+  display: inline-block;
+  margin-bottom: 1.5rem;
 }
 
-@keyframes drop {
-  0% { top: -50%; }
-  100% { top: 100%; }
+.hero-text h1 { font-size: clamp(3rem, 5vw, 4.5rem); line-height: 1.1; margin-bottom: 1rem; }
+.hero-text p { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 2rem; }
+
+/* --- Content Layout --- */
+.container { max-width: 1200px; margin: 0 auto; padding: 6rem 5%; }
+.section-title { font-size: 2.5rem; margin-bottom: 3rem; text-align: center; }
+
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; }
+
+.clay-card { padding: 2.5rem; }
+
+/* Custom icons for philosophy */
+.icon-bubble {
+  width: 60px; height: 60px;
+  background: var(--secondary);
+  border-radius: 20px;
+  display: flex; justify-content: center; align-items: center;
+  font-size: 1.5rem; margin-bottom: 1.5rem;
 }
+
+.clay-card h3 { font-size: 1.5rem; margin-bottom: 1rem; }
+.clay-card p { color: var(--text-muted); }
+
+/* Menu List */
+.menu-list { list-style: none; }
+.menu-list li {
+  padding: 1rem 0;
+  border-bottom: 2px dashed rgba(0,0,0,0.05);
+  font-weight: 600;
+  display: flex; align-items: center;
+}
+.menu-list li::before { content: '☕'; margin-right: 10px; font-size: 1.2rem; }
+.menu-list li:last-child { border-bottom: none; }
+
+/* Location Card */
+.location-card { display: flex; justify-content: space-between; align-items: center; }
+
+/* Footer */
+.footer {
+  margin: 2rem 5% 2rem;
+  padding: 3rem;
+  text-align: center;
+}
+.footer p { margin: 1rem 0 2rem; color: var(--text-muted); font-weight: 600; }
 
 @media (max-width: 768px) {
   .nav-links { display: none; }
-  .hero-content { margin-top: auto; margin-bottom: 10rem; text-align: center; }
-  .hero-content h1 { font-size: 3rem; }
-  .scroll-indicator { display: none; }
+  .hero-section { justify-content: center; text-align: center; margin-top: 5rem; }
 }
