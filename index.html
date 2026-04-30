@@ -9,7 +9,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
   
-  <!-- Core Engines -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
@@ -47,15 +46,12 @@
     .menu-list { list-style: none; margin-top: 2rem; }
     .menu-list li { padding: 1.2rem 0; border-bottom: 1px solid rgba(42, 28, 20, 0.15); font-size: 1.3rem; font-weight: 400; }
 
-    .footer-step { text-align: center; justify-content: center; }
-    .massive-text { font-size: 18vw; letter-spacing: -10px; line-height: 0.8; margin-bottom: 4rem; opacity: 1; }
-    .btn { display: inline-block; padding: 1.2rem 3.5rem; background: var(--text-espresso); color: var(--bg-cream); text-decoration: none; text-transform: uppercase; letter-spacing: 3px; border-radius: 60px; font-size: 0.8rem; font-weight: 600; transition: 0.4s cubic-bezier(0.23, 1, 0.32, 1); }
+    .btn { display: inline-block; margin-top: 2rem; padding: 1.2rem 3.5rem; background: var(--text-espresso); color: var(--bg-cream); text-decoration: none; text-transform: uppercase; letter-spacing: 3px; border-radius: 60px; font-size: 0.8rem; font-weight: 600; transition: 0.4s; }
     .btn:hover { background: var(--accent); transform: scale(1.05); }
 
     @media (max-width: 768px) {
       .nav-links { display: none; }
       .step { padding: 0 5%; justify-content: center; text-align: center; }
-      .content-block { max-width: 100%; }
       h1 { font-size: 3.5rem; }
     }
   </style>
@@ -77,14 +73,14 @@
       <div class="content-block">
         <p class="eyebrow">Surat, India</p>
         <h1>The Art of<br><em>Independence.</em></h1>
-        <p>Scroll to explore the high-fidelity craft of TIBCO.</p>
+        <p>A fresh take on the specialty paper cup experience.</p>
       </div>
     </section>
 
     <section id="philosophy" class="step">
       <div class="content-block right">
-        <h2>Uncompromising<br>Quality</h2>
-        <p>We source unique beans directly from independent estates. Every pour is a testament to our technical dedication to the bean.</p>
+        <h2>Sustainable<br>Craft</h2>
+        <p>Our independent spirit extends to every detail—from the beans we roast to the high-quality, tactile paper we use for our takeaway craft.</p>
       </div>
     </section>
 
@@ -100,9 +96,9 @@
       </div>
     </section>
 
-    <section class="step footer-step">
-      <div class="content-block">
-        <h1 class="massive-text">TIBCO</h1>
+    <section class="step">
+      <div class="content-block center" style="margin: 0 auto; text-align: center;">
+        <h1 style="font-size: 15vw; letter-spacing: -8px; opacity: 1;">TIBCO</h1>
         <a href="https://share.google/bThMk6EBAXvFgWRoN" target="_blank" class="btn">Our Sanctuaries</a>
       </div>
     </section>
@@ -120,59 +116,52 @@
       const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, powerPreference: "high-performance" });
       renderer.setSize(window.innerWidth, window.innerHeight);
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-      renderer.outputEncoding = THREE.sRGBEncoding;
 
-      // Realistic Studio Lighting
-      const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+      // Lights
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.9);
       scene.add(ambientLight);
-
-      const spotLight = new THREE.SpotLight(0xffffff, 2);
-      spotLight.position.set(10, 15, 10);
-      spotLight.castShadow = true;
+      const spotLight = new THREE.SpotLight(0xffffff, 2.5);
+      spotLight.position.set(10, 20, 10);
       scene.add(spotLight);
 
-      const rimLight = new THREE.DirectionalLight(0xffffff, 0.5);
-      rimLight.position.set(-5, 5, -5);
-      scene.add(rimLight);
-
       // Materials
-      const ceramicMat = new THREE.MeshPhysicalMaterial({ 
+      const paperMat = new THREE.MeshStandardMaterial({ 
         color: 0xFDFBF7, 
-        roughness: 0.15, 
-        metalness: 0.05,
-        clearcoat: 1.0,
-        clearcoatRoughness: 0.1
+        roughness: 0.8 // Matte paper texture
       });
       
-      const coffeeMat = new THREE.MeshPhysicalMaterial({ 
-        color: 0x1a0a00, 
-        roughness: 0.05,
+      const lidMat = new THREE.MeshStandardMaterial({ 
+        color: 0x211510, // Dark espresso plastic lid
+        roughness: 0.3,
         metalness: 0.1
       });
 
-      // Build High-Detail Cup
-      const coffeeGroup = new THREE.Group();
+      // Build Realistic Paper Cup
+      const cupGroup = new THREE.Group();
       
-      const cup = new THREE.Mesh(new THREE.CylinderGeometry(1.6, 1.1, 2.8, 128), ceramicMat);
-      const liquid = new THREE.Mesh(new THREE.CylinderGeometry(1.52, 1.52, 2.6, 128), coffeeMat);
-      liquid.position.y = 0.12;
+      // Main Body (Tapered)
+      const body = new THREE.Mesh(new THREE.CylinderGeometry(1.4, 1.0, 3.8, 64), paperMat);
       
-      const handle = new THREE.Mesh(new THREE.TorusGeometry(0.8, 0.22, 32, 64), ceramicMat);
-      handle.position.set(1.35, 0, 0);
-      handle.rotation.z = -Math.PI / 12;
+      // Rolled Rim (Torus at top)
+      const rim = new THREE.Mesh(new THREE.TorusGeometry(1.4, 0.08, 16, 64), paperMat);
+      rim.rotation.x = Math.PI / 2;
+      rim.position.y = 1.9;
+
+      // The Lid
+      const lidBase = new THREE.Mesh(new THREE.CylinderGeometry(1.5, 1.45, 0.4, 64), lidMat);
+      lidBase.position.y = 2.05;
       
-      const saucer = new THREE.Mesh(new THREE.CylinderGeometry(2.8, 2.0, 0.25, 128), ceramicMat);
-      saucer.position.y = -1.55;
+      const lidTop = new THREE.Mesh(new THREE.CylinderGeometry(1.2, 1.3, 0.3, 64), lidMat);
+      lidTop.position.y = 2.3;
 
-      coffeeGroup.add(cup, liquid, handle, saucer);
-      scene.add(coffeeGroup);
+      cupGroup.add(body, rim, lidBase, lidTop);
+      scene.add(cupGroup);
 
-      // Camera & Group Init
-      camera.position.set(0, 2, 14);
-      coffeeGroup.position.set(3, 0, 0);
-      coffeeGroup.rotation.set(0.3, -0.6, 0);
+      // Animation & Scroll
+      camera.position.set(0, 1, 12);
+      cupGroup.position.set(3, 0, 0);
+      cupGroup.rotation.set(0.2, -0.4, 0);
 
-      // THE SCROLL REVEAL
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: ".scroll-container",
@@ -182,22 +171,18 @@
         }
       });
 
-      // Section 1 to 2
-      tl.to(coffeeGroup.position, { x: -3.5, y: 0.5, z: 2, ease: "power2.inOut" }, 0);
-      tl.to(coffeeGroup.rotation, { x: 0.6, y: Math.PI, z: 0.1, ease: "power2.inOut" }, 0);
+      tl.to(cupGroup.position, { x: -3.5, y: 0.5, z: 2 }, 0);
+      tl.to(cupGroup.rotation, { x: 0.4, y: Math.PI }, 0);
 
-      // Section 2 to 3
-      tl.to(coffeeGroup.position, { x: 3.5, y: -0.5, z: 0, ease: "power2.inOut" }, 1);
-      tl.to(coffeeGroup.rotation, { x: 1.2, y: Math.PI * 2, z: -0.2, ease: "power2.inOut" }, 1);
+      tl.to(cupGroup.position, { x: 3.5, y: -0.5, z: 0 }, 1);
+      tl.to(cupGroup.rotation, { x: 0.8, y: Math.PI * 2 }, 1);
 
-      // Section 3 to 4 (Footer)
-      tl.to(coffeeGroup.position, { x: 0, y: -2, z: 5, ease: "power2.inOut" }, 2);
-      tl.to(coffeeGroup.rotation, { x: 0.4, y: Math.PI * 2.5, ease: "power2.inOut" }, 2);
+      tl.to(cupGroup.position, { x: 0, y: -2, z: 6 }, 2);
+      tl.to(cupGroup.rotation, { x: 0.3, y: Math.PI * 2.5 }, 2);
 
       function animate() {
         requestAnimationFrame(animate);
-        // Automatic idle float
-        coffeeGroup.position.y += Math.sin(Date.now() * 0.001) * 0.002;
+        cupGroup.position.y += Math.sin(Date.now() * 0.001) * 0.002;
         renderer.render(scene, camera);
       }
       animate();
