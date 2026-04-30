@@ -68,7 +68,7 @@
     .logo-img {
       height: 45px;
       width: auto;
-      /* Multiply seamlessly blends a white background logo into the cream website background */
+      /* If your logo image has a white background, multiply will seamlessly blend it into the cream website background */
       mix-blend-mode: multiply; 
     }
 
@@ -106,7 +106,7 @@
       background: var(--text-main);
       color: var(--bg-color);
       text-decoration: none;
-      border-radius: 4px;
+      border-radius: 4px; /* Classy slightly rounded corners */
       transition: all 0.3s;
       font-weight: 500;
       text-transform: uppercase;
@@ -145,6 +145,7 @@
       justify-content: center;
       text-align: center;
       padding: 8rem 5% 4rem;
+      /* Soft, bright cafe background with a heavy cream overlay to make text readable */
       background: linear-gradient(rgba(253, 251, 247, 0.85), rgba(253, 251, 247, 0.95)), 
                   url("https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=1600&q=80") center/cover;
     }
@@ -259,7 +260,7 @@
 
     /* --- Branches Section --- */
     .branches {
-      background: #F5F2EB; 
+      background: #F5F2EB; /* Slightly darker cream for contrast */
       max-width: 100%;
     }
 
@@ -373,14 +374,6 @@
       text-align: center;
     }
 
-    .footer-logo-img {
-      height: 60px;
-      width: auto;
-      margin-bottom: 1rem;
-      /* If logo is black, this makes it white for the dark footer */
-      filter: brightness(0) invert(1); 
-    }
-
     .footer .logo-text {
       color: var(--bg-color);
       font-size: 2rem;
@@ -416,7 +409,8 @@
   <!-- Navigation -->
   <nav class="navbar">
     <a href="#" class="logo-container">
-      <img src="logo.png" alt="TIBCO Logo" class="logo-img" />
+      <!-- Image Logo Restored -->
+      <img src="your-logo.png" alt="TIBCO Logo" class="logo-img" />
       <span class="logo-text">TIBCO</span>
     </a>
     <div class="nav-links">
@@ -570,7 +564,6 @@
 
   <!-- Footer -->
   <footer class="footer">
-    <img src="logo.png" alt="TIBCO Logo" class="footer-logo-img" />
     <span class="logo-text">TIBCO</span>
     <p><strong>The Independent Brewer's Coffee</strong></p>
     <p style="margin-bottom: 1.5rem;">Bringing independent specialty coffee to Surat.</p>
