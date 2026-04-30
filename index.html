@@ -373,6 +373,14 @@
       padding: 4rem 2rem;
       text-align: center;
     }
+    
+    .footer-logo-img {
+      height: 60px;
+      width: auto;
+      margin-bottom: 1rem;
+      /* If logo is black, this makes it white for the dark footer */
+      filter: brightness(0) invert(1); 
+    }
 
     .footer .logo-text {
       color: var(--bg-color);
@@ -409,8 +417,7 @@
   <!-- Navigation -->
   <nav class="navbar">
     <a href="#" class="logo-container">
-      <!-- Image Logo Restored -->
-      <img src="your-logo.png" alt="TIBCO Logo" class="logo-img" />
+      <img src="logo.png" alt="TIBCO Logo" class="logo-img" />
       <span class="logo-text">TIBCO</span>
     </a>
     <div class="nav-links">
@@ -564,6 +571,7 @@
 
   <!-- Footer -->
   <footer class="footer">
+    <img src="logo.png" alt="TIBCO Logo" class="footer-logo-img" />
     <span class="logo-text">TIBCO</span>
     <p><strong>The Independent Brewer's Coffee</strong></p>
     <p style="margin-bottom: 1.5rem;">Bringing independent specialty coffee to Surat.</p>
