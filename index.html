@@ -6,21 +6,16 @@
   <title>TIBCO Café • Surat</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <!-- Elegant serif for headings, clean sans-serif for reading -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Manrope:wght@300;400;500;600&display=swap"
-    rel="stylesheet"
-  />
+  <!-- 'Playfair Display' for editorial titles, 'Inter' for ultra-clean reading text -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  
   <style>
     :root {
-      --bg-color: #FDFBF7; /* Warm cream */
-      --text-main: #2C1E16; /* Deep espresso brown */
-      --text-muted: #5A4A42;
-      --accent-gold: #C69C38; /* Matches the brass/gold in your logo */
-      --card-bg: #FFFFFF;
-      --border-color: rgba(44, 30, 22, 0.1);
-      --shadow-sm: 0 4px 12px rgba(44, 30, 22, 0.05);
-      --shadow-md: 0 12px 30px rgba(44, 30, 22, 0.08);
+      --bg: #ffffff;
+      --text: #1a1a1a;
+      --text-light: #666666;
+      --accent: #9B5126; /* Rich roasted coffee tone */
+      --border: #E5E5E5;
     }
 
     * {
@@ -30,303 +25,239 @@
     }
 
     body {
-      font-family: "Manrope", sans-serif;
-      background-color: var(--bg-color);
-      color: var(--text-main);
+      font-family: "Inter", sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
       line-height: 1.6;
       overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
     }
 
-    h1, h2, h3, h4, .serif {
+    h1, h2, h3, .serif {
       font-family: "Playfair Display", serif;
+      font-weight: 600;
     }
 
-    /* --- Navbar --- */
+    /* --- Navigation --- */
     .navbar {
       position: fixed;
       top: 0;
       width: 100%;
-      background: rgba(253, 251, 247, 0.95);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(5px);
       z-index: 100;
-      padding: 1rem 5%;
+      padding: 1.5rem 5%;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid var(--border-color);
-      box-shadow: var(--shadow-sm);
+      border-bottom: 1px solid var(--border);
     }
 
     .logo-container {
       display: flex;
       align-items: center;
-      gap: 0.8rem;
+      gap: 1rem;
       text-decoration: none;
     }
 
     .logo-img {
-      height: 45px;
+      height: 40px;
       width: auto;
-      /* If your logo image has a white background, multiply will seamlessly blend it into the cream website background */
-      mix-blend-mode: multiply; 
+      mix-blend-mode: multiply; /* Blends white background logos perfectly */
     }
 
     .logo-text {
-      font-family: "Manrope", sans-serif;
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--text-main);
+      font-family: "Inter", sans-serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--text);
       letter-spacing: 2px;
     }
 
     .nav-links {
       display: flex;
-      gap: 2.5rem;
+      gap: 3rem;
     }
 
     .nav-links a {
-      color: var(--text-muted);
+      color: var(--text-light);
       text-decoration: none;
-      font-size: 0.9rem;
-      font-weight: 500;
+      font-size: 0.85rem;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
       transition: color 0.3s;
     }
 
     .nav-links a:hover {
-      color: var(--accent-gold);
+      color: var(--text);
     }
 
     /* --- Buttons --- */
     .btn {
       display: inline-block;
       padding: 1rem 2.5rem;
-      background: var(--text-main);
-      color: var(--bg-color);
+      background: var(--text);
+      color: var(--bg);
       text-decoration: none;
-      border-radius: 4px; /* Classy slightly rounded corners */
-      transition: all 0.3s;
-      font-weight: 500;
+      font-size: 0.85rem;
       text-transform: uppercase;
-      letter-spacing: 1.5px;
-      font-size: 0.9rem;
+      letter-spacing: 2px;
+      transition: all 0.3s;
+      border: 1px solid var(--text);
     }
 
     .btn:hover {
-      background: var(--accent-gold);
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-md);
+      background: var(--bg);
+      color: var(--text);
     }
 
     .btn-outline {
       background: transparent;
-      color: var(--text-main);
-      border: 1px solid var(--text-main);
+      color: var(--text);
     }
 
     .btn-outline:hover {
-      background: var(--text-main);
-      color: var(--bg-color);
-    }
-
-    .btn-small {
-      padding: 0.6rem 1.2rem;
-      font-size: 0.8rem;
-      margin-top: 1rem;
+      background: var(--text);
+      color: var(--bg);
     }
 
     /* --- Hero Section --- */
     .hero {
-      min-height: 90vh;
+      min-height: 100vh;
+      padding: 10rem 5% 5rem;
       display: flex;
-      align-items: center;
+      flex-direction: column;
       justify-content: center;
-      text-align: center;
-      padding: 8rem 5% 4rem;
-      /* Soft, bright cafe background with a heavy cream overlay to make text readable */
-      background: linear-gradient(rgba(253, 251, 247, 0.85), rgba(253, 251, 247, 0.95)), 
-                  url("https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=1600&q=80") center/cover;
-    }
-
-    .hero-content {
-      max-width: 800px;
-      animation: fadeInUp 1s ease-out;
-    }
-
-    .hero-tagline {
-      color: var(--accent-gold);
-      font-weight: 600;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      margin-bottom: 1.5rem;
-      display: block;
-      font-size: 0.9rem;
-    }
-
-    .hero h1 {
-      font-size: clamp(3rem, 6vw, 5rem);
-      line-height: 1.1;
-      margin-bottom: 1.5rem;
-      color: var(--text-main);
-    }
-
-    .hero p {
-      font-size: 1.2rem;
-      color: var(--text-muted);
-      margin-bottom: 2.5rem;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-    }
-
-    /* --- Sections --- */
-    section {
-      padding: 6rem 5%;
       max-width: 1400px;
       margin: 0 auto;
     }
 
-    .section-title {
-      font-size: 2.8rem;
-      text-align: center;
-      margin-bottom: 1rem;
-      color: var(--text-main);
+    .hero-label {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: var(--accent);
+      margin-bottom: 2rem;
+      display: block;
     }
 
-    .section-subtitle {
-      text-align: center;
-      color: var(--accent-gold);
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      font-weight: 600;
-      font-size: 0.9rem;
+    .hero h1 {
+      font-size: clamp(3.5rem, 8vw, 7rem);
+      line-height: 1;
+      margin-bottom: 2rem;
+      letter-spacing: -2px;
+    }
+
+    .hero p {
+      font-size: 1.25rem;
+      color: var(--text-light);
+      max-width: 600px;
+      margin-bottom: 3rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    /* --- Layout Elements --- */
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 8rem 5%;
+      border-top: 1px solid var(--border);
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
       margin-bottom: 4rem;
     }
 
+    .section-title {
+      font-size: 3rem;
+      line-height: 1.1;
+    }
+
+    .section-subtitle {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--text-light);
+    }
+
     /* --- Story Section --- */
-    .story-hero {
-      background: var(--card-bg);
-      padding: 4rem;
-      border-radius: 8px;
-      box-shadow: var(--shadow-sm);
-      border: 1px solid var(--border-color);
-      margin-bottom: 3rem;
-      text-align: center;
-    }
-
-    .story-hero h3 {
-      font-size: 2.2rem;
-      color: var(--text-main);
-      margin-bottom: 1.5rem;
-    }
-
-    .story-hero .full-name {
-      color: var(--accent-gold);
-      font-style: italic;
-    }
-
-    .story-hero p {
-      font-size: 1.1rem;
-      color: var(--text-muted);
-      max-width: 800px;
-      margin: 0 auto;
-      line-height: 1.8;
-    }
-
     .story-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 4rem;
+    }
+
+    .story-item h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--accent);
+    }
+
+    .story-item p {
+      color: var(--text-light);
+      font-size: 1rem;
+    }
+
+    /* --- Branches Section --- */
+    .branch-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 2rem;
     }
 
-    .story-card {
-      padding: 2.5rem;
-      border-left: 2px solid var(--accent-gold);
-      background: rgba(255, 255, 255, 0.5);
-    }
-
-    .story-card h4 {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-    }
-
-    /* --- Branches Section --- */
-    .branches {
-      background: #F5F2EB; /* Slightly darker cream for contrast */
-      max-width: 100%;
-    }
-
-    .branches-inner {
-      max-width: 1400px;
-      margin: 0 auto;
-    }
-
-    .branch-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
-    }
-
     .branch-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      padding: 2.5rem;
-      transition: all 0.3s;
-      min-height: 240px;
+      padding: 3rem;
+      border: 1px solid var(--border);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      box-shadow: var(--shadow-sm);
+      min-height: 250px;
+      transition: border-color 0.3s;
     }
 
     .branch-card:hover {
-      transform: translateY(-5px);
-      box-shadow: var(--shadow-md);
-      border-color: var(--accent-gold);
+      border-color: var(--text);
     }
 
     .branch-card h4 {
-      font-size: 1.4rem;
+      font-size: 1.5rem;
       margin-bottom: 0.5rem;
     }
 
     .branch-card p {
-      color: var(--text-muted);
-      margin-bottom: 1rem;
-      font-weight: 500;
+      color: var(--text-light);
+      font-size: 0.95rem;
+      margin-bottom: 2rem;
+    }
+
+    .branch-card a {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
     }
 
     /* --- Menu Section --- */
     .menu-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2.5rem;
+      gap: 4rem;
     }
 
-    .menu-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      padding: 3rem 2rem;
-      box-shadow: var(--shadow-sm);
-    }
-
-    .menu-card h3 {
-      color: var(--text-main);
+    .menu-category h3 {
+      font-size: 1.5rem;
       margin-bottom: 2rem;
-      font-size: 1.8rem;
-      text-align: center;
-      border-bottom: 1px solid var(--accent-gold);
       padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
     }
 
     .menu-list {
@@ -334,81 +265,73 @@
     }
 
     .menu-list li {
-      margin-bottom: 1.2rem;
-      color: var(--text-muted);
       display: flex;
-      justify-content: center;
-      font-size: 1.1rem;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      color: var(--text);
     }
 
-    /* --- Instagram & Maps --- */
-    .media-section {
-      text-align: center;
-    }
-
-    .instagram-frame {
+    /* --- Instagram --- */
+    .instagram-wrapper {
       width: 100%;
-      max-width: 800px;
+      border: 1px solid var(--border);
+      padding: 1rem;
+    }
+
+    iframe {
+      width: 100%;
+      max-width: 100%;
       height: 600px;
       border: none;
-      border-radius: 8px;
-      margin: 3rem auto;
       display: block;
-      box-shadow: var(--shadow-sm);
-      background: var(--card-bg);
-    }
-
-    .map iframe {
-      width: 100%;
-      height: 450px;
-      border: none;
-      border-radius: 8px;
-      box-shadow: var(--shadow-sm);
     }
 
     /* --- Footer --- */
     .footer {
-      background: var(--text-main);
-      color: var(--bg-color);
-      padding: 4rem 2rem;
+      border-top: 1px solid var(--border);
+      padding: 6rem 5% 2rem;
       text-align: center;
     }
-    
-    .footer-logo-img {
-      height: 60px;
-      width: auto;
-      margin-bottom: 1rem;
-      /* If logo is black, this makes it white for the dark footer */
-      filter: brightness(0) invert(1); 
+
+    .footer-logo {
+      height: 50px;
+      margin-bottom: 2rem;
+      mix-blend-mode: multiply;
     }
 
-    .footer .logo-text {
-      color: var(--bg-color);
-      font-size: 2rem;
+    .footer h2 {
+      font-size: 2.5rem;
       margin-bottom: 1rem;
-      display: block;
     }
 
     .footer p {
-      color: rgba(253, 251, 247, 0.7);
-      margin-bottom: 0.5rem;
+      color: var(--text-light);
+      margin-bottom: 2rem;
     }
 
-    .footer a {
-      color: var(--accent-gold);
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      border-top: 1px solid var(--border);
+      padding-top: 2rem;
+      margin-top: 4rem;
+    }
+
+    .footer-links a {
+      color: var(--text);
       text-decoration: none;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
 
-    /* Animations */
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
+    /* Responsiveness */
     @media (max-width: 768px) {
       .nav-links { display: none; }
+      .hero h1 { font-size: 3.5rem; }
+      .section-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
       .hero-actions { flex-direction: column; }
-      .story-hero { padding: 2rem; }
     }
   </style>
 </head>
@@ -421,182 +344,150 @@
       <span class="logo-text">TIBCO</span>
     </a>
     <div class="nav-links">
-      <a href="#story">Our Story</a>
+      <a href="#story">Manifesto</a>
       <a href="#branches">Locations</a>
       <a href="#menu">Menu</a>
-      <a href="#contact">Contact</a>
+      <a href="#contact">Social</a>
     </div>
   </nav>
 
   <!-- Hero Section -->
   <section class="hero">
-    <div class="hero-content">
-      <span class="hero-tagline">Surat's Finest</span>
-      <h1>Crafted for the Culture</h1>
-      <p>Elevating your daily ritual with fourth-wave specialty coffee, artisanal eats, and an inspiring community space.</p>
-      <div class="hero-actions">
-        <a href="#menu" class="btn">View Menu</a>
-        <a href="#branches" class="btn btn-outline">Find a Café</a>
-      </div>
+    <span class="hero-label">Est. Surat, Gujarat</span>
+    <h1>The Independent<br>Brewer's Coffee.</h1>
+    <p>We champion the independence of the craft—sourcing ethically, roasting meticulously, and brewing without compromise.</p>
+    <div class="hero-actions">
+      <a href="#menu" class="btn">View Menu</a>
+      <a href="#branches" class="btn btn-outline">Find a Location</a>
     </div>
   </section>
 
-  <!-- Story Section (Highlighting Full Name & Meaning) -->
-  <section id="story">
-    <h2 class="section-title">Behind the Brew</h2>
-    <div class="section-subtitle">Our Philosophy</div>
-    
-    <div class="story-hero">
-      <h3>We are <span class="full-name">The Independent Brewer's Coffee</span></h3>
-      <p>
-        The acronym TIBCO isn't just a name; it’s our manifesto. We champion the independence of the craft—sourcing ethically, roasting meticulously, and brewing without compromise. From our very first plunge of the AeroPress to the vibrant community we serve today in Surat, we exist to honor the artisanal journey from bean to cup.
-      </p>
+  <!-- Story Section -->
+  <section id="story" class="container">
+    <div class="section-header">
+      <h2 class="section-title">Our Manifesto</h2>
+      <span class="section-subtitle">01 / The Process</span>
     </div>
-
+    
     <div class="story-grid">
-      <div class="story-card">
-        <h4>Independent Spirit</h4>
-        <p>We don't follow commercial coffee trends. We independently source unique beans, focusing on transparent relationships with farmers and estates.</p>
+      <div class="story-item">
+        <h3 class="serif">Independent Spirit</h3>
+        <p>We do not follow commercial coffee trends. We independently source unique beans, focusing on transparent, direct relationships with farmers and estates to bring the purest flavors to Surat.</p>
       </div>
-      <div class="story-card">
-        <h4>Brewer's Craft</h4>
-        <p>Our baristas are artisans. Whether it's a precision pour-over or dialing in the perfect espresso shot, technique is at the heart of everything we do.</p>
+      <div class="story-item">
+        <h3 class="serif">Brewer's Craft</h3>
+        <p>Our baristas are artisans. Whether it is a precision pour-over or dialing in the perfect espresso shot, technique and respect for the bean is at the heart of everything we do.</p>
       </div>
-      <div class="story-card">
-        <h4>Surat's Community</h4>
-        <p>Coffee is meant to be shared. We’ve designed our spaces to be sanctuaries for creators, thinkers, and anyone seeking a moment of peace.</p>
+      <div class="story-item">
+        <h3 class="serif">Community First</h3>
+        <p>Coffee is inherently meant to be shared. We have designed our spaces to be minimalist sanctuaries for creators, thinkers, and anyone seeking a moment of peace in the city.</p>
       </div>
     </div>
   </section>
 
   <!-- Branches Section -->
-  <section class="branches" id="branches">
-    <div class="branches-inner">
-      <h2 class="section-title">Our Locations</h2>
-      <div class="section-subtitle">Find your nearest TIBCO</div>
-      
-      <div class="branch-grid">
-        <div class="branch-card">
-          <div>
-            <h4>TIBCO</h4>
-            <p>📍 Estella, Anuvrat dwar</p>
-          </div>
-          <a href="https://share.google/bThMk6EBAXvFgWRoN" target="_blank" class="btn btn-outline btn-small">Open in Maps</a>
+  <section id="branches" class="container">
+    <div class="section-header">
+      <h2 class="section-title">Locations</h2>
+      <span class="section-subtitle">02 / Find Us</span>
+    </div>
+    
+    <div class="branch-grid">
+      <div class="branch-card">
+        <div>
+          <h4 class="serif">TIBCO</h4>
+          <p>Estella, Anuvrat dwar</p>
         </div>
-        <div class="branch-card">
-          <div>
-            <h4>TIBCO Daily</h4>
-            <p>📍 Commerce, Canal road</p>
-          </div>
-          <a href="https://share.google/o7w4qiCW4EDLQf7FR" target="_blank" class="btn btn-outline btn-small">Open in Maps</a>
+        <a href="https://share.google/bThMk6EBAXvFgWRoN" target="_blank">Open in Google Maps →</a>
+      </div>
+      <div class="branch-card">
+        <div>
+          <h4 class="serif">TIBCO Daily</h4>
+          <p>Commerce, Canal road</p>
         </div>
-        <div class="branch-card">
-          <div>
-            <h4>TIBCO Plus</h4>
-            <p>📍 ARISTA, Vesu</p>
-          </div>
-          <a href="https://share.google/jxQe0uJIqqpl2MgBa" target="_blank" class="btn btn-outline btn-small">Open in Maps</a>
+        <a href="https://share.google/o7w4qiCW4EDLQf7FR" target="_blank">Open in Google Maps →</a>
+      </div>
+      <div class="branch-card">
+        <div>
+          <h4 class="serif">TIBCO Plus</h4>
+          <p>ARISTA, Vesu</p>
         </div>
-        <div class="branch-card">
-          <div>
-            <h4>TIBCO Plus</h4>
-            <p>📍 Aspire, PAL</p>
-          </div>
-          <a href="https://share.google/GPFw0HAFZWcbHphoC" target="_blank" class="btn btn-outline btn-small">Open in Maps</a>
+        <a href="https://share.google/jxQe0uJIqqpl2MgBa" target="_blank">Open in Google Maps →</a>
+      </div>
+      <div class="branch-card">
+        <div>
+          <h4 class="serif">TIBCO Plus</h4>
+          <p>Aspire, PAL</p>
         </div>
+        <a href="https://share.google/GPFw0HAFZWcbHphoC" target="_blank">Open in Google Maps →</a>
       </div>
     </div>
   </section>
 
   <!-- Menu Section -->
-  <section id="menu">
-    <h2 class="section-title">Signature Offerings</h2>
-    <div class="section-subtitle">Curated to perfection</div>
+  <section id="menu" class="container">
+    <div class="section-header">
+      <h2 class="section-title">Offerings</h2>
+      <span class="section-subtitle">03 / The Menu</span>
+    </div>
     
     <div class="menu-grid">
-      <div class="menu-card">
+      <div class="menu-category">
         <h3 class="serif">Coffee Classics</h3>
         <ul class="menu-list">
-          <li>Signature Espresso</li>
-          <li>Cinnamon Caramel Latte</li>
-          <li>Cardamom Cold Brew</li>
-          <li>Butterfly Pea Matcha</li>
+          <li><span>Signature Espresso</span></li>
+          <li><span>Cinnamon Caramel Latte</span></li>
+          <li><span>Cardamom Cold Brew</span></li>
+          <li><span>Butterfly Pea Matcha</span></li>
         </ul>
       </div>
-      <div class="menu-card">
+      <div class="menu-category">
         <h3 class="serif">Brunch & Mains</h3>
         <ul class="menu-list">
-          <li>Charred Avocado Toast</li>
-          <li>Buttermilk Pancake Stack</li>
-          <li>Smoked Mushroom Bowl</li>
-          <li>Citrus Grain Salad</li>
+          <li><span>Charred Avocado Toast</span></li>
+          <li><span>Buttermilk Pancake Stack</span></li>
+          <li><span>Smoked Mushroom Bowl</span></li>
+          <li><span>Citrus Grain Salad</span></li>
         </ul>
       </div>
-      <div class="menu-card">
+      <div class="menu-category">
         <h3 class="serif">Sweet Indulgences</h3>
         <ul class="menu-list">
-          <li>Hazelnut Praline Tartlet</li>
-          <li>Roasted Fig Cheesecake</li>
-          <li>Dark Chocolate Churros</li>
-          <li>Cold Brew Cheesecake</li>
+          <li><span>Hazelnut Praline Tartlet</span></li>
+          <li><span>Roasted Fig Cheesecake</span></li>
+          <li><span>Dark Chocolate Churros</span></li>
+          <li><span>Cold Brew Cheesecake</span></li>
         </ul>
       </div>
     </div>
   </section>
 
-  <!-- Social & Contact -->
-  <section class="media-section" id="contact">
-    <h2 class="section-title">Join the Culture</h2>
-    <p style="color: var(--text-muted); margin-bottom: 2rem;">Follow our latest roasts, events, and community moments.</p>
-    <a href="https://www.instagram.com/tibco.home" target="_blank" class="btn">Visit @tibco.home</a>
-    <iframe
-      src="https://www.instagram.com/tibco.home/embed"
-      title="TIBCO Instagram"
-      loading="lazy"
-      class="instagram-frame"
-    ></iframe>
-  </section>
-
-  <section>
-    <h2 class="section-title">Central Hub</h2>
-    <div class="map">
+  <!-- Social Section -->
+  <section id="contact" class="container">
+    <div class="section-header">
+      <h2 class="section-title">Culture</h2>
+      <span class="section-subtitle">04 / Social</span>
+    </div>
+    <div class="instagram-wrapper">
       <iframe
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3770.5502467683313!2d72.82912372494456!3d21.170240685744236!2m3!1f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be04f5caa9d7c11%3A0x5b5e3cfc2469e3d9!2sSurat%2C%20Gujarat!5e0!3m2!1sen!2sin!4v1718200000000!5m2!1sen!2sin"
-        allowfullscreen=""
+        src="https://www.instagram.com/tibco.home/embed"
+        title="TIBCO Instagram"
         loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
       ></iframe>
     </div>
   </section>
 
   <!-- Footer -->
   <footer class="footer">
-    <img src="logo.png" alt="TIBCO Logo" class="footer-logo-img" />
-    <span class="logo-text">TIBCO</span>
-    <p><strong>The Independent Brewer's Coffee</strong></p>
-    <p style="margin-bottom: 1.5rem;">Bringing independent specialty coffee to Surat.</p>
-    <p>Email: <a href="mailto:hello@tibco.cafe">hello@tibco.cafe</a></p>
-    <p>Instagram: <a href="https://www.instagram.com/tibco.home">@tibco.home</a></p>
+    <img src="logo.png" alt="TIBCO Logo" class="footer-logo" />
+    <h2 class="serif">The Independent Brewer's Coffee</h2>
+    <p>Crafted in Surat, Gujarat</p>
+    
+    <div class="footer-links">
+      <a href="mailto:hello@tibco.cafe">Email Us</a>
+      <a href="https://www.instagram.com/tibco.home" target="_blank">Instagram</a>
+    </div>
   </footer>
 
-  <script>
-    // Smooth scroll animation observer
-    const observerOptions = { threshold: 0.1 };
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0)';
-        }
-      });
-    }, observerOptions);
-
-    document.querySelectorAll('.story-hero, .story-card, .branch-card, .menu-card').forEach(card => {
-      card.style.opacity = '0';
-      card.style.transform = 'translateY(20px)';
-      card.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
-      observer.observe(card);
-    });
-  </script>
 </body>
 </html>
