@@ -6,20 +6,21 @@
   <title>TIBCO Café • Surat</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- Elegant serif for headings, clean sans-serif for reading -->
   <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Manrope:wght@300;400;500;600&family=Prompt:wght@600;700;800&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Manrope:wght@300;400;500;600&display=swap"
     rel="stylesheet"
   />
   <style>
     :root {
-      --primary: #d4a574;
-      --secondary: #8b5a3c;
-      --accent: #f2b34a;
-      --dark: #1a1a1a;
-      --light: #f8f6f1;
-      --glass: rgba(255, 255, 255, 0.08);
-      --glass-border: rgba(255, 255, 255, 0.15);
-      --shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      --bg-color: #FDFBF7; /* Warm cream */
+      --text-main: #2C1E16; /* Deep espresso brown */
+      --text-muted: #5A4A42;
+      --accent-gold: #C69C38; /* Matches the brass/gold in your logo */
+      --card-bg: #FFFFFF;
+      --border-color: rgba(44, 30, 22, 0.1);
+      --shadow-sm: 0 4px 12px rgba(44, 30, 22, 0.05);
+      --shadow-md: 0 12px 30px rgba(44, 30, 22, 0.08);
     }
 
     * {
@@ -30,74 +31,53 @@
 
     body {
       font-family: "Manrope", sans-serif;
-      background: #150d09; /* Deep, rich espresso background */
-      background-image: 
-        radial-gradient(circle at 15% 50%, rgba(212, 165, 116, 0.08), transparent 25%),
-        radial-gradient(circle at 85% 30%, rgba(242, 179, 74, 0.05), transparent 25%);
-      color: var(--light);
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      line-height: 1.6;
       overflow-x: hidden;
     }
 
+    h1, h2, h3, h4, .serif {
+      font-family: "Playfair Display", serif;
+    }
+
+    /* --- Navbar --- */
     .navbar {
       position: fixed;
       top: 0;
       width: 100%;
-      background: rgba(21, 13, 9, 0.85);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: rgba(253, 251, 247, 0.95);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       z-index: 100;
-      padding: 1.2rem 4%;
+      padding: 1rem 5%;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid var(--glass-border);
+      border-bottom: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
     }
 
-    /* --- New Self-Made Text Logo Styles (Navbar) --- */
-    .logo-text-block {
-      text-decoration: none;
-      color: var(--light);
-      font-family: "Manrope", sans-serif;
-      line-height: 1.1;
+    .logo-container {
       display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.1rem;
-      width: fit-content;
-      margin-left: -0.2rem; /* micro adjustment for alignment */
+      align-items: center;
+      gap: 0.8rem;
+      text-decoration: none;
     }
 
-    .logo-text-block span {
-      display: inline-block;
+    .logo-img {
+      height: 45px;
+      width: auto;
+      /* If your logo image has a white background, multiply will seamlessly blend it into the cream website background */
+      mix-blend-mode: multiply; 
     }
 
-    /* Styles for T, I, B, C acronym letters (Accent from sign image) */
-    .acronym-char {
-      color: var(--accent);
+    .logo-text {
+      font-family: "Manrope", sans-serif;
+      font-size: 1.5rem;
       font-weight: 700;
-      font-size: 1.1em; /* Make TIBCO letters slightly larger */
-      text-transform: capitalize; /* ensure first char capitalized */
-      vertical-align: text-top;
-    }
-
-    /* Styles for rest of the brand name words */
-    .logo-word-rest {
-      color: rgba(248, 246, 241, 0.7); /* Slightly muted color */
-      text-transform: uppercase; /* All caps for rest of words from sticker/sign */
-      letter-spacing: 1px;
-      font-size: 0.85em; /* Make rest of words cleaner/smaller */
-      vertical-align: text-top;
-    }
-
-    /* Specific adjust for Navbar and mobile scale */
-    .navbar .logo-text-block {
-      font-size: 1rem;
-    }
-    .navbar .acronym-char {
-      font-size: 1rem;
-    }
-    .navbar .logo-word-rest {
-      font-size: 0.8rem;
+      color: var(--text-main);
+      letter-spacing: 2px;
     }
 
     .nav-links {
@@ -106,9 +86,9 @@
     }
 
     .nav-links a {
-      color: var(--light);
+      color: var(--text-muted);
       text-decoration: none;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       font-weight: 500;
       text-transform: uppercase;
       letter-spacing: 1px;
@@ -116,643 +96,483 @@
     }
 
     .nav-links a:hover {
-      color: var(--accent);
+      color: var(--accent-gold);
     }
 
-    /* --- Hero Section & Large Logo integration --- */
-    .hero {
-      min-height: 100vh;
-      padding: 8rem 4% 4rem;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      align-items: center;
-      gap: 4rem;
-      max-width: 1600px;
-      margin: 0 auto;
-    }
-
-    /* --- New Hero Main Logo (Bigger & Integrated) --- */
-    .hero-logo-container {
-      grid-column: 1 / -1; /* spans full width above content */
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 2rem;
-      width: 100%;
-    }
-
-    .hero-main-logo.logo-text-block {
-      font-size: 2rem;
-      gap: 0.2rem;
-      margin-left: 0; /* Reset micro alignment from nav logo */
-    }
-
-    .hero-main-logo.logo-text-block .acronym-char {
-      font-size: 2rem;
-      vertical-align: baseline;
-    }
-    .hero-main-logo.logo-text-block .logo-word-rest {
-      font-size: 1.5rem;
-      text-transform: none; /* Hero name feels less aggressive in natural case */
-      letter-spacing: 1px;
-      vertical-align: baseline;
-    }
-
-    .hero-content {
-      animation: slideInLeft 1s ease-out forwards;
-    }
-
-    .hero-tagline {
-      color: var(--primary);
-      font-weight: 600;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      margin-bottom: 1.5rem;
-      display: inline-block;
-      border-bottom: 1px solid var(--primary);
-      padding-bottom: 5px;
-    }
-
-    .hero h1 {
-      font-family: "Prompt", sans-serif;
-      font-size: clamp(3.5rem, 6vw, 6.5rem);
-      line-height: 1.05;
-      margin-bottom: 1.5rem;
-      text-transform: uppercase;
-    }
-
-    .outline-text {
-      color: transparent;
-      -webkit-text-stroke: 1.5px var(--light);
-    }
-
-    .hero p {
-      font-size: 1.25rem;
-      line-height: 1.6;
-      margin-bottom: 2.5rem;
-      color: rgba(248, 246, 241, 0.8);
-      max-width: 85%;
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-    }
-
-    .hero-visual {
-      position: relative;
-      height: 75vh;
-      animation: slideInRight 1s ease-out forwards;
-    }
-
-    .image-mask {
-      width: 100%;
-      height: 100%;
-      /* Unique asymmetric mask */
-      border-radius: 40% 0 40% 0;
-      overflow: hidden;
-      box-shadow: var(--shadow);
-      position: relative;
-    }
-
-    .image-mask::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border: 2px solid rgba(242, 179, 74, 0.3);
-      border-radius: 40% 0 40% 0;
-      pointer-events: none;
-    }
-
-    .image-mask img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transform: scale(1.05);
-      transition: transform 0.5s ease;
-    }
-
-    .image-mask:hover img {
-      transform: scale(1.1);
-    }
-
-    .floating-card {
-      position: absolute;
-      bottom: 10%;
-      left: -15%;
-      background: var(--glass);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid var(--glass-border);
-      padding: 1.5rem 2rem;
-      border-radius: 20px;
-      display: flex;
-      align-items: center;
-      gap: 1.2rem;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.5);
-      animation: float 6s ease-in-out infinite;
-      z-index: 10;
-    }
-
-    .floating-card .icon {
-      font-size: 2rem;
-    }
-
-    .floating-card-text {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .floating-card-text strong {
-      color: var(--accent);
-      font-family: "Prompt", sans-serif;
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .floating-card-text span {
-      font-size: 1.1rem;
-      font-weight: 500;
-    }
-
-    /* Buttons */
+    /* --- Buttons --- */
     .btn {
       display: inline-block;
       padding: 1rem 2.5rem;
-      background: var(--accent);
-      color: var(--dark);
+      background: var(--text-main);
+      color: var(--bg-color);
       text-decoration: none;
-      border-radius: 50px;
+      border-radius: 4px; /* Classy slightly rounded corners */
       transition: all 0.3s;
-      font-weight: 700;
-      font-family: "Prompt", sans-serif;
+      font-weight: 500;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
+      font-size: 0.9rem;
     }
 
     .btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 20px rgba(242, 179, 74, 0.25);
+      background: var(--accent-gold);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
     }
 
     .btn-outline {
-      display: inline-block;
-      padding: 1rem 2.5rem;
       background: transparent;
-      color: var(--light);
-      border: 1px solid var(--glass-border);
-      text-decoration: none;
-      border-radius: 50px;
-      transition: all 0.3s;
-      font-weight: 700;
-      font-family: "Prompt", sans-serif;
-      text-transform: uppercase;
-      letter-spacing: 1px;
+      color: var(--text-main);
+      border: 1px solid var(--text-main);
     }
 
     .btn-outline:hover {
-      background: var(--glass);
-      border-color: var(--accent);
-      color: var(--accent);
+      background: var(--text-main);
+      color: var(--bg-color);
     }
 
     .btn-small {
       padding: 0.6rem 1.2rem;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       margin-top: 1rem;
     }
 
-    /* Rest of styles maintained */
-    section { padding: 6rem 4%; }
-    
-    .section-title {
-      font-family: "Playfair Display", serif;
-      font-size: 2.8rem;
+    /* --- Hero Section --- */
+    .hero {
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       text-align: center;
-      margin-bottom: 4rem;
-      color: var(--accent);
+      padding: 8rem 5% 4rem;
+      /* Soft, bright cafe background with a heavy cream overlay to make text readable */
+      background: linear-gradient(rgba(253, 251, 247, 0.85), rgba(253, 251, 247, 0.95)), 
+                  url("https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=1600&q=80") center/cover;
     }
 
-    .story {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2.5rem;
+    .hero-content {
+      max-width: 800px;
+      animation: fadeInUp 1s ease-out;
+    }
+
+    .hero-tagline {
+      color: var(--accent-gold);
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      display: block;
+      font-size: 0.9rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(3rem, 6vw, 5rem);
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      color: var(--text-main);
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      margin-bottom: 2.5rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    /* --- Sections --- */
+    section {
+      padding: 6rem 5%;
       max-width: 1400px;
       margin: 0 auto;
     }
 
-    .story-card {
-      background: var(--glass);
-      backdrop-filter: blur(10px);
-      border: 1px solid var(--glass-border);
-      border-radius: 20px;
-      padding: 3rem 2rem;
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-
-    .story-card:hover {
-      transform: translateY(-5px);
-      box-shadow: var(--shadow);
-    }
-
-    .story-card h3 {
-      color: var(--accent);
+    .section-title {
+      font-size: 2.8rem;
+      text-align: center;
       margin-bottom: 1rem;
-      font-size: 1.6rem;
-      font-family: "Prompt", sans-serif;
+      color: var(--text-main);
     }
 
-    /* Updated Text Style for brand name mentions in text */
-    .brand-full-name-mention {
-      font-family: "Prompt", sans-serif; /* prompt kept for character */
-      color: var(--accent);
-      font-weight: 700;
+    .section-subtitle {
+      text-align: center;
+      color: var(--accent-gold);
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 2px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 4rem;
     }
 
+    /* --- Story Section --- */
+    .story-hero {
+      background: var(--card-bg);
+      padding: 4rem;
+      border-radius: 8px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border-color);
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+
+    .story-hero h3 {
+      font-size: 2.2rem;
+      color: var(--text-main);
+      margin-bottom: 1.5rem;
+    }
+
+    .story-hero .full-name {
+      color: var(--accent-gold);
+      font-style: italic;
+    }
+
+    .story-hero p {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.8;
+    }
+
+    .story-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .story-card {
+      padding: 2.5rem;
+      border-left: 2px solid var(--accent-gold);
+      background: rgba(255, 255, 255, 0.5);
+    }
+
+    .story-card h4 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    /* --- Branches Section --- */
     .branches {
-      background: rgba(0, 0, 0, 0.3);
+      background: #F5F2EB; /* Slightly darker cream for contrast */
+      max-width: 100%;
+    }
+
+    .branches-inner {
+      max-width: 1400px;
+      margin: 0 auto;
     }
 
     .branch-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2.5rem;
-      max-width: 1400px;
-      margin: 0 auto;
+      gap: 2rem;
     }
 
     .branch-card {
-      background: var(--glass);
-      backdrop-filter: blur(10px);
-      border: 1px solid var(--glass-border);
-      border-radius: 20px;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
       padding: 2.5rem;
       transition: all 0.3s;
       min-height: 240px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      box-shadow: var(--shadow-sm);
     }
 
     .branch-card:hover {
-      transform: scale(1.03);
-      box-shadow: var(--shadow);
-      border-color: rgba(242, 179, 74, 0.4);
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--accent-gold);
     }
 
     .branch-card h4 {
-      font-family: "Prompt", sans-serif;
       font-size: 1.4rem;
-      color: var(--accent);
-      margin-bottom: 0.8rem;
+      margin-bottom: 0.5rem;
     }
 
     .branch-card p {
-      color: var(--light);
+      color: var(--text-muted);
       margin-bottom: 1rem;
-      font-size: 1.1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
+      font-weight: 500;
     }
 
-    .menu { background: linear-gradient(135deg, #1c110c, #150d09); }
-
+    /* --- Menu Section --- */
     .menu-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 2.5rem;
-      max-width: 1400px;
-      margin: 0 auto;
     }
 
     .menu-card {
-      background: var(--glass);
-      backdrop-filter: blur(10px);
-      border: 1px solid var(--glass-border);
-      border-radius: 20px;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
       padding: 3rem 2rem;
-      transition: transform 0.3s;
+      box-shadow: var(--shadow-sm);
     }
 
-    .menu-card:hover { transform: translateY(-5px); }
-
     .menu-card h3 {
-      color: var(--accent);
+      color: var(--text-main);
       margin-bottom: 2rem;
       font-size: 1.8rem;
       text-align: center;
-      font-family: "Prompt", sans-serif;
+      border-bottom: 1px solid var(--accent-gold);
+      padding-bottom: 1rem;
     }
 
-    .menu-list { list-style: none; }
+    .menu-list {
+      list-style: none;
+    }
 
     .menu-list li {
-      margin-bottom: 1rem;
-      padding: 0.8rem 0;
-      border-bottom: 1px dashed rgba(255, 255, 255, 0.15);
-      font-size: 1.15rem;
-      color: var(--light);
+      margin-bottom: 1.2rem;
+      color: var(--text-muted);
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
+      font-size: 1.1rem;
     }
 
-    .menu-list li:last-child { border-bottom: none; }
+    /* --- Instagram & Maps --- */
+    .media-section {
+      text-align: center;
+    }
 
-    .instagram { text-align: center; }
-
-    .instagram iframe {
+    .instagram-frame {
       width: 100%;
       max-width: 800px;
       height: 600px;
-      border: 1px solid var(--glass-border);
-      border-radius: 20px;
+      border: none;
+      border-radius: 8px;
       margin: 3rem auto;
       display: block;
-      box-shadow: var(--shadow);
-    }
-
-    .map-section {
-      background: var(--glass);
-      backdrop-filter: blur(10px);
-      border: 1px solid var(--glass-border);
-      border-radius: 20px;
-      padding: 2rem;
-      margin: 0 auto;
-      max-width: 1200px;
+      box-shadow: var(--shadow-sm);
+      background: var(--card-bg);
     }
 
     .map iframe {
       width: 100%;
       height: 450px;
       border: none;
-      border-radius: 15px;
+      border-radius: 8px;
+      box-shadow: var(--shadow-sm);
     }
 
-    /* Footer adjustments to replace text mention with stylized full name logo */
+    /* --- Footer --- */
     .footer {
-      background: #0a0604;
-      padding: 3rem 2rem;
+      background: var(--text-main);
+      color: var(--bg-color);
+      padding: 4rem 2rem;
       text-align: center;
-      border-top: 1px solid var(--glass-border);
     }
 
-    .footer .logo-text-block {
-      font-size: 1.2rem;
-      margin-bottom: 1.5rem;
-      margin-inline: auto; /* center horizontally in footer */
-      gap: 0.1rem;
+    .footer .logo-text {
+      color: var(--bg-color);
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      display: block;
     }
 
-    .footer .acronym-char {
-      font-size: 1.2rem;
+    .footer p {
+      color: rgba(253, 251, 247, 0.7);
+      margin-bottom: 0.5rem;
     }
 
-    .footer .logo-word-rest {
-      font-size: 1rem;
-      text-transform: none; /* Hero name feels less aggressive in natural case */
+    .footer a {
+      color: var(--accent-gold);
+      text-decoration: none;
     }
-
-    .footer p { margin: 0.8rem 0; color: rgba(255,255,255,0.7); }
-    .footer a { color: var(--accent); text-decoration: none; font-weight: 500;}
 
     /* Animations */
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-15px); }
-    }
-    @keyframes slideInLeft {
-      from { opacity: 0; transform: translateX(-50px); }
-      to { opacity: 1; transform: translateX(0); }
-    }
-    @keyframes slideInRight {
-      from { opacity: 0; transform: translateX(50px); }
-      to { opacity: 1; transform: translateX(0); }
-    }
-
-    /* Responsive Design Adjustments for Text Logo Scale */
-    @media (max-width: 968px) {
-      .hero {
-        grid-template-columns: 1fr;
-        text-align: center;
-        padding-top: 7rem;
-      }
-      .hero-main-logo.logo-text-block {
-        font-size: 1.6rem;
-      }
-      .hero-main-logo.logo-text-block .acronym-char {
-        font-size: 1.6rem;
-      }
-      .hero-main-logo.logo-text-block .logo-word-rest {
-        font-size: 1.3rem;
-      }
-      .hero-content { display: flex; flex-direction: column; align-items: center; }
-      .hero p { max-width: 100%; }
-      .hero-actions { justify-content: center; }
-      .hero-visual { height: 50vh; margin-top: 2rem; width: 90%; margin-inline: auto; }
-      .floating-card { left: -5%; bottom: -10%; padding: 1rem 1.5rem; }
-      .nav-links { display: none; /* Add a hamburger menu for mobile in production */ }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     @media (max-width: 768px) {
-      /* Scales logo in Navbar for mobile scale */
-      .navbar .logo-text-block {
-        font-size: 0.9rem;
-        gap: 0.05rem;
-      }
-      .navbar .acronym-char {
-        font-size: 0.9rem;
-      }
-      .navbar .logo-word-rest {
-        font-size: 0.7rem;
-      }
+      .nav-links { display: none; }
+      .hero-actions { flex-direction: column; }
+      .story-hero { padding: 2rem; }
     }
   </style>
 </head>
 <body>
+
+  <!-- Navigation -->
   <nav class="navbar">
-    <!-- --- REDESIGNED BRAND LOGO (Text Form with Full Name and Acronym Highlight) --- -->
-    <a href="#" class="logo-text-block">
-      <!-- First Line of full brand name with highlighted acronym char from sign image -->
-      <span class="logo-line-1"><span class="acronym-char">T</span>HE <span class="logo-word-rest">INDEPENDENT</span></span>
-      <!-- Second Line with highlighted char from sign image -->
-      <span class="logo-line-2"><span class="acronym-char">B</span>REWER'S <span class="logo-word-rest">COFFEE</span></span>
+    <a href="#" class="logo-container">
+      <!-- Image Logo Restored -->
+      <img src="your-logo.png" alt="TIBCO Logo" class="logo-img" />
+      <span class="logo-text">TIBCO</span>
     </a>
     <div class="nav-links">
-      <a href="#story">Story</a>
-      <a href="#branches">Branches</a>
+      <a href="#story">Our Story</a>
+      <a href="#branches">Locations</a>
       <a href="#menu">Menu</a>
       <a href="#contact">Contact</a>
     </div>
   </nav>
 
-  <!-- REDESIGNED HERO SECTION -->
+  <!-- Hero Section -->
   <section class="hero">
-    <!-- --- New Hero Main Logo (Bigger Version of new text branding) --- -->
-    <div class="hero-logo-container">
-      <div class="hero-main-logo logo-text-block">
-        <span class="logo-line-1"><span class="acronym-char">T</span>he <span class="logo-word-rest">Independent</span></span>
-        <span class="logo-line-2"><span class="acronym-char">B</span>rewer's <span class="logo-word-rest">Coffee</span></span>
-      </div>
-    </div>
-
     <div class="hero-content">
-      <span class="hero-tagline">Est. in Surat</span>
-      <h1>
-        <span class="outline-text">Brewed</span><br />
-        For The<br />
-        Culture
-      </h1>
-      <p>Elevating your daily ritual. Discover fourth-wave specialty coffee, artisanal plates, and Surat's most inspiring community space.</p>
+      <span class="hero-tagline">Surat's Finest</span>
+      <h1>Crafted for the Culture</h1>
+      <p>Elevating your daily ritual with fourth-wave specialty coffee, artisanal eats, and an inspiring community space.</p>
       <div class="hero-actions">
-        <a href="#menu" class="btn">Explore Menu</a>
-        <a href="#branches" class="btn-outline">Find a Branch</a>
-      </div>
-    </div>
-    
-    <div class="hero-visual">
-      <div class="image-mask">
-        <!-- Replaced with a moody, aesthetic coffee pour image -->
-        <img src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?auto=format&fit=crop&w=1000&q=80" alt="Specialty Coffee Pouring">
-      </div>
-      <div class="floating-card">
-        <div class="icon">✨</div>
-        <div class="floating-card-text">
-          <strong>House Favorite</strong>
-          <span>Cinnamon Caramel Latte</span>
-        </div>
+        <a href="#menu" class="btn">View Menu</a>
+        <a href="#branches" class="btn btn-outline">Find a Café</a>
       </div>
     </div>
   </section>
 
+  <!-- Story Section (Highlighting Full Name & Meaning) -->
   <section id="story">
-    <h2 class="section-title">Our Story</h2>
-    <div class="story">
+    <h2 class="section-title">Behind the Brew</h2>
+    <div class="section-subtitle">Our Philosophy</div>
+    
+    <div class="story-hero">
+      <h3>We are <span class="full-name">The Independent Brewer's Coffee</span></h3>
+      <p>
+        The acronym TIBCO isn't just a name; it’s our manifesto. We champion the independence of the craft—sourcing ethically, roasting meticulously, and brewing without compromise. From our very first plunge of the AeroPress to the vibrant community we serve today in Surat, we exist to honor the artisanal journey from bean to cup.
+      </p>
+    </div>
+
+    <div class="story-grid">
       <div class="story-card">
-        <h3>Surat Roots</h3>
-        <!-- Update mention text with new branded style -->
-        <p>Born in Surat, <span class="brand-full-name-mention">The Independent Brewer's Coffee</span> celebrates the city's creative energy with coffee that tells a story of quality, community, and innovation.</p>
+        <h4>Independent Spirit</h4>
+        <p>We don't follow commercial coffee trends. We independently source unique beans, focusing on transparent relationships with farmers and estates.</p>
       </div>
       <div class="story-card">
-        <h3>Specialty Focus</h3>
-        <p>From single-origin beans to house-blended espressos, every cup is a journey through flavor profiles that excite and inspire.</p>
+        <h4>Brewer's Craft</h4>
+        <p>Our baristas are artisans. Whether it's a precision pour-over or dialing in the perfect espresso shot, technique is at the heart of everything we do.</p>
       </div>
       <div class="story-card">
-        <h3>Community Hub</h3>
-        <p>More than a café – a space for conversations, collaborations, and connections in the heart of Surat.</p>
+        <h4>Surat's Community</h4>
+        <p>Coffee is meant to be shared. We’ve designed our spaces to be sanctuaries for creators, thinkers, and anyone seeking a moment of peace.</p>
       </div>
     </div>
   </section>
 
+  <!-- Branches Section -->
   <section class="branches" id="branches">
-    <h2 class="section-title">Our Branches</h2>
-    <div class="branch-grid">
-      <div class="branch-card">
-        <div>
-          <h4>TIBCO</h4>
-          <p>📍 Estella, Anuvrat dwar</p>
+    <div class="branches-inner">
+      <h2 class="section-title">Our Locations</h2>
+      <div class="section-subtitle">Find your nearest TIBCO</div>
+      
+      <div class="branch-grid">
+        <div class="branch-card">
+          <div>
+            <h4>TIBCO</h4>
+            <p>📍 Estella, Anuvrat dwar</p>
+          </div>
+          <a href="https://share.google/bThMk6EBAXvFgWRoN" target="_blank" class="btn btn-outline btn-small">Open in Maps</a>
         </div>
-        <a href="https://share.google/bThMk6EBAXvFgWRoN" target="_blank" class="btn btn-outline btn-small">Open in Maps</a>
-      </div>
-      <div class="branch-card">
-        <div>
-          <h4>TIBCO Daily</h4>
-          <p>📍 Commerce, Canal road</p>
+        <div class="branch-card">
+          <div>
+            <h4>TIBCO Daily</h4>
+            <p>📍 Commerce, Canal road</p>
+          </div>
+          <a href="https://share.google/o7w4qiCW4EDLQf7FR" target="_blank" class="btn btn-outline btn-small">Open in Maps</a>
         </div>
-        <a href="https://share.google/o7w4qiCW4EDLQf7FR" target="_blank" class="btn btn-outline btn-small">Open in Maps</a>
-      </div>
-      <div class="branch-card">
-        <div>
-          <h4>TIBCO Plus</h4>
-          <p>📍 ARISTA, Vesu</p>
+        <div class="branch-card">
+          <div>
+            <h4>TIBCO Plus</h4>
+            <p>📍 ARISTA, Vesu</p>
+          </div>
+          <a href="https://share.google/jxQe0uJIqqpl2MgBa" target="_blank" class="btn btn-outline btn-small">Open in Maps</a>
         </div>
-        <a href="https://share.google/jxQe0uJIqqpl2MgBa" target="_blank" class="btn btn-outline btn-small">Open in Maps</a>
-      </div>
-      <div class="branch-card">
-        <div>
-          <h4>TIBCO Plus</h4>
-          <p>📍 Aspire, PAL</p>
+        <div class="branch-card">
+          <div>
+            <h4>TIBCO Plus</h4>
+            <p>📍 Aspire, PAL</p>
+          </div>
+          <a href="https://share.google/GPFw0HAFZWcbHphoC" target="_blank" class="btn btn-outline btn-small">Open in Maps</a>
         </div>
-        <a href="https://share.google/GPFw0HAFZWcbHphoC" target="_blank" class="btn btn-outline btn-small">Open in Maps</a>
       </div>
     </div>
   </section>
 
-  <section class="menu" id="menu">
-    <h2 class="section-title">Signature Menu</h2>
+  <!-- Menu Section -->
+  <section id="menu">
+    <h2 class="section-title">Signature Offerings</h2>
+    <div class="section-subtitle">Curated to perfection</div>
+    
     <div class="menu-grid">
       <div class="menu-card">
-        <h3>☕ Coffee Classics</h3>
+        <h3 class="serif">Coffee Classics</h3>
         <ul class="menu-list">
-          <li><span>Signature Espresso</span></li>
-          <li><span>Cinnamon Caramel Latte</span></li>
-          <li><span>Cardamom Cold Brew</span></li>
-          <li><span>Butterfly Pea Matcha</span></li>
+          <li>Signature Espresso</li>
+          <li>Cinnamon Caramel Latte</li>
+          <li>Cardamom Cold Brew</li>
+          <li>Butterfly Pea Matcha</li>
         </ul>
       </div>
       <div class="menu-card">
-        <h3>🥐 Brunch & Mains</h3>
+        <h3 class="serif">Brunch & Mains</h3>
         <ul class="menu-list">
-          <li><span>Charred Avocado Toast</span></li>
-          <li><span>Buttermilk Pancake Stack</span></li>
-          <li><span>Smoked Mushroom Bowl</span></li>
-          <li><span>Citrus Grain Salad</span></li>
+          <li>Charred Avocado Toast</li>
+          <li>Buttermilk Pancake Stack</li>
+          <li>Smoked Mushroom Bowl</li>
+          <li>Citrus Grain Salad</li>
         </ul>
       </div>
       <div class="menu-card">
-        <h3>🍰 Sweet Indulgences</h3>
+        <h3 class="serif">Sweet Indulgences</h3>
         <ul class="menu-list">
-          <li><span>Hazelnut Praline Tartlet</span></li>
-          <li><span>Roasted Fig Cheesecake</span></li>
-          <li><span>Dark Chocolate Churros</span></li>
-          <li><span>Cold Brew Cheesecake</span></li>
+          <li>Hazelnut Praline Tartlet</li>
+          <li>Roasted Fig Cheesecake</li>
+          <li>Dark Chocolate Churros</li>
+          <li>Cold Brew Cheesecake</li>
         </ul>
       </div>
     </div>
   </section>
 
-  <section class="instagram" id="contact">
-    <h2 class="section-title">Follow Our Journey</h2>
-    <p style="color: rgba(255,255,255,0.7); margin-bottom: 1.5rem;">Stay updated with our latest brews and events.</p>
+  <!-- Social & Contact -->
+  <section class="media-section" id="contact">
+    <h2 class="section-title">Join the Culture</h2>
+    <p style="color: var(--text-muted); margin-bottom: 2rem;">Follow our latest roasts, events, and community moments.</p>
     <a href="https://www.instagram.com/tibco.home" target="_blank" class="btn">Visit @tibco.home</a>
     <iframe
       src="https://www.instagram.com/tibco.home/embed"
       title="TIBCO Instagram"
       loading="lazy"
+      class="instagram-frame"
     ></iframe>
   </section>
 
   <section>
-    <div class="map-section">
-      <h2 class="section-title">Central Hub</h2>
-      <div class="map">
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3770.5502467683313!2d72.82912372494456!3d21.170240685744236!2m3!1f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be04f5caa9d7c11%3A0x5b5e3cfc2469e3d9!2sSurat%2C%20Gujarat!5e0!3m2!1sen!2sin!4v1718200000000!5m2!1sen!2sin"
-          allowfullscreen=""
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-        ></iframe>
-      </div>
+    <h2 class="section-title">Central Hub</h2>
+    <div class="map">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3770.5502467683313!2d72.82912372494456!3d21.170240685744236!2m3!1f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be04f5caa9d7c11%3A0x5b5e3cfc2469e3d9!2sSurat%2C%20Gujarat!5e0!3m2!1sen!2sin!4v1718200000000!5m2!1sen!2sin"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+      ></iframe>
     </div>
   </section>
 
+  <!-- Footer -->
   <footer class="footer">
-    <!-- --- Integrated New Text Branding in Footer --- -->
-    <div class="logo-text-block">
-      <span class="logo-line-1"><span class="acronym-char">T</span>he <span class="logo-word-rest">Independent</span></span>
-      <span class="logo-line-2"><span class="acronym-char">B</span>rewer's <span class="logo-word-rest">Coffee</span></span>
-    </div>
-    <p style="color: rgba(255,255,255,0.7); margin-top: 1rem;">Bringing specialty coffee to Surat</p>
+    <span class="logo-text">TIBCO</span>
+    <p><strong>The Independent Brewer's Coffee</strong></p>
+    <p style="margin-bottom: 1.5rem;">Bringing independent specialty coffee to Surat.</p>
     <p>Email: <a href="mailto:hello@tibco.cafe">hello@tibco.cafe</a></p>
     <p>Instagram: <a href="https://www.instagram.com/tibco.home">@tibco.home</a></p>
   </footer>
 
   <script>
+    // Smooth scroll animation observer
     const observerOptions = { threshold: 0.1 };
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -763,9 +583,9 @@
       });
     }, observerOptions);
 
-    document.querySelectorAll('.story-card, .branch-card, .menu-card').forEach(card => {
+    document.querySelectorAll('.story-hero, .story-card, .branch-card, .menu-card').forEach(card => {
       card.style.opacity = '0';
-      card.style.transform = 'translateY(30px)';
+      card.style.transform = 'translateY(20px)';
       card.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
       observer.observe(card);
     });
