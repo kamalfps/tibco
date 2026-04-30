@@ -3,135 +3,134 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TIBCO Café • Classic</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+  <title>TIBCO Café • Brutalist</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #F9F6F0;
-      --text: #3E2723;
-      --accent: #8B5A3C;
-      --border: #D7CCC8;
+      --bg: #f4f4f0;
+      --text: #000000;
+      --accent: #ff4500;
+      --border: 3px solid #000;
+      --shadow: 6px 6px 0px #000;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Lora', serif; background: var(--bg); color: var(--text); line-height: 1.8; text-align: center; }
-    h1, h2, h3, .nav-logo { font-family: 'Playfair Display', serif; }
-    .nav { padding: 2rem 5%; border-bottom: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
-    .nav-logo { display: flex; flex-direction: column; align-items: center; gap: 10px; text-decoration: none; color: var(--text); font-size: 1.8rem; font-weight: 600; }
-    .nav-logo img { height: 60px; }
-    .links { display: flex; gap: 2.5rem; }
-    .links a { text-decoration: none; color: var(--accent); font-size: 0.95rem; text-transform: uppercase; letter-spacing: 2px; }
-    section { padding: 6rem 5%; max-width: 1000px; margin: 0 auto; }
-    .hero { padding: 8rem 5%; border-bottom: 1px solid var(--border); }
-    .hero h1 { font-size: clamp(3rem, 6vw, 5rem); color: var(--accent); margin-bottom: 1.5rem; line-height: 1.2; }
-    .hero p { font-size: 1.2rem; max-width: 700px; margin: 0 auto 3rem; color: var(--text); font-style: italic; }
-    .btn { padding: 1rem 3rem; background: var(--accent); color: var(--bg); text-decoration: none; font-family: 'Playfair Display', serif; text-transform: uppercase; letter-spacing: 2px; border-radius: 50px; transition: background 0.3s; display: inline-block; }
-    .btn:hover { background: #5D4037; }
-    .section-title { font-size: 2.5rem; color: var(--accent); margin-bottom: 3rem; font-style: italic; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; }
-    .card { padding: 2.5rem; border: 1px solid var(--border); background: #fff; border-radius: 150px 150px 0 0; /* Arched tops */ }
-    .card h3 { font-size: 1.5rem; margin-bottom: 1rem; color: var(--accent); }
-    .card p { font-size: 0.95rem; }
-    .locations { background: #fff; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); max-width: 100%; }
-    .branch-card { padding: 2rem; border: 1px solid var(--border); border-radius: 8px; }
-    .menu-column h3 { font-size: 1.8rem; margin-bottom: 2rem; border-bottom: 1px solid var(--border); padding-bottom: 1rem; }
-    .menu-list { list-style: none; }
-    .menu-list li { margin-bottom: 1rem; font-size: 1.1rem; }
-    footer { padding: 5rem 5%; background: var(--text); color: var(--bg); }
-    footer img { height: 60px; filter: brightness(0) invert(1); margin-bottom: 1rem; }
+    body { font-family: 'Space Grotesk', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
+    .nav { padding: 1.5rem 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: var(--border); background: var(--bg); }
+    .logo { display: flex; align-items: center; gap: 15px; text-decoration: none; color: var(--text); font-weight: 700; font-size: 1.5rem; text-transform: uppercase; }
+    .logo img { height: 50px; }
+    .links { display: flex; gap: 2rem; font-weight: 700; }
+    .links a { text-decoration: none; color: var(--text); text-transform: uppercase; border-bottom: 2px solid transparent; transition: 0.2s; }
+    .links a:hover { border-bottom: 2px solid var(--accent); color: var(--accent); }
+    section { padding: 6rem 5%; border-bottom: var(--border); }
+    .hero { padding: 8rem 5%; background: #fff; text-align: center; }
+    .hero h1 { font-size: clamp(4rem, 8vw, 8rem); font-weight: 700; text-transform: uppercase; line-height: 0.9; margin-bottom: 2rem; }
+    .hero p { font-size: 1.5rem; font-weight: 700; max-width: 800px; margin: 0 auto 3rem; border: var(--border); padding: 1rem; background: var(--accent); color: #fff; box-shadow: var(--shadow); }
+    .btn { padding: 1rem 2.5rem; background: var(--text); color: #fff; text-decoration: none; font-weight: 700; text-transform: uppercase; border: var(--border); box-shadow: var(--shadow); transition: transform 0.1s, box-shadow 0.1s; display: inline-block; }
+    .btn:active { transform: translate(4px, 4px); box-shadow: 2px 2px 0px #000; }
+    .btn-alt { background: #fff; color: var(--text); margin-left: 1rem; }
+    .section-title { font-size: 3rem; text-transform: uppercase; margin-bottom: 3rem; display: inline-block; border-bottom: 8px solid var(--accent); }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+    .card { padding: 2rem; border: var(--border); background: #fff; box-shadow: var(--shadow); }
+    .card h3 { font-size: 1.5rem; text-transform: uppercase; border-bottom: 2px solid #000; padding-bottom: 0.5rem; margin-bottom: 1rem; }
+    .card p { font-size: 1.1rem; }
+    .menu-card { background: var(--bg); border: var(--border); padding: 2rem; box-shadow: var(--shadow); }
+    .menu-card h3 { background: var(--text); color: #fff; padding: 0.5rem 1rem; display: inline-block; text-transform: uppercase; margin-bottom: 1.5rem; }
+    .menu-card ul { list-style: none; }
+    .menu-card li { font-weight: 700; font-size: 1.2rem; padding: 0.8rem 0; border-bottom: 2px dashed #000; }
+    footer { padding: 4rem 5%; background: var(--text); color: #fff; text-align: center; }
   </style>
 </head>
 <body>
   <nav class="nav">
-    <a href="#" class="nav-logo">
-      <img src="609207366_18028471262784169_2978964373136498682_n-removebg-preview.png" alt="TIBCO Logo" />
+    <a href="#" class="logo">
+      <img src="609207366_18028471262784169_2978964373136498682_n-removebg-preview.png" alt="TIBCO" />
       TIBCO
     </a>
     <div class="links">
-      <a href="#story">Our Story</a>
+      <a href="#story">Story</a>
       <a href="#locations">Locations</a>
       <a href="#menu">Menu</a>
     </div>
   </nav>
 
   <section class="hero">
-    <h1>The Independent Brewer's Coffee</h1>
-    <p>"Championing the independence of the craft—sourcing ethically, roasting meticulously, and brewing without compromise for the heart of Surat."</p>
-    <a href="#menu" class="btn">Peruse the Menu</a>
+    <h1>The<br>Independent<br>Brewer's</h1>
+    <p>FOURTH-WAVE COFFEE CRAFTED FOR SURAT'S CULTURE.</p>
+    <a href="#menu" class="btn">Examine Menu</a>
+    <a href="#locations" class="btn btn-alt">Find Us</a>
   </section>
 
   <section id="story">
-    <h2 class="section-title">Our Philosophy</h2>
+    <h2 class="section-title">Our Story</h2>
     <div class="grid">
       <div class="card">
         <h3>Independent</h3>
-        <p>We source uniquely and ethically, building transparent relationships directly with estates to bring the best beans to your cup.</p>
+        <p>We champion the independence of the craft—sourcing ethically, roasting meticulously, and brewing without compromise.</p>
       </div>
       <div class="card">
-        <h3>Craft</h3>
-        <p>Our baristas are true artisans. Whether a delicate pour-over or a dialed-in espresso, technique is our foundation.</p>
+        <h3>Brewer's</h3>
+        <p>Our baristas are artisans. From the AeroPress to the espresso machine, technique is at the heart of everything we do.</p>
       </div>
       <div class="card">
-        <h3>Community</h3>
-        <p>Designed with warmth in mind, our spaces act as sanctuaries for conversations, creations, and connection.</p>
+        <h3>Coffee</h3>
+        <p>Designed to be sanctuaries for creators, thinkers, and anyone seeking the perfect cup in Surat.</p>
       </div>
     </div>
   </section>
 
-  <div class="locations" id="locations">
-    <section>
-      <h2 class="section-title">Our Parlours</h2>
-      <div class="grid" style="gap: 2rem;">
-        <div class="branch-card">
-          <h3>TIBCO</h3>
-          <p>Estella, Anuvrat dwar</p>
-          <a href="https://share.google/bThMk6EBAXvFgWRoN" style="color: var(--accent); font-size: 0.9rem;">View Map</a>
-        </div>
-        <div class="branch-card">
-          <h3>TIBCO Daily</h3>
-          <p>Commerce, Canal road</p>
-          <a href="https://share.google/o7w4qiCW4EDLQf7FR" style="color: var(--accent); font-size: 0.9rem;">View Map</a>
-        </div>
-        <div class="branch-card">
-          <h3>TIBCO Plus</h3>
-          <p>ARISTA, Vesu</p>
-          <a href="https://share.google/jxQe0uJIqqpl2MgBa" style="color: var(--accent); font-size: 0.9rem;">View Map</a>
-        </div>
-        <div class="branch-card">
-          <h3>TIBCO Plus</h3>
-          <p>Aspire, PAL</p>
-          <a href="https://share.google/GPFw0HAFZWcbHphoC" style="color: var(--accent); font-size: 0.9rem;">View Map</a>
-        </div>
+  <section id="locations" style="background: #fff;">
+    <h2 class="section-title">Locations</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>TIBCO</h3>
+        <p style="font-weight: 700; margin-bottom: 1.5rem;">📍 Estella, Anuvrat dwar</p>
+        <a href="https://share.google/bThMk6EBAXvFgWRoN" class="btn" style="width: 100%; text-align: center;">Map</a>
       </div>
-    </section>
-  </div>
+      <div class="card">
+        <h3>TIBCO Daily</h3>
+        <p style="font-weight: 700; margin-bottom: 1.5rem;">📍 Commerce, Canal road</p>
+        <a href="https://share.google/o7w4qiCW4EDLQf7FR" class="btn" style="width: 100%; text-align: center;">Map</a>
+      </div>
+      <div class="card">
+        <h3>TIBCO Plus</h3>
+        <p style="font-weight: 700; margin-bottom: 1.5rem;">📍 ARISTA, Vesu</p>
+        <a href="https://share.google/jxQe0uJIqqpl2MgBa" class="btn" style="width: 100%; text-align: center;">Map</a>
+      </div>
+      <div class="card">
+        <h3>TIBCO Plus</h3>
+        <p style="font-weight: 700; margin-bottom: 1.5rem;">📍 Aspire, PAL</p>
+        <a href="https://share.google/GPFw0HAFZWcbHphoC" class="btn" style="width: 100%; text-align: center;">Map</a>
+      </div>
+    </div>
+  </section>
 
   <section id="menu">
-    <h2 class="section-title">Signature Offerings</h2>
-    <div class="grid" style="align-items: start;">
-      <div class="menu-column">
+    <h2 class="section-title">Menu</h2>
+    <div class="grid">
+      <div class="menu-card">
         <h3>Coffee</h3>
-        <ul class="menu-list">
+        <ul>
           <li>Signature Espresso</li>
           <li>Cinnamon Caramel Latte</li>
           <li>Cardamom Cold Brew</li>
           <li>Butterfly Pea Matcha</li>
         </ul>
       </div>
-      <div class="menu-column">
+      <div class="menu-card">
         <h3>Brunch</h3>
-        <ul class="menu-list">
+        <ul>
           <li>Charred Avocado Toast</li>
-          <li>Buttermilk Pancake Stack</li>
+          <li>Buttermilk Pancake</li>
           <li>Smoked Mushroom Bowl</li>
           <li>Citrus Grain Salad</li>
         </ul>
       </div>
-      <div class="menu-column">
+      <div class="menu-card">
         <h3>Sweets</h3>
-        <ul class="menu-list">
-          <li>Hazelnut Praline Tartlet</li>
+        <ul>
+          <li>Hazelnut Praline Tart</li>
           <li>Roasted Fig Cheesecake</li>
-          <li>Dark Chocolate Churros</li>
+          <li>Dark Choco Churros</li>
           <li>Cold Brew Cheesecake</li>
         </ul>
       </div>
@@ -139,10 +138,9 @@
   </section>
 
   <footer>
-    <img src="609207366_18028471262784169_2978964373136498682_n-removebg-preview.png" alt="TIBCO Logo" />
-    <h2 style="font-size: 2rem; margin-bottom: 1rem; color: var(--bg);">TIBCO</h2>
-    <p style="font-style: italic; color: #D7CCC8;">The Independent Brewer's Coffee</p>
-    <p style="margin-top: 2rem; font-size: 0.9rem;"><a href="https://www.instagram.com/tibco.home" style="color: var(--bg);">Follow us on Instagram</a></p>
+    <h2 style="font-size: 3rem; text-transform: uppercase; margin-bottom: 1rem;">TIBCO</h2>
+    <p style="font-weight: 700; font-size: 1.2rem;">THE INDEPENDENT BREWER'S COFFEE</p>
+    <a href="https://www.instagram.com/tibco.home" style="color: var(--accent); font-weight: 700; margin-top: 1rem; display: block;">@TIBCO.HOME</a>
   </footer>
 </body>
 </html>
