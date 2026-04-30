@@ -3,71 +3,74 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TIBCO • Independent Brewer</title>
+  <title>TIBCO • The Independent Brewer</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Switzer:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
   
-  <link rel="stylesheet" href="styles.css">
-
-  <script src="https://unpkg.com/@studio-freight/lenis@1.0.33/dist/lenis.min.js"></script>
+  <!-- The Real 3D & Scrolling Engines -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-  <div class="cursor"></div>
-  <div class="cursor-follower"></div>
+  <!-- The 3D World is locked to the background -->
+  <canvas id="webgl-canvas"></canvas>
 
+  <!-- Navigation -->
   <nav class="nav">
     <div class="nav-logo">TIBCO.</div>
     <div class="nav-links">
-      <a href="#menu" class="magnetic" data-strength="20">Menu</a>
-      <a href="#locations" class="magnetic" data-strength="20">Sanctuaries</a>
+      <a href="#philosophy">Philosophy</a>
+      <a href="#menu">Menu</a>
     </div>
   </nav>
 
-  <main>
-    <section class="hero">
-      <div class="hero-wrapper">
-        <p class="fade-up">Surat, Gujarat</p>
-        <h1 class="title">
-          <div class="line-wrap"><span class="line">The Art of</span></div>
-          <div class="line-wrap"><span class="line italic">Independence.</span></div>
-        </h1>
-        <div class="hero-bottom">
-          <p class="fade-up delay">Ethically sourced. Meticulously roasted. Uncompromisingly brewed.</p>
-          <a href="#menu" class="btn magnetic" data-strength="40">
-            <span class="btn-text">Explore</span>
-          </a>
-        </div>
+  <!-- Scrolling Content -->
+  <main class="scroll-container">
+    
+    <!-- Section 1: Hero -->
+    <section class="step hero-step">
+      <div class="content-block left">
+        <p class="eyebrow">Surat, Gujarat</p>
+        <h1>The Art of<br><em>Independence.</em></h1>
+        <p class="subtitle">Scroll to experience the craft.</p>
       </div>
     </section>
 
-    <section class="parallax-section">
-      <div class="image-container">
-        <img src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?q=80&w=2000&auto=format&fit=crop" alt="Pour over coffee" class="parallax-img">
+    <!-- Section 2: Philosophy -->
+    <section id="philosophy" class="step">
+      <div class="content-block right">
+        <h2>Uncompromising<br>Quality</h2>
+        <p>We bypass commercial trends to source unique beans directly from independent estates. Every pour is a testament to our dedication.</p>
       </div>
     </section>
 
-    <section class="text-section">
-      <div class="container">
-        <h2 class="large-text">
-          <div class="line-wrap"><span class="line">We bypass commercial trends</span></div>
-          <div class="line-wrap"><span class="line">to source unique beans</span></div>
-          <div class="line-wrap"><span class="line italic">directly from estates.</span></div>
-        </h2>
+    <!-- Section 3: Menu -->
+    <section id="menu" class="step">
+      <div class="content-block left">
+        <h2>The<br>Offerings</h2>
+        <ul class="clean-menu">
+          <li>Signature Espresso</li>
+          <li>Cinnamon Caramel Latte</li>
+          <li>Cardamom Cold Brew</li>
+          <li>Charred Avocado Toast</li>
+        </ul>
       </div>
     </section>
 
-    <footer class="footer">
-      <h1 class="footer-title">TIBCO</h1>
-      <div class="footer-bottom">
-        <p>© 2024 The Independent Brewer's Coffee</p>
-        <a href="#" class="magnetic" data-strength="20">Instagram</a>
+    <!-- Section 4: Footer -->
+    <section class="step footer-step">
+      <div class="content-block center">
+        <h1 class="massive-text">TIBCO</h1>
+        <a href="https://share.google/bThMk6EBAXvFgWRoN" target="_blank" class="btn">Find Our Sanctuaries</a>
       </div>
-    </footer>
+    </section>
+
   </main>
 
   <script src="main.js"></script>
