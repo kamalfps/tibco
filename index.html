@@ -9,7 +9,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
   
-  <!-- Modern 3D & Animation Stack -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
@@ -22,18 +21,14 @@
       --cream: #FAF7F2;
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body { background-color: var(--bg); color: var(--espresso); font-family: 'Outfit', sans-serif; overflow-x: hidden; }
-    h1, h2, .logo, em { font-family: 'Cinzel', serif; font-weight: 800; }
-
-    /* Custom Cursor */
-    .cursor { position: fixed; width: 10px; height: 10px; background: var(--espresso); border-radius: 50%; z-index: 9999; pointer-events: none; mix-blend-mode: difference; }
-    .cursor-follower { position: fixed; width: 40px; height: 40px; border: 1px solid var(--espresso); border-radius: 50%; z-index: 9998; pointer-events: none; transition: transform 0.1s ease-out; }
+    h1, h2, .logo-text, em { font-family: 'Cinzel', serif; font-weight: 800; }
 
     #webgl-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 0; pointer-events: none; }
 
     .nav { position: fixed; top: 0; width: 100%; padding: 2rem 5%; display: flex; justify-content: space-between; align-items: center; z-index: 100; }
-    .logo { font-size: 1.8rem; letter-spacing: 2px; }
+    .logo-text { font-size: 1.8rem; letter-spacing: 2px; }
     .nav-links { display: flex; gap: 3rem; }
     .nav-links a { color: var(--espresso); text-decoration: none; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 2px; font-weight: 700; }
 
@@ -47,12 +42,11 @@
       backdrop-filter: blur(20px); 
       border: 1px solid rgba(45, 26, 17, 0.1); 
       border-radius: 40px;
-      box-shadow: 20px 20px 60px rgba(0,0,0,0.03);
     }
     .right { margin-left: auto; }
     
     h1 { font-size: clamp(3rem, 7vw, 5rem); line-height: 1; margin-bottom: 1.5rem; letter-spacing: -2px; }
-    h2 { font-size: 3rem; margin-bottom: 1rem; }
+    h2 { font-size: 3rem; margin-bottom: 1rem; color: var(--mocha); }
     p { font-size: 1.1rem; line-height: 1.7; opacity: 0.8; }
 
     .btn { 
@@ -60,9 +54,9 @@
       background: var(--espresso); color: var(--cream); 
       text-decoration: none; text-transform: uppercase; letter-spacing: 3px; 
       border-radius: 100px; font-size: 0.8rem; font-weight: 700; 
-      transition: 0.3s;
+      transition: 0.4s;
     }
-    .btn:hover { transform: scale(1.05); background: var(--mocha); }
+    .btn:hover { background: var(--mocha); transform: translateY(-5px); }
 
     @media (max-width: 768px) {
       .nav-links { display: none; }
@@ -72,12 +66,10 @@
 </head>
 <body>
 
-  <div class="cursor"></div>
-  <div class="cursor-follower"></div>
   <canvas id="webgl-canvas"></canvas>
 
   <nav class="nav">
-    <div class="logo">TIBCO.</div>
+    <div class="logo-text">TIBCO.</div>
     <div class="nav-links">
       <a href="#philosophy">Manifesto</a>
       <a href="#menu">Menu</a>
@@ -87,22 +79,23 @@
   <main class="scroll-container">
     <section class="step">
       <div class="glass-card">
+        <p style="text-transform: uppercase; letter-spacing: 4px; margin-bottom: 1rem; color: var(--mocha);">Surat, India</p>
         <h1>The Art of<br><em>Independence.</em></h1>
-        <p>A high-fidelity coffee experience crafted in Surat.</p>
+        <p>A high-fidelity paper cup experience. Meticulously roasted, uncompromisingly brewed.</p>
       </div>
     </section>
 
     <section id="philosophy" class="step">
       <div class="glass-card right">
         <h2>Curated<br>Estates.</h2>
-        <p>We source unique, single-origin beans directly from independent farms to ensure absolute quality.</p>
+        <p>We source unique beans directly from independent farms, ensuring the highest technical standard in every cup.</p>
       </div>
     </section>
 
     <section class="step">
       <div class="glass-card" style="text-align: center; max-width: 800px; margin: 0 auto;">
-        <h1 style="font-size: 10vw;">TIBCO</h1>
-        <a href="https://share.google/bThMk6EBAXvFgWRoN" target="_blank" class="btn">Explore Sanctuaries</a>
+        <h1 style="font-size: 10vw; letter-spacing: -10px;">TIBCO</h1>
+        <a href="https://share.google/bThMk6EBAXvFgWRoN" target="_blank" class="btn">Find Our Sanctuaries</a>
       </div>
     </section>
   </main>
@@ -111,56 +104,68 @@
     window.addEventListener('DOMContentLoaded', () => {
       gsap.registerPlugin(ScrollTrigger);
 
-      // Custom Cursor Logic
-      const cursor = document.querySelector('.cursor');
-      const follower = document.querySelector('.cursor-follower');
-      document.addEventListener('mousemove', (e) => {
-        gsap.to(cursor, {x: e.clientX, y: e.clientY, duration: 0});
-        gsap.to(follower, {x: e.clientX - 15, y: e.clientY - 15, duration: 0.3});
-      });
-
-      // 3D Scene
       const scene = new THREE.Scene();
       scene.background = new THREE.Color(0xF4F1EA);
       const camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 1000);
       const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('webgl-canvas'), antialias: true });
       renderer.setSize(window.innerWidth, window.innerHeight);
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.physicallyCorrectLights = true;
 
-      // Studio Lighting
-      const light1 = new THREE.DirectionalLight(0xffffff, 1.5);
+      // Realistic Lighting
+      const light1 = new THREE.DirectionalLight(0xffffff, 2);
       light1.position.set(5, 10, 7);
       scene.add(light1);
-      scene.add(new THREE.AmbientLight(0xffffff, 0.8));
+      const light2 = new THREE.PointLight(0xffeebb, 1);
+      light2.position.set(-5, 2, 5);
+      scene.add(light2);
+      scene.add(new THREE.AmbientLight(0xffffff, 0.7));
+
+      // TEXTURE LOADER FOR LOGO
+      const loader = new THREE.TextureLoader();
+      const logoTexture = loader.load('logo.png'); // MUST match your file name verbatim
 
       // Materials
-      const paperMat = new THREE.MeshStandardMaterial({ color: 0xFAF7F2, roughness: 0.9 });
-      const lidMat = new THREE.MeshStandardMaterial({ color: 0x2D1A11, roughness: 0.4 });
+      const paperMat = new THREE.MeshPhysicalMaterial({ 
+        color: 0xFAF7F2, 
+        roughness: 0.9,
+        map: logoTexture // This puts your logo on the cup!
+      });
+      const lidMat = new THREE.MeshPhysicalMaterial({ color: 0x2D1A11, roughness: 0.3, clearcoat: 0.5 });
       const beanMat = new THREE.MeshStandardMaterial({ color: 0x8D6E63, roughness: 0.7 });
 
-      // Build "Chunky" Paper Cup
+      // Build Premium Paper Cup
       const cupGroup = new THREE.Group();
-      const body = new THREE.Mesh(new THREE.CylinderGeometry(1.5, 1.1, 4, 64), paperMat);
-      const rim = new THREE.Mesh(new THREE.TorusGeometry(1.5, 0.12, 16, 64), paperMat);
+      
+      // Body - we adjust the UVs so the logo doesn't stretch too much
+      const body = new THREE.Mesh(new THREE.CylinderGeometry(1.5, 1.1, 4, 128), paperMat);
+      
+      const rim = new THREE.Mesh(new THREE.TorusGeometry(1.5, 0.08, 16, 64), paperMat);
       rim.rotation.x = Math.PI/2; rim.position.y = 2;
-      const lid = new THREE.Mesh(new THREE.CylinderGeometry(1.6, 1.5, 0.5, 64), lidMat);
-      lid.position.y = 2.2;
-      cupGroup.add(body, rim, lid);
+      
+      const lid = new THREE.Mesh(new THREE.CylinderGeometry(1.6, 1.55, 0.4, 64), lidMat);
+      lid.position.y = 2.15;
+      
+      const mouthpiece = new THREE.Mesh(new THREE.CylinderGeometry(1.3, 1.4, 0.3, 64), lidMat);
+      mouthpiece.position.y = 2.4;
+
+      cupGroup.add(body, rim, lid, mouthpiece);
       scene.add(cupGroup);
 
-      // Floating Coffee Beans
+      // Add floating coffee beans for extra detail
       const beans = [];
-      const beanGeo = new THREE.SphereGeometry(0.3, 16, 16);
-      beanGeo.scale(1, 1.4, 0.7);
-      for(let i=0; i<8; i++) {
+      const beanGeo = new THREE.SphereGeometry(0.2, 16, 16);
+      beanGeo.scale(1, 1.5, 0.8);
+      for(let i=0; i<6; i++) {
         const bean = new THREE.Mesh(beanGeo, beanMat);
-        bean.position.set((Math.random()-0.5)*10, (Math.random()-0.5)*10, (Math.random()-0.5)*10);
+        bean.position.set((Math.random()-0.5)*8, (Math.random()-0.5)*8, (Math.random()-0.5)*5);
         beans.push(bean);
         scene.add(bean);
       }
 
       camera.position.z = 15;
-      cupGroup.position.set(3.5, 0, 0);
+      cupGroup.position.set(3, 0, 0);
+      cupGroup.rotation.set(0.3, -0.6, 0);
 
       // GSAP Scroll Animation
       const tl = gsap.timeline({
@@ -168,18 +173,20 @@
           trigger: ".scroll-container",
           start: "top top",
           end: "bottom bottom",
-          scrub: 1
+          scrub: 0.8
         }
       });
 
-      tl.to(cupGroup.position, { x: -4, y: 1, z: 2 }, 0)
-        .to(cupGroup.rotation, { x: 0.5, y: Math.PI }, 0)
-        .to(cupGroup.position, { x: 0, y: -2, z: 8 }, 1)
-        .to(cupGroup.rotation, { x: 0.2, y: Math.PI*2 }, 1);
+      tl.to(cupGroup.position, { x: -3.5, y: 0.5, z: 2 }, 0)
+        .to(cupGroup.rotation, { x: 0.6, y: Math.PI }, 0)
+        .to(cupGroup.position, { x: 3.5, y: -0.5, z: 0 }, 1)
+        .to(cupGroup.rotation, { x: 1.2, y: Math.PI*2 }, 1)
+        .to(cupGroup.position, { x: 0, y: -1, z: 8 }, 2)
+        .to(cupGroup.rotation, { x: 0.4, y: Math.PI*2.5 }, 2);
 
       function animate() {
         requestAnimationFrame(animate);
-        cupGroup.rotation.y += 0.002;
+        cupGroup.position.y += Math.sin(Date.now()*0.002)*0.003;
         beans.forEach((b, i) => {
           b.rotation.x += 0.01;
           b.position.y += Math.sin(Date.now()*0.001 + i)*0.005;
