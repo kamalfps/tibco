@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TIBCO Café • Surat</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Manrope:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0a0a0d;
+      --card: rgba(255, 255, 255, 0.04);
+      --text: #f8f6f1;
+      --accent: #f2b34a;
+      --accent-soft: rgba(242, 179, 74, 0.2);
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: "Manrope", sans-serif;
+      background: radial-gradient(circle at top, #1f2245, #080809);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    header {
+      position: relative;
+      min-height: 90vh;
+      background: linear-gradient(180deg, rgba(10, 10, 13, 0.9), rgba(10, 10, 13, 0.95)),
+        url("https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?auto=format&fit=crop&w=1400&q=80") center/cover;
+      display: flex;
+      align-items: center;
+      padding: 3rem clamp(1.5rem, 3vw, 4rem);
+    }
+    header::after {
+      content: "";
+      position: absolute;
+      inset: 2rem;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 30px;
+      pointer-events: none;
+    }
+    .hero-content {
+      position: relative;
+      max-width: 640px;
+      z-index: 1;
+    }
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      letter-spacing: 0.1rem;
+      text-transform: uppercase;
+    }
+    .hero-tag span {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+    h1 {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(2.8rem, 5vw, 4.25rem);
+      margin: 1rem 0;
+      letter-spacing: -0.03em;
+    }
+    .hero-subtitle {
+      margin-bottom: 2rem;
+      color: rgba(250, 250, 250, 0.8);
+    }
+    .cta-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .btn {
+      border: none;
+      border-radius: 999px;
+      padding: 0.95rem 2.2rem;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .btn.primary {
+      background: var(--accent);
+      color: #1c1610;
+      box-shadow: 0 10px 35px rgba(242, 179, 74, 0.4);
+    }
+    .btn.secondary {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    .btn:hover {
+      transform: translateY(-3px);
+    }
+    section {
+      padding: clamp(3rem, 5vw, 5rem) clamp(1.5rem, 3vw, 4rem);
+    }
+    .glass {
+      background: var(--card);
+      backdrop-filter: blur(16px);
+      border-radius: 30px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 2rem;
+      box-shadow: 0 25px 45px rgba(0, 0, 0, 0.45);
+    }
+    .story {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+    }
+    .story-card {
+      padding: 1.5rem;
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      background: rgba(255, 255, 255, 0.02);
+    }
+    .story-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.75rem;
+      font-weight: 600;
+    }
+    .story-card p {
+      color: rgba(250, 250, 250, 0.75);
+      font-size: 0.95rem;
+    }
+    .branch-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 1.25rem;
+      margin-top: 2rem;
+    }
+    .branch-card {
+      padding: 1.5rem;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(10px);
+      min-height: 190px;
+    }
+    .branch-card h4 {
+      margin-bottom: 0.4rem;
+      font-size: 1.1rem;
+      letter-spacing: 0.04em;
+    }
+    .branch-card p {
+      font-size: 0.95rem;
+      color: rgba(255, 255, 255, 0.7);
+    }
+    .branch-card small {
+      display: block;
+      margin-top: 0.6rem;
+      font-size: 0.82rem;
+      color: rgba(255, 255, 255, 0.55);
+    }
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+      margin-top: 2rem;
+    }
+    .menu-card {
+      padding: 1.5rem;
+      border-radius: 22px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.03);
+      min-height: 240px;
+    }
+    .menu-card h3 {
+      margin-bottom: 0.75rem;
+      font-size: 1.2rem;
+    }
+    .menu-card ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+    .menu-card li {
+      font-size: 0.95rem;
+      color: rgba(255, 255, 255, 0.75);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      font-family: "Manrope", sans-serif;
+    }
+    .menu-card li span {
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 0.85rem;
+    }
+    .instagram {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      align-items: flex-start;
+    }
+    .instagram iframe {
+      width: 100%;
+      min-height: 480px;
+      border: none;
+      border-radius: 24px;
+      overflow: hidden;
+    }
+    .map {
+      margin-top: 2rem;
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .footer {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      justify-content: space-between;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 1.5rem;
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.7);
+    }
+    .footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    @media (max-width: 768px) {
+      header {
+        padding: 2.5rem 1.5rem;
+      }
+      .hero-tag {
+        font-size: 0.75rem;
+      }
+      .insta-note {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div class="hero-content">
+        <div class="hero-tag">
+          <span></span>
+          TIBCO | SURAT
+        </div>
+        <h1>Meet the fourth-wave café designed for the Surat hustle.</h1>
+        <p class="hero-subtitle">
+          Specialty coffee, soulful brunch bowls, and a neighborhood energy that keeps every Tibco branch buzzing from
+          morning rush to late-night tête-à-têtes.
+        </p>
+        <div class="cta-group">
+          <button class="btn primary">Reserve a Table</button>
+          <button class="btn secondary">View Menu</button>
+        </div>
+      </div>
+    </header>
+
+    <section>
+      <div class="glass">
+        <h2 style="font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 1rem;">Your coffee, your city</h2>
+        <p style="margin-bottom: 2rem; color: rgba(255, 255, 255, 0.75);">
+          TIBCO is a tribute to the design-forward sensibilities of Surat. Each space blends tactile woods, luminous
+          greens, and curated playlists while our baristas pour approachable yet precise specialty brews throughout the day.
+        </p>
+        <div class="story">
+          <article class="story-card">
+            <h3>Community-first coffee</h3>
+            <p>We work with single-origin roasters and craft limited-series espresso, cold brews, and burnt caramel tonics
+              that pair perfectly with our bakery case.</p>
+          </article>
+          <article class="story-card">
+            <h3>Design language</h3>
+            <p>Warm terrazzo, brass accents, and gallery-style lighting turn every Tibco location into a pause-worthy spot
+              for work, conversation, or celebration.</p>
+          </article>
+          <article class="story-card">
+            <h3>Surat roots</h3>
+            <p>With four distinct branches across Surat, TIBCO supports local creators and curates events that reflect the
+              city’s vibrant food, art, and music scenes.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 style="margin-bottom: 1rem; font-family: 'Playfair Display', serif; font-size: 2rem;">Branches</h2>
+      <div class="branch-grid">
+        <article class="branch-card">
+          <h4>Specialty Coffee QSR • Estella</h4>
+          <p>Quick pours, seasonal pastries, and thoughtfully roasted coffee for those running between Estella landmarks.</p>
+          <small>Express service + outdoor seating</small>
+        </article>
+        <article class="branch-card">
+          <h4>Specialty Coffee QSR • Anuvrat Dwar</h4>
+          <p>A neighborhood haven with barista-crafted signature lattes and a curated retail shelf of beans.</p>
+          <small>Open daily from 7 AM • Cozy counter seating</small>
+        </article>
+        <article class="branch-card">
+          <h4>Daily • Commerce</h4>
+          <p>Late night chillspot with full-service coffee bar, toasties, and specialty house-made syrups.</p>
+          <small>Rooftop terrace • Live acoustic sessions</small>
+        </article>
+        <article class="branch-card">
+          <h4>Daily • Canal Road</h4>
+          <p>Canal-side serenity, slow pours, and seasonal mocktails for when you need a calm escape.</p>
+          <small>Walk-ins welcome • Espresso flights</small>
+        </article>
+        <article class="branch-card">
+          <h4>Plus • ARISTA, Vesu</h4>
+          <p>Elevated café dining with signature brunch, cold press cocktails, and hand-crafted desserts.</p>
+          <small>Full dine-in menu • Reservations encouraged</small>
+        </article>
+        <article class="branch-card">
+          <h4>Plus • Aspire, PAL</h4>
+          <p>Curated for late-night collaborators with plush seating, coffee mocktails, and shared plates.</p>
+          <small>Open till midnight • Private community nights</small>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2 style="margin-bottom: 1rem; font-family: 'Playfair Display', serif; font-size: 2rem;">Menu Highlights</h2>
+      <div class="menu-grid">
+        <article class="menu-card">
+          <h3>Coffee Rituals</h3>
+          <ul>
+            <li>Signature Espresso Blend <span>₹220</span></li>
+            <li>Cinnamon Caramel Latte <span>₹260</span></li>
+            <li>Cardamom Cold Brew <span>₹280</span></li>
+            <li>Butterfly Pea Matcha <span>₹250</span></li>
+          </ul>
+        </article>
+        <article class="menu-card">
+          <h3>Brunch &amp; Mains</h3>
+          <ul>
+            <li>Charred Avocado Toast <span>₹340</span></li>
+            <li>Buttermilk Pancake Stack <span>₹360</span></li>
+            <li>Smoked Mushroom Bowl <span>₹320</span></li>
+            <li>Citrus Grain Salad <span>₹300</span></li>
+          </ul>
+        </article>
+        <article class="menu-card">
+          <h3>Sweet Companions</h3>
+          <ul>
+            <li>Hazelnut Praline Tartlet <span>₹220</span></li>
+            <li>Roasted Fig Cheesecake <span>₹240</span></li>
+            <li>Dark Chocolate Churros <span>₹230</span></li>
+            <li>Cold Brew Cheesecake <span>₹250</span></li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="glass instagram">
+        <div>
+          <h2 style="font-family: 'Playfair Display', serif; font-size: 2rem;">Moments from Tibco home</h2>
+          <p class="insta-note">
+            Follow us on Instagram for drop teasers, limited-series collabs, and behind-the-scenes brewing rituals.
+          </p>
+        </div>
+        <a href="https://www.instagram.com/tibco.home" target="_blank" rel="noreferrer">
+          <button class="btn primary">Visit @tibco.home</button>
+        </a>
+        <iframe
+          src="https://www.instagram.com/tibco.home/embed"
+          title="Tibco Instagram feed"
+          loading="lazy"
+        ></iframe>
+      </div>
+    </section>
+
+    <section>
+      <div class="glass">
+        <h2 style="font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 1rem;">Our Surat locations</h2>
+        <div class="map">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3770.5502467683313!2d72.82912372494456!3d21.170240685744236!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be04f5caa9d7c11%3A0x5b5e3cfc2469e3d9!2sSurat%2C%20Gujarat!5e0!3m2!1sen!2sin!4v1718200000000!5m2!1sen!2sin"
+            width="100%"
+            height="420"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="footer">
+        <div>
+          <strong>TIBCO Café</strong> • Specialty coffee for Surat
+        </div>
+        <div>
+          <strong>Email:</strong> <a href="mailto:hello@tibco.cafe">hello@tibco.cafe</a>
+        </div>
+        <div>
+          <strong>Instagram:</strong> <a href="https://www.instagram.com/tibco.home">tibco.home</a>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
