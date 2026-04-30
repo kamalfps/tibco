@@ -3,119 +3,136 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // 1. Scene Setup
   const scene = new THREE.Scene();
+  // Set background to the warm cream color
+  scene.background = new THREE.Color(0xFAF7F2);
+  scene.fog = new THREE.FogExp2(0xFAF7F2, 0.03);
+
+  const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
   
-  // Soft, cheerful lighting
-  const ambientLight = new THREE.AmbientLight(0xffffff, 0.6); 
-  scene.add(ambientLight);
-
-  const mainLight = new THREE.DirectionalLight(0xffffff, 0.8);
-  mainLight.position.set(5, 10, 7);
-  scene.add(mainLight);
-
-  const fillLight = new THREE.DirectionalLight(0xffe6e6, 0.5); // Warm fill
-  fillLight.position.set(-5, 0, -5);
-  scene.add(fillLight);
-
-  // 2. Camera Setup
-  const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
-  
-  // Position camera to the left on desktop so cup is on the right
-  if(window.innerWidth > 768) {
-    camera.position.set(-3, 4, 12);
-  } else {
-    camera.position.set(0, 4, 14); // Centered on mobile
-  }
-  camera.lookAt(0, 0, 0);
-
-  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.physicallyCorrectLights = true; 
   container.appendChild(renderer.domElement);
 
-  // 3. Dribbble-Style Clay Materials
-  const cupMaterial = new THREE.MeshStandardMaterial({
-    color: 0xFF6B6B,       // Vibrant Coral
-    roughness: 0.7,        // Matte finish
+  // 2. High-End Studio Lighting for Cream/Brown theme
+  const ambientLight = new THREE.AmbientLight(0xffffff, 1.2); 
+  scene.add(ambientLight);
+
+  // Main soft warm light
+  const mainLight = new THREE.DirectionalLight(0xffeedd, 3.5);
+  mainLight.position.set(5, 8, 5);
+  scene.add(mainLight);
+
+  // Subtle fill light
+  const fillLight = new THREE.DirectionalLight(0xeebb99, 1.5);
+  fillLight.position.set(-5, 3, -5);
+  scene.add(fillLight);
+
+  // 3. Luxurious Materials
+  // Matte cream ceramic cup
+  const ceramicMat = new THREE.MeshPhysicalMaterial({
+    color: 0xFDFBF7,       
     metalness: 0.1,
+    roughness: 0.3,        
+    clearcoat: 0.5,        
+    clearcoatRoughness: 0.2
   });
 
-  const coffeeMaterial = new THREE.MeshStandardMaterial({
-    color: 0x2D1A11,       // Dark rich coffee
-    roughness: 0.2,        // Slightly shiny liquid
-    metalness: 0.1
+  // Deep rich espresso liquid
+  const coffeeMat = new THREE.MeshPhysicalMaterial({
+    color: 0x1a0a00,       
+    metalness: 0.1,
+    roughness: 0.0,        
   });
 
-  const beanMaterial = new THREE.MeshStandardMaterial({
-    color: 0x8D6E63,       // Soft mocha brown
-    roughness: 0.8,
-    metalness: 0.0
+  // Copper/Bronze accent trim
+  const copperMat = new THREE.MeshStandardMaterial({
+    color: 0x8B5A3C,
+    metalness: 0.7,
+    roughness: 0.3
   });
 
-  // 4. Build the "Chunky" Cup
+  // 4. Build the Cup
   const coffeeGroup = new THREE.Group();
-
-  // The main cup body (Cylinder)
-  const bodyGeo = new THREE.CylinderGeometry(1.5, 1.2, 2.5, 32);
-  const body = new THREE.Mesh(bodyGeo, cupMaterial);
   
-  // The chunky lip (Torus)
-  const lipGeo = new THREE.TorusGeometry(1.5, 0.2, 16, 32);
-  const lip = new THREE.Mesh(lipGeo, cupMaterial);
-  lip.position.y = 1.25;
-  lip.rotation.x = Math.PI / 2;
-
-  // The coffee liquid
-  const liquidGeo = new THREE.CylinderGeometry(1.4, 1.4, 2.4, 32);
-  const liquid = new THREE.Mesh(liquidGeo, coffeeMaterial);
-  liquid.position.y = 0.1; // Liquid sits slightly below the rim
-
-  // The thick, rounded handle (Torus)
-  const handleGeo = new THREE.TorusGeometry(0.8, 0.3, 16, 32);
-  const handle = new THREE.Mesh(handleGeo, cupMaterial);
-  handle.position.set(1.4, 0, 0);
-  handle.rotation.z = -Math.PI / 16;
-
-  // The chunky saucer
-  const saucerGeo = new THREE.CylinderGeometry(2.2, 2.0, 0.4, 32);
-  const saucer = new THREE.Mesh(saucerGeo, cupMaterial);
-  saucer.position.y = -1.45;
-
-  coffeeGroup.add(body, lip, liquid, handle, saucer);
-  scene.add(coffeeGroup);
-
-  // 5. Build Floating "Clay" Coffee Beans
-  const beans = [];
-  const beanGeo = new THREE.SphereGeometry(0.3, 32, 32);
-  // Distort sphere to look like a bean
-  beanGeo.scale(1, 1.4, 0.8); 
-
-  for(let i=0; i<4; i++) {
-    const bean = new THREE.Mesh(beanGeo, beanMaterial);
-    
-    // Random positions around the cup
-    bean.position.x = (Math.random() - 0.5) * 6;
-    bean.position.y = (Math.random() - 0.5) * 6;
-    bean.position.z = (Math.random() - 0.5) * 4;
-    
-    // Store random rotation speeds
-    bean.userData = {
-      rotX: Math.random() * 0.02,
-      rotY: Math.random() * 0.02,
-      floatSpeed: Math.random() * 0.02 + 0.01,
-      startY: bean.position.y
-    };
-
-    beans.push(bean);
-    scene.add(bean);
+  // Offset to the right so it balances with the text on desktop
+  if(window.innerWidth > 768) {
+      coffeeGroup.position.x = 4;
   }
 
-  // 6. Mouse Interaction (Parallax)
+  const cup = new THREE.Mesh(new THREE.CylinderGeometry(1.6, 1.1, 2.8, 64), ceramicMat);
+  const liquid = new THREE.Mesh(new THREE.CylinderGeometry(1.5, 1.5, 2.6, 64), coffeeMat);
+  liquid.position.y = 0.1;
+  const handle = new THREE.Mesh(new THREE.TorusGeometry(0.8, 0.2, 16, 64), ceramicMat);
+  handle.position.set(1.3, 0, 0);
+  handle.rotation.z = -Math.PI / 16;
+  const saucer = new THREE.Mesh(new THREE.CylinderGeometry(2.6, 1.8, 0.2, 64), ceramicMat);
+  saucer.position.y = -1.5;
+  const trim = new THREE.Mesh(new THREE.TorusGeometry(1.6, 0.04, 16, 64), copperMat);
+  trim.position.y = 1.4;
+  trim.rotation.x = Math.PI / 2;
+
+  coffeeGroup.add(cup, liquid, handle, saucer, trim);
+  scene.add(coffeeGroup);
+
+  // 5. Particles: Subtle Steam & Coffee Dust
+  // Steam
+  const steamGeo = new THREE.BufferGeometry();
+  const steamCount = 100;
+  const steamPos = new Float32Array(steamCount * 3);
+  for(let i=0; i<steamCount*3; i++) {
+    steamPos[i] = (Math.random() - 0.5) * 2;
+  }
+  steamGeo.setAttribute('position', new THREE.BufferAttribute(steamPos, 3));
+  const steamMat = new THREE.PointsMaterial({
+    color: 0xffffff,
+    size: 0.08,
+    transparent: true,
+    opacity: 0.2, // Very subtle against cream background
+  });
+  const steam = new THREE.Points(steamGeo, steamMat);
+  steam.position.y = 1.5;
+  coffeeGroup.add(steam);
+
+  // Floating Mocha Dust
+  const dustGeo = new THREE.BufferGeometry();
+  const dustCount = 150;
+  const dustPos = new Float32Array(dustCount * 3);
+  for(let i=0; i<dustCount*3; i+=3) {
+    dustPos[i] = (Math.random() - 0.5) * 25;   
+    dustPos[i+1] = (Math.random() - 0.5) * 25; 
+    dustPos[i+2] = (Math.random() - 0.5) * 15; 
+  }
+  dustGeo.setAttribute('position', new THREE.BufferAttribute(dustPos, 3));
+  const dustMat = new THREE.PointsMaterial({
+    color: 0x5D4037, // Mocha brown dots
+    size: 0.04,
+    transparent: true,
+    opacity: 0.6
+  });
+  const dust = new THREE.Points(dustGeo, dustMat);
+  scene.add(dust);
+
+  // 6. Camera Position & Interaction
+  camera.position.set(0, 3, 12);
+  camera.lookAt(0, 0, 0);
+  coffeeGroup.rotation.x = 0.2; 
+
   let mouseX = 0;
   let mouseY = 0;
-  
+  const windowHalfX = window.innerWidth / 2;
+  const windowHalfY = window.innerHeight / 2;
+
   document.addEventListener('mousemove', (e) => {
-    mouseX = (e.clientX / window.innerWidth) * 2 - 1;
-    mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
+    mouseX = (e.clientX - windowHalfX) * 0.001;
+    mouseY = (e.clientY - windowHalfY) * 0.001;
+  });
+
+  // Track scrolling to move the camera down
+  let scrollY = 0;
+  window.addEventListener('scroll', () => {
+    scrollY = window.scrollY;
   });
 
   // 7. Animation Loop
@@ -125,18 +142,35 @@ document.addEventListener('DOMContentLoaded', () => {
     requestAnimationFrame(animate);
     const elapsedTime = clock.getElapsedTime();
 
-    // Smoothly rotate the main cup based on time and mouse
-    coffeeGroup.rotation.y = elapsedTime * 0.2 + (mouseX * 0.5);
-    coffeeGroup.rotation.x = 0.2 + (mouseY * 0.2);
-    coffeeGroup.position.y = Math.sin(elapsedTime * 2) * 0.2; // Gentle bob
+    // Smoothly pan camera based on mouse AND scroll position
+    // As you scroll down the page, the cup moves up in the background
+    camera.position.x += (mouseX * 3 - camera.position.x) * 0.05;
+    camera.position.y += (-mouseY * 3 + 3 + (scrollY * 0.005) - camera.position.y) * 0.05;
+    camera.lookAt(scene.position);
 
-    // Animate the floating beans
-    beans.forEach((bean, index) => {
-      bean.rotation.x += bean.userData.rotX;
-      bean.rotation.y += bean.userData.rotY;
-      // Make them float up and down out of sync
-      bean.position.y = bean.userData.startY + Math.sin(elapsedTime * 2 + index) * 0.5;
-    });
+    // Gently float and rotate the cup
+    coffeeGroup.position.y = Math.sin(elapsedTime * 1.5) * 0.15;
+    coffeeGroup.rotation.y += 0.003;
+    coffeeGroup.rotation.x = 0.1 + Math.sin(elapsedTime * 0.5) * 0.05;
+
+    // Animate Steam
+    const positions = steam.geometry.attributes.position.array;
+    for(let i=0; i<steamCount; i++) {
+      let y = positions[i*3+1];
+      y += 0.008;
+      if (y > 3) {
+        y = 0; 
+        positions[i*3] = (Math.random() - 0.5) * 2; 
+        positions[i*3+2] = (Math.random() - 0.5) * 2; 
+      }
+      positions[i*3+1] = y;
+      positions[i*3] += Math.sin(elapsedTime + i) * 0.002; 
+    }
+    steam.geometry.attributes.position.needsUpdate = true;
+
+    // Animate Mocha Dust
+    dust.rotation.y = elapsedTime * 0.02;
+    dust.rotation.x = elapsedTime * 0.01;
 
     renderer.render(scene, camera);
   }
@@ -150,9 +184,9 @@ document.addEventListener('DOMContentLoaded', () => {
     renderer.setSize(window.innerWidth, window.innerHeight);
     
     if(window.innerWidth > 768) {
-      camera.position.set(-3, 4, 12);
+        coffeeGroup.position.x = 4;
     } else {
-      camera.position.set(0, 4, 14);
+        coffeeGroup.position.x = 0;
     }
   });
 });
