@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
   
-  <!-- 3D & Scrolling Libraries -->
+  <!-- Core Engines -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
@@ -18,91 +18,45 @@
     :root {
       --bg-cream: #EAE6DF;
       --text-espresso: #2A1C14;
-      --accent-brown: #8B5A3C;
+      --accent: #8B5A3C;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background-color: var(--bg-cream); color: var(--text-espresso); font-family: 'Outfit', sans-serif; overflow-x: hidden; }
+    h1, h2, .nav-logo, em { font-family: 'Playfair Display', serif; }
 
-    body {
-      background-color: var(--bg-cream);
-      color: var(--text-espresso);
-      font-family: 'Outfit', sans-serif;
-      overflow-x: hidden;
-    }
+    #webgl-canvas { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 0; pointer-events: none; }
 
-    h1, h2, .nav-logo, em {
-      font-family: 'Playfair Display', serif;
-    }
+    .nav { position: fixed; top: 0; width: 100%; padding: 2.5rem 5%; display: flex; justify-content: space-between; align-items: center; z-index: 100; }
+    .nav-logo { font-size: 1.8rem; font-weight: 600; letter-spacing: -1px; }
+    .nav-links { display: flex; gap: 3rem; }
+    .nav-links a { color: var(--text-espresso); text-decoration: none; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 2px; font-weight: 600; }
 
-    /* --- The 3D Canvas --- */
-    #webgl-canvas {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      z-index: 0;
-      pointer-events: none; /* Allows scrolling over the 3D scene */
-    }
-
-    /* --- Navigation --- */
-    .nav {
-      position: fixed; top: 0; width: 100%;
-      padding: 2rem 5%;
-      display: flex; justify-content: space-between; align-items: center;
-      z-index: 100;
-    }
-    .nav-logo { font-size: 1.8rem; font-weight: 600; }
-    .nav-links { display: flex; gap: 2rem; }
-    .nav-links a { color: var(--text-espresso); text-decoration: none; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; font-weight: 500; }
-
-    /* --- Scroll Sections --- */
-    .scroll-container {
-      position: relative;
-      z-index: 10;
-    }
-
-    .step {
-      width: 100vw;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      padding: 0 10%;
-    }
-
-    .content-block {
-      max-width: 500px;
-      background: rgba(234, 230, 223, 0.4); 
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      padding: 3rem;
-      border-radius: 20px;
-    }
-
-    .left { margin-right: auto; }
+    .scroll-container { position: relative; z-index: 10; }
+    .step { width: 100vw; min-height: 100vh; display: flex; align-items: center; padding: 0 10%; }
+    
+    .content-block { max-width: 550px; padding: 2rem; border-radius: 20px; }
     .right { margin-left: auto; text-align: right; }
-    .center { margin: 0 auto; text-align: center; }
+    
+    .eyebrow { text-transform: uppercase; letter-spacing: 4px; font-size: 0.7rem; color: var(--accent); margin-bottom: 1.5rem; font-weight: 600; }
+    h1 { font-size: clamp(3.5rem, 8vw, 6rem); line-height: 0.95; margin-bottom: 2rem; letter-spacing: -2px; }
+    h2 { font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1; margin-bottom: 1.5rem; color: var(--accent); }
+    em { font-style: italic; font-weight: 400; }
+    p { font-size: 1.15rem; line-height: 1.6; opacity: 0.8; font-weight: 300; }
 
-    .eyebrow { text-transform: uppercase; letter-spacing: 3px; font-size: 0.8rem; color: var(--accent-brown); margin-bottom: 1rem; }
-    h1 { font-size: 4rem; line-height: 1; margin-bottom: 1.5rem; }
-    h2 { font-size: 3.5rem; line-height: 1; margin-bottom: 1.5rem; color: var(--accent-brown); }
-    em { font-style: italic; color: var(--accent-brown); }
-    .subtitle { font-size: 1.2rem; }
-    p { font-size: 1.1rem; line-height: 1.6; }
+    .menu-list { list-style: none; margin-top: 2rem; }
+    .menu-list li { padding: 1.2rem 0; border-bottom: 1px solid rgba(42, 28, 20, 0.15); font-size: 1.3rem; font-weight: 400; }
 
-    .clean-menu { list-style: none; text-align: left; }
-    .clean-menu li { padding: 1rem 0; border-bottom: 1px solid rgba(42, 28, 20, 0.2); font-size: 1.2rem; }
-    .clean-menu li:last-child { border-bottom: none; }
-
-    .massive-text { font-size: 12vw; letter-spacing: -5px; line-height: 1; margin-bottom: 2rem; }
-
-    .btn { display: inline-block; padding: 1rem 3rem; background: var(--text-espresso); color: var(--bg-cream); text-decoration: none; text-transform: uppercase; letter-spacing: 2px; border-radius: 50px; transition: 0.3s; }
-    .btn:hover { background: var(--accent-brown); }
+    .footer-step { text-align: center; justify-content: center; }
+    .massive-text { font-size: 18vw; letter-spacing: -10px; line-height: 0.8; margin-bottom: 4rem; opacity: 1; }
+    .btn { display: inline-block; padding: 1.2rem 3.5rem; background: var(--text-espresso); color: var(--bg-cream); text-decoration: none; text-transform: uppercase; letter-spacing: 3px; border-radius: 60px; font-size: 0.8rem; font-weight: 600; transition: 0.4s cubic-bezier(0.23, 1, 0.32, 1); }
+    .btn:hover { background: var(--accent); transform: scale(1.05); }
 
     @media (max-width: 768px) {
       .nav-links { display: none; }
-      .content-block { padding: 1.5rem; text-align: center; margin: 0 auto; }
-      .right { text-align: center; }
-      h1 { font-size: 3rem; }
-      h2 { font-size: 2.5rem; }
+      .step { padding: 0 5%; justify-content: center; text-align: center; }
+      .content-block { max-width: 100%; }
+      h1 { font-size: 3.5rem; }
     }
   </style>
 </head>
@@ -119,25 +73,25 @@
   </nav>
 
   <main class="scroll-container">
-    <section class="step hero-step">
-      <div class="content-block left">
-        <p class="eyebrow">Surat, Gujarat</p>
+    <section class="step">
+      <div class="content-block">
+        <p class="eyebrow">Surat, India</p>
         <h1>The Art of<br><em>Independence.</em></h1>
-        <p class="subtitle">Scroll to experience the craft.</p>
+        <p>Scroll to explore the high-fidelity craft of TIBCO.</p>
       </div>
     </section>
 
     <section id="philosophy" class="step">
       <div class="content-block right">
         <h2>Uncompromising<br>Quality</h2>
-        <p>We bypass commercial trends to source unique beans directly from independent estates. Every pour is a testament to our dedication.</p>
+        <p>We source unique beans directly from independent estates. Every pour is a testament to our technical dedication to the bean.</p>
       </div>
     </section>
 
     <section id="menu" class="step">
-      <div class="content-block left">
+      <div class="content-block">
         <h2>The<br>Offerings</h2>
-        <ul class="clean-menu">
+        <ul class="menu-list">
           <li>Signature Espresso</li>
           <li>Cinnamon Caramel Latte</li>
           <li>Cardamom Cold Brew</li>
@@ -147,103 +101,113 @@
     </section>
 
     <section class="step footer-step">
-      <div class="content-block center">
+      <div class="content-block">
         <h1 class="massive-text">TIBCO</h1>
-        <a href="https://share.google/bThMk6EBAXvFgWRoN" target="_blank" class="btn">Find Our Sanctuaries</a>
+        <a href="https://share.google/bThMk6EBAXvFgWRoN" target="_blank" class="btn">Our Sanctuaries</a>
       </div>
     </section>
   </main>
 
   <script>
-    // Wait for the entire page and libraries to load
-    window.onload = function() {
+    window.addEventListener('DOMContentLoaded', () => {
       gsap.registerPlugin(ScrollTrigger);
 
       const canvas = document.getElementById('webgl-canvas');
       const scene = new THREE.Scene();
       scene.background = new THREE.Color(0xEAE6DF);
 
-      const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
-      const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
+      const camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 1000);
+      const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, powerPreference: "high-performance" });
       renderer.setSize(window.innerWidth, window.innerHeight);
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.outputEncoding = THREE.sRGBEncoding;
 
-      // Lights
-      const ambientLight = new THREE.AmbientLight(0xffffff, 1.0); 
+      // Realistic Studio Lighting
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
       scene.add(ambientLight);
-      const mainLight = new THREE.DirectionalLight(0xffeedd, 3.0);
-      mainLight.position.set(5, 8, 5);
-      scene.add(mainLight);
+
+      const spotLight = new THREE.SpotLight(0xffffff, 2);
+      spotLight.position.set(10, 15, 10);
+      spotLight.castShadow = true;
+      scene.add(spotLight);
+
+      const rimLight = new THREE.DirectionalLight(0xffffff, 0.5);
+      rimLight.position.set(-5, 5, -5);
+      scene.add(rimLight);
 
       // Materials
-      const ceramicMat = new THREE.MeshPhysicalMaterial({ color: 0xFDFBF7, roughness: 0.2, clearcoat: 0.6 });
-      const coffeeMat = new THREE.MeshPhysicalMaterial({ color: 0x1a0a00, roughness: 0.0 });
+      const ceramicMat = new THREE.MeshPhysicalMaterial({ 
+        color: 0xFDFBF7, 
+        roughness: 0.15, 
+        metalness: 0.05,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1
+      });
+      
+      const coffeeMat = new THREE.MeshPhysicalMaterial({ 
+        color: 0x1a0a00, 
+        roughness: 0.05,
+        metalness: 0.1
+      });
 
-      // Build Cup
+      // Build High-Detail Cup
       const coffeeGroup = new THREE.Group();
-      const cup = new THREE.Mesh(new THREE.CylinderGeometry(1.6, 1.1, 2.8, 64), ceramicMat);
-      const liquid = new THREE.Mesh(new THREE.CylinderGeometry(1.5, 1.5, 2.6, 64), coffeeMat);
-      liquid.position.y = 0.1;
-      const handle = new THREE.Mesh(new THREE.TorusGeometry(0.8, 0.2, 16, 64), ceramicMat);
-      handle.position.set(1.3, 0, 0);
-      handle.rotation.z = -Math.PI / 16;
-      const saucer = new THREE.Mesh(new THREE.CylinderGeometry(2.6, 1.8, 0.2, 64), ceramicMat);
-      saucer.position.y = -1.5;
+      
+      const cup = new THREE.Mesh(new THREE.CylinderGeometry(1.6, 1.1, 2.8, 128), ceramicMat);
+      const liquid = new THREE.Mesh(new THREE.CylinderGeometry(1.52, 1.52, 2.6, 128), coffeeMat);
+      liquid.position.y = 0.12;
+      
+      const handle = new THREE.Mesh(new THREE.TorusGeometry(0.8, 0.22, 32, 64), ceramicMat);
+      handle.position.set(1.35, 0, 0);
+      handle.rotation.z = -Math.PI / 12;
+      
+      const saucer = new THREE.Mesh(new THREE.CylinderGeometry(2.8, 2.0, 0.25, 128), ceramicMat);
+      saucer.position.y = -1.55;
 
       coffeeGroup.add(cup, liquid, handle, saucer);
       scene.add(coffeeGroup);
 
-      // Camera Base Position
-      camera.position.set(0, 2, 12);
-      camera.lookAt(0, 0, 0);
+      // Camera & Group Init
+      camera.position.set(0, 2, 14);
+      coffeeGroup.position.set(3, 0, 0);
+      coffeeGroup.rotation.set(0.3, -0.6, 0);
 
-      // Initial Cup Position
-      coffeeGroup.position.x = 2.5;
-      coffeeGroup.rotation.x = 0.2;
-      coffeeGroup.rotation.y = -0.5;
-
-      // GSAP Scroll Animations
+      // THE SCROLL REVEAL
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: ".scroll-container",
           start: "top top",
           end: "bottom bottom",
-          scrub: 1,
+          scrub: 0.5,
         }
       });
 
-      tl.to(coffeeGroup.position, { x: -2.5, ease: "none" }, 0);
-      tl.to(coffeeGroup.rotation, { y: Math.PI, ease: "none" }, 0);
+      // Section 1 to 2
+      tl.to(coffeeGroup.position, { x: -3.5, y: 0.5, z: 2, ease: "power2.inOut" }, 0);
+      tl.to(coffeeGroup.rotation, { x: 0.6, y: Math.PI, z: 0.1, ease: "power2.inOut" }, 0);
 
-      tl.to(coffeeGroup.position, { x: 2.5, ease: "none" }, 1);
-      tl.to(coffeeGroup.rotation, { x: 0.8, y: Math.PI * 2, ease: "none" }, 1);
-      tl.to(camera.position, { z: 8, ease: "none" }, 1);
+      // Section 2 to 3
+      tl.to(coffeeGroup.position, { x: 3.5, y: -0.5, z: 0, ease: "power2.inOut" }, 1);
+      tl.to(coffeeGroup.rotation, { x: 1.2, y: Math.PI * 2, z: -0.2, ease: "power2.inOut" }, 1);
 
-      tl.to(coffeeGroup.position, { x: 0, ease: "none" }, 2);
-      tl.to(camera.position, { z: 15, ease: "none" }, 2);
+      // Section 3 to 4 (Footer)
+      tl.to(coffeeGroup.position, { x: 0, y: -2, z: 5, ease: "power2.inOut" }, 2);
+      tl.to(coffeeGroup.rotation, { x: 0.4, y: Math.PI * 2.5, ease: "power2.inOut" }, 2);
 
-      // Render Loop
-      const clock = new THREE.Clock();
       function animate() {
         requestAnimationFrame(animate);
-        coffeeGroup.position.y += Math.sin(clock.getElapsedTime() * 2) * 0.002;
+        // Automatic idle float
+        coffeeGroup.position.y += Math.sin(Date.now() * 0.001) * 0.002;
         renderer.render(scene, camera);
       }
       animate();
 
-      // Mobile & Resize Fixes
       window.addEventListener('resize', () => {
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
         renderer.setSize(window.innerWidth, window.innerHeight);
-        if(window.innerWidth <= 768) {
-          coffeeGroup.position.x = 0; 
-        }
       });
-      
-      // Force mobile check on load
-      if(window.innerWidth <= 768) { coffeeGroup.position.x = 0; }
-    };
+    });
   </script>
 </body>
 </html>
