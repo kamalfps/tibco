@@ -1,111 +1,115 @@
-document.addEventListener('DOMContentLoaded', () => {
-  // 1. Setup Scene, Camera, and Renderer
-  const canvas = document.getElementById('webgl-canvas');
-  const scene = new THREE.Scene();
-  
-  // Warm cream background
-  scene.background = new THREE.Color(0xFAF7F2);
-  scene.fog = new THREE.FogExp2(0xFAF7F2, 0.04);
-
-  const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
-  const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: false });
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-  // 2. High-End Studio Lighting
-  const ambientLight = new THREE.AmbientLight(0xffffff, 1.2); 
-  scene.add(ambientLight);
-  const mainLight = new THREE.DirectionalLight(0xffeedd, 3.5);
-  mainLight.position.set(5, 8, 5);
-  scene.add(mainLight);
-
-  // 3. Premium Materials
-  const ceramicMat = new THREE.MeshPhysicalMaterial({ color: 0xFDFBF7, roughness: 0.3, clearcoat: 0.5 });
-  const coffeeMat = new THREE.MeshPhysicalMaterial({ color: 0x1a0a00, roughness: 0.0 });
-  const copperMat = new THREE.MeshStandardMaterial({ color: 0x8B5A3C, metalness: 0.7, roughness: 0.3 });
-
-  // 4. Build the Coffee Cup
-  const coffeeGroup = new THREE.Group();
-  
-  const cup = new THREE.Mesh(new THREE.CylinderGeometry(1.6, 1.1, 2.8, 64), ceramicMat);
-  const liquid = new THREE.Mesh(new THREE.CylinderGeometry(1.5, 1.5, 2.6, 64), coffeeMat);
-  liquid.position.y = 0.1;
-  const handle = new THREE.Mesh(new THREE.TorusGeometry(0.8, 0.2, 16, 64), ceramicMat);
-  handle.position.set(1.3, 0, 0);
-  handle.rotation.z = -Math.PI / 16;
-  const saucer = new THREE.Mesh(new THREE.CylinderGeometry(2.6, 1.8, 0.2, 64), ceramicMat);
-  saucer.position.y = -1.5;
-  const trim = new THREE.Mesh(new THREE.TorusGeometry(1.6, 0.04, 16, 64), copperMat);
-  trim.position.y = 1.4;
-  trim.rotation.x = Math.PI / 2;
-
-  coffeeGroup.add(cup, liquid, handle, saucer, trim);
-  scene.add(coffeeGroup);
-
-  // 5. Add Floating Coffee Beans
-  const beans = new THREE.Group();
-  const beanGeo = new THREE.SphereGeometry(0.2, 16, 16);
-  beanGeo.scale(1, 1.4, 0.8); // Squish it into a bean shape
-
-  for(let i = 0; i < 15; i++) {
-    const bean = new THREE.Mesh(beanGeo, copperMat);
-    bean.position.set(
-      (Math.random() - 0.5) * 10,
-      (Math.random() - 0.5) * 10,
-      (Math.random() - 0.5) * 10
-    );
-    bean.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, 0);
-    beans.add(bean);
-  }
-  scene.add(beans);
-
-  // 6. Scroll Animation Magic
-  // We use the scroll position to change where the camera looks and moves
-  let scrollY = window.scrollY;
-
-  window.addEventListener('scroll', () => {
-    scrollY = window.scrollY;
+document.addEventListener("DOMContentLoaded", () => {
+  // 1. Initialize Lenis Smooth Scroll (The "Pixila" feel)
+  const lenis = new Lenis({
+    duration: 1.2,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    direction: 'vertical',
+    gestureDirection: 'vertical',
+    smooth: true,
   });
 
-  // Base camera position
-  camera.position.z = 12;
-  camera.position.y = 2;
-  camera.position.x = 3;
-
-  const clock = new THREE.Clock();
-
-  function animate() {
-    requestAnimationFrame(animate);
-    const elapsedTime = clock.getElapsedTime();
-
-    // Calculate scroll percentage (0 to 1)
-    const scrollPercent = scrollY / (document.body.scrollHeight - window.innerHeight);
-
-    // MOVE CAMERA BASED ON SCROLL
-    // As user scrolls, the camera orbits around the coffee cup
-    camera.position.x = 3 + Math.sin(scrollPercent * Math.PI * 2) * 5;
-    camera.position.z = 12 - (scrollPercent * 5); 
-    camera.position.y = 2 + (scrollPercent * 3);
-    
-    // Always keep the camera looking at the coffee cup
-    camera.lookAt(coffeeGroup.position);
-
-    // Gently float the cup automatically over time
-    coffeeGroup.position.y = Math.sin(elapsedTime) * 0.2;
-    
-    // Slowly rotate the floating beans
-    beans.rotation.y = elapsedTime * 0.05;
-    beans.rotation.x = elapsedTime * 0.02;
-
-    renderer.render(scene, camera);
+  function raf(time) {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
   }
+  requestAnimationFrame(raf);
 
-  animate();
+  // Sync GSAP ScrollTrigger with Lenis
+  gsap.registerPlugin(ScrollTrigger);
+  lenis.on('scroll', ScrollTrigger.update);
+  gsap.ticker.add((time)=>{ lenis.raf(time * 1000) });
+  gsap.ticker.lagSmoothing(0, 0);
 
-  // 7. Handle Window Resizing
-  window.addEventListener('resize', () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
+  // 2. Custom Cursor Logic
+  const cursor = document.querySelector('.cursor');
+  const follower = document.querySelector('.cursor-follower');
+  
+  let mouseX = 0, mouseY = 0, posX = 0, posY = 0;
+
+  document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    
+    // Direct link for small dot
+    gsap.to(cursor, { x: mouseX, y: mouseY, duration: 0 });
+  });
+
+  // Smooth follow for the outer ring
+  gsap.ticker.add(() => {
+    posX += (mouseX - posX) / 9;
+    posY += (mouseY - posY) / 9;
+    gsap.set(follower, { x: posX, y: posY });
+  });
+
+  // Expand cursor on hoverable elements
+  const hoverables = document.querySelectorAll('a, .btn');
+  hoverables.forEach(el => {
+    el.addEventListener('mouseenter', () => follower.classList.add('active'));
+    el.addEventListener('mouseleave', () => follower.classList.remove('active'));
+  });
+
+  // 3. Magnetic Buttons (Snaps to cursor)
+  const magnetics = document.querySelectorAll('.magnetic');
+  magnetics.forEach(btn => {
+    btn.addEventListener('mousemove', (e) => {
+      const position = btn.getBoundingClientRect();
+      const x = e.clientX - position.left - position.width / 2;
+      const y = e.clientY - position.top - position.height / 2;
+      const strength = btn.dataset.strength || 20;
+
+      gsap.to(btn, { x: x / strength * 2, y: y / strength * 2, duration: 1, ease: "power3.out" });
+      if(btn.querySelector('.btn-text')) {
+        gsap.to(btn.querySelector('.btn-text'), { x: x / strength, y: y / strength, duration: 1, ease: "power3.out" });
+      }
+    });
+
+    btn.addEventListener('mouseleave', () => {
+      gsap.to(btn, { x: 0, y: 0, duration: 1, ease: "elastic.out(1, 0.3)" });
+      if(btn.querySelector('.btn-text')) {
+        gsap.to(btn.querySelector('.btn-text'), { x: 0, y: 0, duration: 1, ease: "elastic.out(1, 0.3)" });
+      }
+    });
+  });
+
+  // 4. Page Load Animations (Text slide up)
+  const tl = gsap.timeline();
+  tl.to('.line', {
+    y: 0,
+    duration: 1.2,
+    stagger: 0.15,
+    ease: "power4.out",
+    delay: 0.2
+  })
+  .fromTo('.fade-up', 
+    { opacity: 0, y: 20 }, 
+    { opacity: 1, y: 0, duration: 1, stagger: 0.2, ease: "power3.out" }, 
+    "-=0.8"
+  );
+
+  // 5. Scroll Animations
+  // Reveal text as it enters viewport
+  const scrollLines = document.querySelectorAll('.text-section .line');
+  scrollLines.forEach(line => {
+    gsap.to(line, {
+      y: 0,
+      duration: 1.2,
+      ease: "power4.out",
+      scrollTrigger: {
+        trigger: line.parentElement,
+        start: "top 85%", // Trigger when 85% down the screen
+      }
+    });
+  });
+
+  // Image Parallax Effect
+  gsap.to('.parallax-img', {
+    y: "15%", // Moves image down slightly as user scrolls past
+    ease: "none",
+    scrollTrigger: {
+      trigger: ".parallax-section",
+      start: "top bottom",
+      end: "bottom top",
+      scrub: true
+    }
   });
 });
